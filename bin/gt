@@ -1,0 +1,5 @@
+#! /bin/bash
+
+branch_name="$(git symbolic-ref HEAD 2>/dev/null)"
+ticket=`echo $branch_name | grep -o  '[0-9]\+'`
+open 'http://trac.tissuu.com:8000/trac/ticket/'$ticket
