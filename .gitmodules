@@ -1,0 +1,57 @@
+[submodule "vim/new_bundle/ctrlp.vim"]
+	path = vim/new_bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vim/new_bundle/gist-vim"]
+	path = vim/new_bundle/gist-vim
+	url = https://github.com/mattn/gist-vim
+[submodule "vim/new_bundle/nerdcommenter"]
+	path = vim/new_bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/new_bundle/nerdtree"]
+	path = vim/new_bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim/new_bundle/sparkup"]
+	path = vim/new_bundle/sparkup
+	url = https://github.com/rstacruz/sparkup
+[submodule "vim/new_bundle/unite.vim"]
+	path = vim/new_bundle/unite.vim
+	url = https://github.com/Shougo/unite.vim
+[submodule "vim/new_bundle/vim-airline"]
+	path = vim/new_bundle/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim/new_bundle/vim-coffee-script"]
+	path = vim/new_bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "vim/new_bundle/vim-dispatch"]
+	path = vim/new_bundle/vim-dispatch
+	url = git://github.com/tpope/vim-dispatch.git
+[submodule "vim/new_bundle/vim-fugitive"]
+	path = vim/new_bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/new_bundle/vim-javascript-syntax"]
+	path = vim/new_bundle/vim-javascript-syntax
+	url = https://github.com/jelera/vim-javascript-syntax
+[submodule "vim/new_bundle/vim-multiple-cursors"]
+	path = vim/new_bundle/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors
+[submodule "vim/new_bundle/vim-pasta"]
+	path = vim/new_bundle/vim-pasta
+	url = git://github.com/sickill/vim-pasta.git
+[submodule "vim/new_bundle/vim-ragtag"]
+	path = vim/new_bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag
+[submodule "vim/new_bundle/vim-rails"]
+	path = vim/new_bundle/vim-rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule "vim/new_bundle/vim-repeat"]
+	path = vim/new_bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/new_bundle/vim-speeddating"]
+	path = vim/new_bundle/vim-speeddating
+	url = git://github.com/tpope/vim-speeddating.git
+[submodule "vim/new_bundle/vim-surround"]
+	path = vim/new_bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim/new_bundle/webapi-vim"]
+	path = vim/new_bundle/webapi-vim
+	url = https://github.com/mattn/webapi-vim

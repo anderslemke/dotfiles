@@ -9,7 +9,13 @@ on_exit () {
 }
 trap on_exit EXIT
 
-host="192.168.70.1$1"
+if [ $1 -eq '15' ] || [ $1 -eq '16' ]
+then
+  host="192.168.71.1$1"
+else
+  host="192.168.70.1$1"
+fi
+
 args="${@:2}"
 
 vpn-connect.sh
