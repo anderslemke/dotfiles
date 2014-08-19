@@ -1,3 +1,5 @@
+# Make sure this file is sourced in ~/.bash_profile
+# source ~/dotfiles/.bash_profile
 PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
 export EDITOR='vim'

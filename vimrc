@@ -42,6 +42,7 @@ nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 
 nnoremap <Leader>f :NERDTreeFind<CR>
+let NERDTreeShowHidden=1
 
 " Open recent file
 nmap <leader><leader> <c-^>

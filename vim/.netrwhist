@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/Users/anderslemke/Projects/firmafon/debug'
 let g:netrw_dirhist_2='/Users/anderslemke/Projects/firmafon/puppet'
+let g:netrw_dirhist_3='/Users/anderslemke/dotfiles'
