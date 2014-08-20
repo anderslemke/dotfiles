@@ -1,26 +1,32 @@
-execute pathogen#infect()
+"execute pathogen#infect()
 
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" Using git URL
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Plugin options
-Plug 'nsf/gocode', { 'tag': 'go.weekly.2012-03-13', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
+Plug 'kien/ctrlp.vim'
+Plug 'mattn/gist-vim'
+Plug 'Shougo/neomru.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'rstacruz/sparkup'
+Plug 'Shougo/unite.vim'
+Plug 'bling/vim-airline'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-scripts/L9'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'sickill/vim-pasta'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'mattn/webapi-vim'
 
 call plug#end()
 
