@@ -7,7 +7,7 @@ Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 
 Plug 'kien/ctrlp.vim'
 Plug 'mattn/gist-vim'
