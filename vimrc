@@ -1,6 +1,7 @@
-"execute pathogen#infect()
-
 call plug#begin('~/.vim/plugged')
+
+Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 
 " Make sure you use single quotes
 Plug 'junegunn/vim-easy-align'
@@ -78,6 +79,8 @@ let NERDTreeShowHidden=1
 " Open recent file
 nmap <leader><leader> <c-^>
 
+nmap <c-f> :Ag 
+
 " Pane splitting
 nnoremap <Leader>v :vsp<CR>
 nnoremap <Leader>s :vsp<CR>
@@ -94,3 +97,5 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 :command Wq wq
 :command W w
 :command Q q
+
+autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
