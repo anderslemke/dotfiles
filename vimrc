@@ -23,11 +23,14 @@ Plug 'pangloss/vim-javascript'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'mattn/webapi-vim'
+Plug 'anderslemke/vim-rubytest'
+Plug 'benmills/vimux'
 
 call plug#end()
 
@@ -99,3 +102,12 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 :command Q q
 
 autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
+
+" Use Spring for vim-rubytest
+let g:rubytest_cmd_test = "spring testunit %p"
+let g:rubytest_cmd_testcase = 'spring testunit %p -n "%c"'
+let g:rubytest_in_vimux = 1
+
+" Vimux default orientation
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "25"
