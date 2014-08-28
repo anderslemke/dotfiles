@@ -104,8 +104,8 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
 
 " Use Spring for vim-rubytest
-let g:rubytest_cmd_test = "spring testunit %p"
-let g:rubytest_cmd_testcase = 'spring testunit %p -n "%c"'
+let g:rubytest_cmd_test = "clear;spring test %p"
+let g:rubytest_cmd_testcase = 'clear;spring test %p -n "%c"'
 let g:rubytest_in_vimux = 1
 
 " Vimux default orientation
