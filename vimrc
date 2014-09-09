@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-vividchalk'
+Plug 'nanotech/jellybeans.vim'
 Plug 'rking/ag.vim'
 Plug 'mileszs/ack.vim'
 
@@ -9,6 +12,7 @@ Plug 'junegunn/vim-easy-align'
 " On-demand loading
 Plug 'scrooloose/nerdtree'
 
+Plug 'Lokaltog/vim-easymotion'
 Plug 'kien/ctrlp.vim'
 Plug 'mattn/gist-vim'
 Plug 'Shougo/neomru.vim'
@@ -31,11 +35,14 @@ Plug 'tpope/vim-surround'
 Plug 'mattn/webapi-vim'
 Plug 'anderslemke/vim-rubytest'
 Plug 'benmills/vimux'
+Plug 'thoughtbot/vim-rspec'
 
 call plug#end()
 
-syntax on
+syntax enable
 filetype plugin indent on
+set background=dark
+colorscheme solarized
 
 let mapleader=','
 let g:ragtag_global_maps=1
@@ -80,7 +87,7 @@ nnoremap <Leader>f :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
 
 " Open recent file
-nmap <leader><leader> <c-^>
+nmap <leader>p <c-^>
 
 nmap <c-f> :Ag 
 
@@ -94,19 +101,29 @@ nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
 
 :command WQ wq
 :command Wq wq
+:command Wa wa
+:command WA wa
 :command W w
 :command Q q
 
 autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
 
 " Use Spring for vim-rubytest
-let g:rubytest_cmd_test = "clear;spring test %p"
-let g:rubytest_cmd_testcase = 'clear;spring test %p -n "%c"'
+let g:rubytest_cmd_test = "clear;spring test %p --use-color"
+let g:rubytest_cmd_testcase = 'clear;spring test %p -n "%c" --use-color'
 let g:rubytest_in_vimux = 1
+
+" vim-rspec
+map <Leader>R :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>L :call RunLastSpec()<CR>
+map <Leader>A :call RunAllSpecs()<CR>
+"let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "VimuxRunCommand 'spring rspec {spec}'"
 
 " Vimux default orientation
 let g:VimuxOrientation = "h"

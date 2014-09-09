@@ -17,6 +17,8 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 shopt -s histappend
 
+export TERM="screen-256color"
+
 export LANG="da_DK.UTF-8"
 export LC_COLLATE="da_DK.UTF-8"
 export LC_CTYPE="da_DK.UTF-8"
