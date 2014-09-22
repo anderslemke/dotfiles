@@ -66,6 +66,7 @@ set pastetoggle=<F2>
 set number
 set listchars=tab:»·,trail:· " invisible chars
 set list
+set backspace=indent,eol,start " Allow backspace to delete everything
 
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
@@ -75,6 +76,8 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+set foldmethod=syntax
+set foldlevelstart=99
 nmap <space> za
 
 " Pane navigation
@@ -86,7 +89,7 @@ nnoremap <C-h> <C-W><C-H>
 nnoremap <Leader>f :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
 
-" Open recent file
+" Open previous file
 nmap <leader>p <c-^>
 
 nmap <c-f> :Ag 
@@ -113,8 +116,8 @@ let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
 autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
 
 " Use Spring for vim-rubytest
-let g:rubytest_cmd_test = "clear;spring test %p --use-color"
-let g:rubytest_cmd_testcase = 'clear;spring test %p -n "%c" --use-color'
+let g:rubytest_cmd_test = "clear;spring testunit %p --use-color"
+let g:rubytest_cmd_testcase = 'clear;spring testunit %p -n "%c" --use-color'
 let g:rubytest_in_vimux = 1
 
 " vim-rspec
