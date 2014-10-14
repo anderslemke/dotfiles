@@ -1,8 +1,8 @@
 ln -is ~/dotfiles/vimrc ~/.vimrc
-ln -Fhis ~/dotfiles/vim ~/.vim
+ln -Fnis ~/dotfiles/vim ~/.vim
 ln -is ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -is ~/dotfiles/.gitconfig ~/.gitconfig
-ln -Fhis ~/dotfiles/.tmuxinator ~/.tmuxinator
+ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
 echo '==============================='
 echo 'Make sure to add'
 echo 'source ~/dotfiles/.bash_profile'
