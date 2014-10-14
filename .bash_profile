@@ -19,14 +19,14 @@ shopt -s histappend
 
 export TERM="screen-256color"
 
-export LANG="da_DK.UTF-8"
-export LC_COLLATE="da_DK.UTF-8"
-export LC_CTYPE="da_DK.UTF-8"
-export LC_MESSAGES="da_DK.UTF-8"
-export LC_MONETARY="da_DK.UTF-8"
-export LC_NUMERIC="da_DK.UTF-8"
-export LC_TIME="da_DK.UTF-8"
-export LC_ALL=
+# export LANG="da_DK.UTF-8"
+# export LC_COLLATE="da_DK.UTF-8"
+# export LC_CTYPE="da_DK.UTF-8"
+# export LC_MESSAGES="da_DK.UTF-8"
+# export LC_MONETARY="da_DK.UTF-8"
+# export LC_NUMERIC="da_DK.UTF-8"
+# export LC_TIME="da_DK.UTF-8"
+# export LC_ALL=
 
 
 # Colors
