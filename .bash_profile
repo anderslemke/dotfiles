@@ -13,6 +13,20 @@ alias be="bundle exec"
 alias brake="be rake"
 alias gg="git grep"
 
+##### Firmafon aliases #####
+alias mainframe="f; cd mainframe"
+alias middle="f; cd middleman"
+alias puppet="f; cd puppet"
+alias debug="vpn-connect.sh;f; cd debug"
+alias q="debug; cap prod q"
+alias vitals="debug;cap"
+alias d="debug"
+alias partner="f; cd partner"
+alias switch="f; cd switch"
+alias switchdev="f; cd switchdev"
+alias angular="f; cd angular-firmafon"
+##### Firmafon aliases #####
+
 # Bash mods
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
