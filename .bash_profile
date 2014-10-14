@@ -4,6 +4,7 @@ PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
+set -o vi
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
