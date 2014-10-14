@@ -2,6 +2,7 @@ ln -is ~/dotfiles/vimrc ~/.vimrc
 ln -Fnis ~/dotfiles/vim ~/.vim
 ln -is ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -is ~/dotfiles/.gitconfig ~/.gitconfig
+ln -is ~/dotfiles/.ssh/config ~/.ssh/config
 ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
 echo '==============================='
 echo 'Make sure to add'
