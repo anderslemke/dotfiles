@@ -10,4 +10,4 @@ then
   exit 1
 fi
 
-gunzip < $MYSQL_DUMP | grep -v -E 'INSERT INTO \`(job_statuses|call_|calls|cdr_|nn|versions|sessions|subscription_charges)' | mysql -u root mainframe_dev
+gunzip < $MYSQL_DUMP | grep -v -E 'INSERT INTO \`(_calls|job_statuses|call_|calls|cdr_|nn|versions|sessions|subscription_charges)' | mysql -u root mainframe_dev

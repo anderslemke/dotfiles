@@ -1,0 +1,37 @@
+# ~/.tmuxinator/mainframe.yml
+
+name: mainframe
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+pre_window: mainframe
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+  - console: bundle exec rails c
+  - development-logs: tail -f log/development.log
+  - test-logs: tail -f log/test*
+  - server: bundle exec rails s
+  - faye: bundle exec rake faye:start_pubsub_server
+  - call2: bundle exec rake rabbit_mq:start_call2_consumers
+  - enricher: bundle exec rake rabbit_mq:start_enricher_consumers
+  - rabbit: rabbitmq-server start
+  - delayed: bundle exec ./script/delayed_job run
+  - clockwork: bundle exec clockwork config/clockwork.rb
+  - consumers: bundle exec rake rabbit_mq:start_consumers
