@@ -6,6 +6,8 @@ export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
 
+alias so="source ~/.bash_profile"
+
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
