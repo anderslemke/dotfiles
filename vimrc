@@ -64,7 +64,7 @@ set hlsearch " highlight results
 nmap <cr> :nohl<cr>
 set pastetoggle=<F2>
 set number
-" set listchars=tab:»·,trail:· " invisible chars
+set listchars=tab:»·,trail:· " invisible chars
 set list
 set backspace=indent,eol,start " Allow backspace to delete everything
 
