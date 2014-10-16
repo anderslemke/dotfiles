@@ -31,7 +31,6 @@ windows:
   - faye: bundle exec rake faye:start_pubsub_server
   - call2: bundle exec rake rabbit_mq:start_call2_consumers
   - enricher: bundle exec rake rabbit_mq:start_enricher_consumers
-  - rabbit: rabbitmq-server start
   - delayed: bundle exec ./script/delayed_job run
   - clockwork: bundle exec clockwork config/clockwork.rb
   - consumers: bundle exec rake rabbit_mq:start_consumers
