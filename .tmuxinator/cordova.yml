@@ -20,5 +20,5 @@ pre_window: f; cd cordova
 
 windows:
   - editor: vim
-  - gulp: gulp
+  - gulp: nodejs node_modules/gulp/bin/gulp.js
   - bash: 

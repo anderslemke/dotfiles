@@ -8,6 +8,11 @@ set -o vi
 
 alias so="source ~/.bash_profile"
 
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias lal='ls $LS_OPTIONS -al'
+alias l='ls $LS_OPTIONS -lA'
+
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
