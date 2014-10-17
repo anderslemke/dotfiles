@@ -7,6 +7,7 @@ source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
 
 alias so="source ~/.bash_profile"
+alias ci="tig status"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
