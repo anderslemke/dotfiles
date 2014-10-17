@@ -3,7 +3,7 @@
   email = mail@anderslemke.dk
 [alias]
   st  = status
-  ca  = commit -a
+  ci  = commit
   co  = checkout
   br  = branch
   msg = commit --allow-empty -m
