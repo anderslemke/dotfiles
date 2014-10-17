@@ -4,9 +4,13 @@ ln -is ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -is ~/dotfiles/.gitconfig ~/.gitconfig
 ln -is ~/dotfiles/.ssh/config ~/.ssh/config
 ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
+vim +PlugInstall +qall
 echo '==============================='
-echo 'Make sure to add'
+echo 'Make sure to add something like'
+echo ''
+echo 'alias f="cd ~/projects"'
 echo 'source ~/dotfiles/.bash_profile'
+echo ''
 echo 'to your ~/.bash_profile'
 echo '==============================='
 
