@@ -9,8 +9,7 @@ Plug 'mileszs/ack.vim'
 " Make sure you use single quotes
 Plug 'junegunn/vim-easy-align'
 
-" On-demand loading
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 
 Plug 'Lokaltog/vim-easymotion'
 Plug 'kien/ctrlp.vim'
@@ -87,8 +86,8 @@ nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 
-nnoremap <Leader>f :NERDTreeFind<CR>
-let NERDTreeShowHidden=1
+"nnoremap <Leader>f :NERDTreeFind<CR>
+"let NERDTreeShowHidden=1
 
 " Open previous file
 nmap <leader>p <c-^>

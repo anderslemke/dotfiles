@@ -7,7 +7,7 @@ source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
 
 alias so="source ~/.bash_profile"
-alias ci="tig status"
+alias ci="git add .;tig status"
 
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
