@@ -8,6 +8,7 @@ set -o vi
 
 alias so="source ~/.bash_profile"
 alias ci="git add .;tig status"
+alias ca="git commit -a"
 
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
