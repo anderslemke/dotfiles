@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 function set_terminal_profile () {
-  echo "tell application \"Terminal\" to set current settings of first window to settings set named \"$1\"" | osascript
+  echo -e "\033]50;SetProfile=$1\a"
 }
 
 on_exit () {
-  set_terminal_profile "Pro"
+  set_terminal_profile "Default"
 }
 trap on_exit EXIT
 
@@ -19,5 +19,5 @@ fi
 args="${@:2}"
 
 vpn-connect.sh
-set_terminal_profile "Man Page"
+set_terminal_profile "Prod"
 ssh "root@$host" "$args"
