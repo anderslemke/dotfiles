@@ -4,7 +4,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-vividchalk'
 Plug 'nanotech/jellybeans.vim'
 Plug 'rking/ag.vim'
-Plug 'mileszs/ack.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'kien/ctrlp.vim'
@@ -17,7 +16,9 @@ Plug 'bling/vim-airline'
 Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-unimpaired'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
@@ -75,11 +76,27 @@ set foldmethod=syntax
 set foldlevelstart=99
 nmap <space> za
 
+" magic markers
+au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
+au BufLeave *.{css,scss,sass}       exe "normal! mC"
+au BufLeave *.{js,coffee}           exe "normal! mJ"
+au BufLeave *.{spec.js,spec.coffee} exe "normal! mS"
+au BufLeave *.{rb}                  exe "normal! mR"
+au BufLeave *.{test.rb}             exe "normal! mT"
+
 " Pane navigation
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
+
+" Unimpaired new bindings
+nmap ( [
+nmap ) ]
+omap ( [
+omap ) ]
+xmap ( [
+xmap ) ]
 
 " Open previous file
 nmap <leader>p <c-^>
@@ -98,6 +115,7 @@ nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
 
+" Those annoying standard things
 :command WQ wq
 :command Wq wq
 :command Wa wa
@@ -105,20 +123,20 @@ let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
 :command W w
 :command Q q
 
-autocmd QuickFixCmdPost *grep* cwindow " To make VIM open a quickfix window after grep
-
 " Use Spring for vim-rubytest
 let g:rubytest_cmd_test = "clear;spring testunit %p --use-color"
 let g:rubytest_cmd_testcase = 'clear;spring testunit %p -n "%c" --use-color'
 let g:rubytest_in_vimux = 1
+"let g:rubytest_in_quickfix = 1
 
 " vim-rspec
 map <Leader>R :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>L :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-"let g:rspec_command = "Dispatch rspec {spec}"
 let g:rspec_command = "VimuxRunCommand 'spring rspec {spec}'"
+
+map <Leader>ss :call system('spring stop')<CR>
 
 " Vimux default orientation
 let g:VimuxOrientation = "h"

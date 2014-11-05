@@ -7,6 +7,7 @@
   co  = checkout
   br  = branch
   msg = commit --allow-empty -m
+  undo = reset --soft HEAD~1
 [push]
   default = current
 [filter "media"]
@@ -15,3 +16,5 @@
 	smudge = git media smudge %f
 [github]
   user = anderslemke
+[web]
+	browser = links
