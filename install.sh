@@ -4,6 +4,8 @@ ln -is ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -is ~/dotfiles/.gitconfig ~/.gitconfig
 ln -is ~/dotfiles/.ssh/config ~/.ssh/config
 ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
+ln -is ~/dotfiles/.editrc ~/.editrc
+ln -is ~/dotfiles/.inputrc ~/.inputrc
 vim +PlugInstall +qall
 echo '==============================='
 echo 'Make sure to add something like'

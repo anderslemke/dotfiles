@@ -6,6 +6,8 @@ export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
 
+export FIRMAFON_USER='al'
+
 alias so="source ~/.bash_profile"
 alias ci="tig status"
 alias ca="git commit -a"
@@ -60,9 +62,6 @@ export PS1='\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\W
 source ~/dotfiles/.git-completion.bash
 complete -o default -o nospace -F _git_branch gb
 complete -o default -o nospace -F _git_checkout gco
-
-# Working on this...
-# source ~/bin/.working_on.sh
 
 ff () {
   # Author: Joshua Toyota (Unix Superhero)

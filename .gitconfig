@@ -17,4 +17,4 @@
 [github]
   user = anderslemke
 [web]
-	browser = links
+	browser = lynx
