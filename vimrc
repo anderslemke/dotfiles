@@ -40,6 +40,9 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+set shm=aoOti
+set cmdheight=2
+
 let mapleader=','
 let g:ragtag_global_maps=1
 
