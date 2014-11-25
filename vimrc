@@ -133,11 +133,11 @@ let g:rubytest_in_vimux = 1
 "let g:rubytest_in_quickfix = 1
 
 " vim-rspec
-map <Leader>R :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>L :call RunLastSpec()<CR>
+map <Leader>sT :call RunCurrentSpecFile()<CR>
+map <Leader>st :call RunNearestSpec()<CR>
+map <Leader>sl :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "VimuxRunCommand 'spring rspec {spec}'"
+let g:rspec_command = "VimuxRunCommand 'clear;be rspec {spec}'"
 
 map <Leader>ss :call system('spring stop')<CR>
 
