@@ -8,7 +8,7 @@ set -o vi
 
 export FIRMAFON_USER='al'
 
-alias so="source ~/.bash_profile"
+alias so="source ~/.bash_profile && source ~/.inputrc"
 alias ci="tig status"
 alias ca="git commit -a"
 
