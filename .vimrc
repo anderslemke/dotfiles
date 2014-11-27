@@ -144,3 +144,11 @@ map <Leader>ss :call system('spring stop')<CR>
 " Vimux default orientation
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "25"
+
+" Use ctrl + s to save
+noremap <C-S> :wa<CR>
+vnoremap <C-S> <C-C>:wa<CR><Esc>
+inoremap <C-S> <C-O>:wa<CR><Esc>
+
+" Use ctrl + q to close
+noremap <silent> <C-Q> :q<CR>

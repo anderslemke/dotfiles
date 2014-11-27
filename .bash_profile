@@ -70,3 +70,6 @@ ff () {
 vff() {
   vim `ff $1 | head -1`
 }
+
+# Force terminal not to take control of Ctrl-s
+stty -ixon
