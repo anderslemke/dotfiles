@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-vividchalk'
 Plug 'nanotech/jellybeans.vim'
