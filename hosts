@@ -1,0 +1,25 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost air
+10.0.2.2	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+fe80::1%lo0	localhost
+
+# Firmafon AMQP
+127.0.0.1 mno-sip-sw01.local
+::1 mno-sip-sw01.local
+
+# FF FS
+192.168.90.101 dev01
+192.168.90.102 dev02
+
+148.251.68.139 dev
+148.251.68.139 faye.firmafon.localnet
+148.251.68.139 dev.firmafon.localnet
+148.251.68.139 firmafon.localnet
+148.251.68.139 rabbitmq.firmafon.localnet
