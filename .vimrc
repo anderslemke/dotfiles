@@ -3,6 +3,8 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'chase/vim-ansible-yaml'
+Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-vividchalk'

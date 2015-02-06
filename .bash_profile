@@ -33,6 +33,7 @@ alias q="debug; cap prod q"
 alias vitals="debug;cap"
 alias partner="f; cd partner"
 alias switch="f; cd switch"
+alias wallboard="f; cd wallboard"
 alias switchdev="f; cd switchdev"
 alias angular="f; cd angular-firmafon"
 ##### Firmafon aliases #####
