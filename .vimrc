@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
