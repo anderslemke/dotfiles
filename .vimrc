@@ -45,8 +45,12 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
 set shm=aoOti
 set cmdheight=2
+set laststatus=2 " Always show the statusline
 
 let mapleader=','
 let g:ragtag_global_maps=1
