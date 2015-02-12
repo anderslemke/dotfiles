@@ -51,6 +51,7 @@ colorscheme solarized
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline#extensions#whitespace#enabled=0
 
 set shm=aoOti
 set cmdheight=2
