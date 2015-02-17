@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'mileszs/ack.vim'
 Plug 'msanders/snipmate.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'chase/vim-ansible-yaml'
@@ -11,7 +12,6 @@ Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-vividchalk'
 Plug 'nanotech/jellybeans.vim'
-Plug 'rking/ag.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'kien/ctrlp.vim'
@@ -118,7 +118,7 @@ xmap ) ]
 " Open previous file
 nmap <leader>p <c-^>
 
-nmap <c-f> :Ag 
+nmap <c-f> :Ack 
 
 " Pane splitting
 nnoremap <Leader>v :vsp<CR>

@@ -2,8 +2,6 @@
 # source ~/dotfiles/.bash_profile
 PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
-export MANPAGER='col -bx | vim -c ":set ft=man nonu nolist" -R -' 
-
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi

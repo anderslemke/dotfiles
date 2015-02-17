@@ -8,6 +8,7 @@ ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
 ln -is ~/dotfiles/.tigrc ~/.tigrc
 vim +PlugInstall +qall
+~/dotfiles/platforms/install.rb
 echo '==============================='
 echo 'Make sure to add something like'
 echo ''
