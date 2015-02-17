@@ -47,13 +47,13 @@ shopt -s histappend
 
 export TERM="screen-256color"
 
-# export LANG="da_DK.UTF-8"
-# export LC_COLLATE="da_DK.UTF-8"
-# export LC_CTYPE="da_DK.UTF-8"
-# export LC_MESSAGES="da_DK.UTF-8"
-# export LC_MONETARY="da_DK.UTF-8"
-# export LC_NUMERIC="da_DK.UTF-8"
-# export LC_TIME="da_DK.UTF-8"
+export LANG="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
 # export LC_ALL=
 
 # Prompt
