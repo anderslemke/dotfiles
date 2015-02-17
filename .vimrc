@@ -49,6 +49,8 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+let g:ack_default_options = " -H --nocolor --nogroup --column"
+
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
