@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'msanders/snipmate.vim'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
@@ -56,7 +55,7 @@ let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
 
 set shm=aoOti
-set cmdheight=2
+"set cmdheight=2
 set laststatus=2 " Always show the statusline
 
 let mapleader=','
