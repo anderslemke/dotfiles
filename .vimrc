@@ -90,6 +90,7 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+set ai
 set foldmethod=syntax
 set foldlevelstart=99
 nmap <space> za
