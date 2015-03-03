@@ -22,6 +22,7 @@ alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
 alias be="bundle exec"
 alias brake="be rake"
+alias srake="spring rake"
 alias gg="git grep"
 
 ##### Firmafon aliases #####
