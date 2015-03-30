@@ -4,7 +4,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 Plug 'mileszs/ack.vim'
-Plug 'msanders/snipmate.vim'
+Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
@@ -26,7 +26,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
-Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -90,17 +90,12 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+set ai
 set foldmethod=syntax
 set foldlevelstart=99
+map <leader>1 :set foldlevel=1<CR>
+map <leader>0 :set foldlevel=99<CR>
 nmap <space> za
-
-" magic markers
-au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
-au BufLeave *.{css,scss,sass}       exe "normal! mC"
-au BufLeave *.{js,coffee}           exe "normal! mJ"
-au BufLeave *.{spec.js,spec.coffee} exe "normal! mS"
-au BufLeave *.{rb}                  exe "normal! mR"
-au BufLeave *.{test.rb}             exe "normal! mT"
 
 " Pane navigation
 nnoremap <C-j> <C-W><C-J>
@@ -153,6 +148,9 @@ map <Leader>st :call RunNearestSpec()<CR>
 map <Leader>sl :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
 let g:rspec_command = "VimuxRunCommand 'clear;be rspec {spec}'"
+
+" jest
+map <Leader>j :VimuxRunCommand 'jest'<CR>
 
 map <Leader>ss :call system('spring stop')<CR>
 
