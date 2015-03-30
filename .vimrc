@@ -39,7 +39,7 @@ Plug 'mattn/webapi-vim'
 Plug 'anderslemke/vim-rubytest'
 Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
-Plug 'mxw/vim-jsx'
+Plug 'jsx/jsx.vim'
 
 call plug#end()
 
