@@ -2,7 +2,7 @@
   name = anderslemke
   email = mail@anderslemke.dk
 [alias]
-  st  = status
+  st  = status -sb
   ci  = commit
   co  = checkout
   br  = branch
