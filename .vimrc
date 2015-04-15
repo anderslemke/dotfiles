@@ -26,7 +26,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
-Plug 'othree/yajs.vim'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -39,7 +38,8 @@ Plug 'mattn/webapi-vim'
 Plug 'anderslemke/vim-rubytest'
 Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
-Plug 'jsx/jsx.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 call plug#end()
 
@@ -94,6 +94,10 @@ set ai
 set foldmethod=syntax
 set foldlevelstart=99
 map <leader>1 :set foldlevel=1<CR>
+map <leader>2 :set foldlevel=2<CR>
+map <leader>3 :set foldlevel=3<CR>
+map <leader>4 :set foldlevel=4<CR>
+map <leader>5 :set foldlevel=5<CR>
 map <leader>0 :set foldlevel=99<CR>
 nmap <space> za
 
@@ -115,6 +119,7 @@ xmap ) ]
 nmap <leader>p <c-^>
 
 nmap <c-f> :Ack 
+" Too bad you can't map <C-7>
 
 " Pane splitting
 nnoremap <Leader>v :vsp<CR>
@@ -147,10 +152,11 @@ map <Leader>sT :call RunCurrentSpecFile()<CR>
 map <Leader>st :call RunNearestSpec()<CR>
 map <Leader>sl :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "VimuxRunCommand 'clear;be rspec {spec}'"
+let g:rspec_command = "Dispatch 'be rspec {spec}'"
 
 " jest
-map <Leader>j :VimuxRunCommand 'jest'<CR>
+map <Leader>j :VimuxRunCommand 'clear;jest'<CR>
+map <Leader>d :Dispatch<CR>
 
 map <Leader>ss :call system('spring stop')<CR>
 
