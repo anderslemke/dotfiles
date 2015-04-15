@@ -11,6 +11,6 @@ trap on_exit EXIT
 
 args="${@:2}"
 
-vpn-connect.sh
+vpn-connect.sh $1
 set_terminal_profile "Prod"
-ssh "root@ffb$1" "$args"
+ssh -t "root@ffb$1" "$args"
