@@ -40,6 +40,8 @@ Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'scrooloose/syntastic'
+Plug 'vim-scripts/closetag.vim'
 
 call plug#end()
 
@@ -55,7 +57,6 @@ let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
 
 set shm=aoOti
-"set cmdheight=2
 set laststatus=2 " Always show the statusline
 
 let mapleader=','
@@ -71,11 +72,14 @@ set backupcopy=yes
 set softtabstop=2 shiftwidth=2 expandtab
 set tabstop=2
 set scrolloff=3
+
+" Search stuff
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch " highlight results
 nmap <cr> :nohl<cr>
+
 set pastetoggle=<F2>
 set number
 set listchars=tab:»·,trail:· " invisible chars
@@ -107,6 +111,10 @@ nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 
+" Move up/down wrapped lines
+:nmap j gj
+:nmap k gk
+
 " Unimpaired new bindings
 nmap ( [
 nmap ) ]
@@ -132,14 +140,19 @@ nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
+nmap ; :CtrlPBuffer<CR>
+
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
 
 " Those annoying standard things
-:command WQ wq
-:command Wq wq
-:command Wa wa
-:command WA wa
-:command W w
-:command Q q
+:command! WQ wq
+:command! Wq wq
+:command! Wa wa
+:command! WA wa
+:command! W w
+:command! Q q
 
 " Use Spring for vim-rubytest
 let g:rubytest_cmd_test = "clear;spring testunit %p --use-color"
