@@ -105,6 +105,12 @@ map <leader>5 :set foldlevel=5<CR>
 map <leader>0 :set foldlevel=99<CR>
 nmap <space> za
 
+" Recommended Syntastic settings
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+nmap <Leader>e :Errors<CR>
+
 " Pane navigation
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
