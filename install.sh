@@ -7,7 +7,7 @@ ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
 ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
 ln -is ~/dotfiles/.tigrc ~/.tigrc
-vim +PlugClean +PlugInstall +qall
+vim +PlugClean +PlugInstall +PlugUpdate +qall
 ~/dotfiles/platforms/install.rb
 echo '==============================='
 echo 'Make sure to add something like'
