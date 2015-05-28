@@ -24,5 +24,4 @@ windows:
       panes:
         - vim
         - ENV=development gulp karma
-        - ENV=development gulp
-  - bash: 
+  - watch: ENV=development gulp
