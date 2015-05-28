@@ -3,6 +3,8 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'junkblocker/patchreview-vim'
+Plug 'codegram/vim-codereview'
 Plug 'mileszs/ack.vim'
 Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
