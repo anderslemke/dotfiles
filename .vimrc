@@ -50,7 +50,7 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
-let g:ack_default_options = " -H --nocolor --nogroup --column"
+let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=public"
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -145,7 +145,7 @@ nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
 nmap ; :CtrlPBuffer<CR>
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
