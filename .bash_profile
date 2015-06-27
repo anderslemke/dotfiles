@@ -26,7 +26,7 @@ alias srake="spring rake"
 alias gg="git grep"
 
 ##### Firmafon aliases #####
-alias dummy_jenkins="spring rails g migration jenkins-dummy-anders-`date +%s` && spring rake db:migrate && git add db/migrate && git commit -am 'Jenkins dummy' && git push"
+alias dummy_jenkins="spring rails g migration jenkins-dummy-anders-1`date +%s` && spring rake db:migrate && git add db/migrate && git commit -am 'Jenkins dummy' && git push"
 alias mainframe="f; cd mainframe"
 alias middle="f; cd middleman"
 alias ffpuppet="f; cd puppet"
