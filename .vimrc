@@ -40,7 +40,7 @@ Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/closetag.vim'
 
 call plug#end()
@@ -171,7 +171,8 @@ map <Leader>sT :call RunCurrentSpecFile()<CR>
 map <Leader>st :call RunNearestSpec()<CR>
 map <Leader>sl :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch 'be rspec {spec}'"
+"let g:rspec_command = "Dispatch 'be rspec {spec}'"
+let g:rspec_command = "!spring rspec {spec}"
 
 " jest
 map <Leader>j :VimuxRunCommand 'clear;jest'<CR>
