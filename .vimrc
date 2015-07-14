@@ -40,6 +40,7 @@ Plug 'anderslemke/vim-rubytest'
 Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
 Plug 'mxw/vim-jsx'
+Plug 'evanmiller/nginx-vim-syntax'
 
 call plug#end()
 
