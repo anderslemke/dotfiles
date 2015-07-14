@@ -2,12 +2,13 @@
   name = anderslemke
   email = mail@anderslemke.dk
 [alias]
-  st  = status
+  st  = status -sb
   ci  = commit
   co  = checkout
   br  = branch
   msg = commit --allow-empty -m
   undo = reset --soft HEAD~1
+  merged = branch --merged master
 [push]
   default = current
 [filter "media"]

@@ -4,7 +4,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 Plug 'mileszs/ack.vim'
-Plug 'msanders/snipmate.vim'
+Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
@@ -26,7 +26,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
-Plug 'pangloss/vim-javascript'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -39,8 +38,10 @@ Plug 'mattn/webapi-vim'
 Plug 'anderslemke/vim-rubytest'
 Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
+Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
+Plug 'vim-scripts/closetag.vim'
 
 call plug#end()
 
@@ -49,14 +50,13 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
-let g:ack_default_options = " -H --nocolor --nogroup --column"
+let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=public"
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
 
 set shm=aoOti
-"set cmdheight=2
 set laststatus=2 " Always show the statusline
 
 let mapleader=','
@@ -72,11 +72,14 @@ set backupcopy=yes
 set softtabstop=2 shiftwidth=2 expandtab
 set tabstop=2
 set scrolloff=3
+
+" Search stuff
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch " highlight results
 nmap <cr> :nohl<cr>
+
 set pastetoggle=<F2>
 set number
 set listchars=tab:»·,trail:· " invisible chars
@@ -91,23 +94,32 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+set ai
 set foldmethod=syntax
 set foldlevelstart=99
+map <leader>1 :set foldlevel=1<CR>
+map <leader>2 :set foldlevel=2<CR>
+map <leader>3 :set foldlevel=3<CR>
+map <leader>4 :set foldlevel=4<CR>
+map <leader>5 :set foldlevel=5<CR>
+map <leader>0 :set foldlevel=99<CR>
 nmap <space> za
 
-" magic markers
-au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
-au BufLeave *.{css,scss,sass}       exe "normal! mC"
-au BufLeave *.{js,coffee}           exe "normal! mJ"
-au BufLeave *.{spec.js,spec.coffee} exe "normal! mS"
-au BufLeave *.{rb}                  exe "normal! mR"
-au BufLeave *.{test.rb}             exe "normal! mT"
+" Recommended Syntastic settings
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+nmap <Leader>e :Errors<CR>
 
 " Pane navigation
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
+
+" Move up/down wrapped lines
+:nmap j gj
+:nmap k gk
 
 " Unimpaired new bindings
 nmap ( [
@@ -121,6 +133,7 @@ xmap ) ]
 nmap <leader>p <c-^>
 
 nmap <c-f> :Ack 
+" Too bad you can't map <C-7>
 
 " Pane splitting
 nnoremap <Leader>v :vsp<CR>
@@ -132,15 +145,20 @@ nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](vendor|\.git|\.hg|\.svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
+nmap ; :CtrlPBuffer<CR>
+
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
 
 " Those annoying standard things
-:command WQ wq
-:command Wq wq
-:command Wa wa
-:command WA wa
-:command W w
-:command Q q
+:command! WQ wq
+:command! Wq wq
+:command! Wa wa
+:command! WA wa
+:command! W w
+:command! Q q
 
 " Use Spring for vim-rubytest
 let g:rubytest_cmd_test = "clear;spring testunit %p --use-color"
@@ -153,7 +171,11 @@ map <Leader>sT :call RunCurrentSpecFile()<CR>
 map <Leader>st :call RunNearestSpec()<CR>
 map <Leader>sl :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "VimuxRunCommand 'clear;be rspec {spec}'"
+let g:rspec_command = "Dispatch 'be rspec {spec}'"
+
+" jest
+map <Leader>j :VimuxRunCommand 'clear;jest'<CR>
+map <Leader>d :Dispatch<CR>
 
 map <Leader>ss :call system('spring stop')<CR>
 
