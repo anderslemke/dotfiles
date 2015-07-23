@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'elixir-lang/vim-elixir'
 Plug 'mileszs/ack.vim'
 Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
@@ -50,7 +51,7 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
-let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=public"
+let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public"
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
