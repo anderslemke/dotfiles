@@ -42,7 +42,7 @@ Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-"Plug 'scrooloose/syntastic'
+Plug 'evanmiller/nginx-vim-syntax'
 Plug 'vim-scripts/closetag.vim'
 
 call plug#end()
