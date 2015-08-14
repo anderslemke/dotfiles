@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'vim-scripts/VimClojure'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mileszs/ack.vim'
 Plug 'anderslemke/snipmate.vim'
