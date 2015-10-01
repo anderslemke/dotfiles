@@ -6,8 +6,6 @@ export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
 
-export FIRMAFON_USER='al'
-
 alias so="source ~/.bash_profile"
 alias ci="tig status"
 alias ca="git commit -a"
@@ -24,21 +22,6 @@ alias be="bundle exec"
 alias brake="be rake"
 alias srake="spring rake"
 alias gg="git grep"
-
-##### Firmafon aliases #####
-alias dummy_jenkins="spring rails g migration jenkins-dummy-anders-1`date +%s` && spring rake db:migrate && git add db/migrate && git commit -am 'Jenkins dummy' && git push"
-alias mainframe="f; cd mainframe"
-alias middle="f; cd middleman"
-alias ffpuppet="f; cd puppet"
-alias debug="vpn-connect.sh;f; cd debug"
-alias q="debug; cap prod q"
-alias vitals="debug;cap"
-alias partner="f; cd partner"
-alias switch="f; cd switch"
-alias wallboard="f; cd wallboard"
-alias switchdev="f; cd switchdev"
-alias angular="f; cd angular-firmafon"
-##### Firmafon aliases #####
 
 # Bash mods
 export HISTCONTROL=erasedups

@@ -3,7 +3,6 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-scripts/VimClojure'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mileszs/ack.vim'
 Plug 'anderslemke/snipmate.vim'
@@ -27,6 +26,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-fireplace'
+Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
