@@ -2,6 +2,8 @@
 # source ~/dotfiles/.bash_profile
 PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
+PATH=$PATH:/usr/local/sbin # Add brew rabbit
+
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
@@ -22,6 +24,11 @@ alias be="bundle exec"
 alias brake="be rake"
 alias srake="spring rake"
 alias gg="git grep"
+
+# Zetland aliases
+alias z="p; cd zetland"
+alias mainframe="z; cd mainframe"
+alias m="mainframe"
 
 # Bash mods
 export HISTCONTROL=erasedups

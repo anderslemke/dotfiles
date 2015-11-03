@@ -36,10 +36,9 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 Plug 'mattn/webapi-vim'
-Plug 'anderslemke/vim-rubytest'
-Plug 'benmills/vimux'
 Plug 'thoughtbot/vim-rspec'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -70,6 +69,12 @@ let g:gist_post_private = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_detect_filetype = 1
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 set backupcopy=yes
 
 set softtabstop=2 shiftwidth=2 expandtab
@@ -81,7 +86,7 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch " highlight results
-nmap <cr> :nohl<cr>
+nmap <leader><cr> :nohl<cr>
 
 set pastetoggle=<F2>
 set number
@@ -163,29 +168,14 @@ endif
 :command! W w
 :command! Q q
 
-" Use Spring for vim-rubytest
-let g:rubytest_cmd_test = "clear;spring testunit %p --use-color"
-let g:rubytest_cmd_testcase = 'clear;spring testunit %p -n "%c" --use-color'
-let g:rubytest_in_vimux = 1
-"let g:rubytest_in_quickfix = 1
-
 " vim-rspec
-map <Leader>sT :call RunCurrentSpecFile()<CR>
-map <Leader>st :call RunNearestSpec()<CR>
-map <Leader>sl :call RunLastSpec()<CR>
+map <Leader>T :call RunCurrentSpecFile()<CR>
+map <Leader>t :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-"let g:rspec_command = "Dispatch 'be rspec {spec}'"
-let g:rspec_command = "!spring rspec {spec}"
-
-" jest
-map <Leader>j :VimuxRunCommand 'clear;jest'<CR>
-map <Leader>d :Dispatch<CR>
+let g:rspec_command = "Dispatch rspec {spec}"
 
 map <Leader>ss :call system('spring stop')<CR>
-
-" Vimux default orientation
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "25"
 
 " Use ctrl + s to save
 noremap <C-S> :wa<CR>
@@ -194,3 +184,6 @@ inoremap <C-S> <C-O>:wa<CR><Esc>
 
 " Use ctrl + q to close
 noremap <silent> <C-Q> :q<CR>
+
+" JSX
+let g:jsx_ext_required = 0 " Do not require .jsx
