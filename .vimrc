@@ -47,12 +47,14 @@ Plug 'vim-scripts/closetag.vim'
 
 call plug#end()
 
+:set colorcolumn=80
+
 syntax enable
 filetype plugin indent on
 set background=dark
 colorscheme solarized
 
-let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public"
+let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage"
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -110,6 +112,10 @@ map <leader>2 :set foldlevel=2<CR>
 map <leader>3 :set foldlevel=3<CR>
 map <leader>4 :set foldlevel=4<CR>
 map <leader>5 :set foldlevel=5<CR>
+map <leader>6 :set foldlevel=6<CR>
+map <leader>7 :set foldlevel=7<CR>
+map <leader>8 :set foldlevel=8<CR>
+map <leader>9 :set foldlevel=9<CR>
 map <leader>0 :set foldlevel=99<CR>
 nmap <space> za
 
@@ -120,10 +126,10 @@ let g:syntastic_check_on_wq = 0
 nmap <Leader>e :Errors<CR>
 
 " Pane navigation
+nnoremap <C-h> <C-W><C-H>
 nnoremap <C-j> <C-W><C-J>
 nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
-nnoremap <C-h> <C-W><C-H>
 
 " Move up/down wrapped lines
 :nmap j gj
@@ -144,9 +150,9 @@ nmap <c-f> :Ack
 " Too bad you can't map <C-7>
 
 " Pane splitting
-nnoremap <Leader>v :vsp<CR>
-nnoremap <Leader>s :vsp<CR>
 nnoremap <Leader>h :sp<CR>
+nnoremap <Leader>s :vsp<CR>
+nnoremap <Leader>v :vsp<CR>
 
 nnoremap <Leader>r :Unite -buffer-name=recent -winheight=10 file_mru<cr>
 nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>

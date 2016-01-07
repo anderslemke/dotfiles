@@ -4,9 +4,14 @@ PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
 PATH=$PATH:/usr/local/sbin # Add brew rabbit
 
+# Set ulimit such that I can run tests without garbage collection
+ulimit -n 4096
+
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
 set -o vi
+
+alias vi="vim"
 
 alias so="source ~/.bash_profile"
 alias ci="tig status"
@@ -16,6 +21,8 @@ alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
+
+alias trr="time (rspec && rubocop -l)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
@@ -28,7 +35,9 @@ alias gg="git grep"
 # Zetland aliases
 alias z="p; cd zetland"
 alias mainframe="z; cd mainframe"
+alias frontend="z; cd frontend"
 alias m="mainframe"
+alias f="frontend"
 
 # Bash mods
 export HISTCONTROL=erasedups
