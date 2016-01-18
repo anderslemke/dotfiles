@@ -34,3 +34,8 @@
   untracked = cyan
 [github]
   user = anderslemke
+[mergetool]
+	prompt = false
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
