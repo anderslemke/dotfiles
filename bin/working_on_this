@@ -1,5 +1,0 @@
-#!/usr/bin/ruby
-
-file = File.open "/Users/anderslemke/bin/.working_on.sh", "w"
-file.write "cd #{`pwd`}"
-file.close

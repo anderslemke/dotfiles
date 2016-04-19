@@ -29,6 +29,6 @@ pre_window: mainframe
 # post: tmux -CC attach -t production
 
 windows:
-  - console: heroku run console -r production
-  - log: heroku logs -t -r production
-  - config: heroku config -r production
+  - console: heroku run console -r p
+  - log: heroku logs -t -r p
+  - config: heroku config -r p

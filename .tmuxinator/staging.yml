@@ -29,6 +29,6 @@ pre_window: mainframe
 # post: tmux -CC attach -t staging
 
 windows:
-  - console: heroku run console -r staging
-  - log: heroku logs -t -r staging
-  - config: heroku config -r staging
+  - console: heroku run console -r s
+  - log: heroku logs -t -r s
+  - config: heroku config -r s

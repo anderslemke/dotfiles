@@ -3,7 +3,6 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'elixir-lang/vim-elixir'
 Plug 'mileszs/ack.vim'
 Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
@@ -14,7 +13,7 @@ Plug 'tpope/vim-vividchalk'
 Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/gist-vim'
 Plug 'Shougo/neomru.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -27,7 +26,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
@@ -157,9 +155,14 @@ nnoremap <Leader>v :vsp<CR>
 nnoremap <Leader>r :Unite -buffer-name=recent -winheight=10 file_mru<cr>
 nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
+set path+=$PWD/src
+set path+=$PWD/src/redux
+set path+=$PWD/spec/cassettes
+set suffixesadd=.yml
+
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules)$'
 nmap ; :CtrlPBuffer<CR>
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
