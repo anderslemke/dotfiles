@@ -31,6 +31,7 @@ alias be="bundle exec"
 alias brake="be rake"
 alias srake="spring rake"
 alias gg="git grep"
+alias t="p;cd weight-loss;vi anders.csv"
 
 # Zetland aliases
 alias z="p; cd zetland"

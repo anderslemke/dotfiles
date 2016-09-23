@@ -4,7 +4,6 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 Plug 'mileszs/ack.vim'
-Plug 'anderslemke/snipmate.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
@@ -17,10 +16,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/gist-vim'
 Plug 'Shougo/neomru.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'rstacruz/sparkup'
 Plug 'Shougo/unite.vim'
 Plug 'bling/vim-airline'
-Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -30,14 +27,13 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
+Plug 'thoughtbot/vim-rspec'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
-Plug 'mattn/webapi-vim'
-Plug 'thoughtbot/vim-rspec'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
@@ -49,8 +45,6 @@ call plug#end()
 
 syntax enable
 filetype plugin indent on
-set background=dark
-colorscheme solarized
 
 let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage"
 
@@ -60,6 +54,17 @@ let g:airline#extensions#whitespace#enabled=0
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 let mapleader=','
 let g:ragtag_global_maps=1
@@ -196,3 +201,6 @@ noremap <silent> <C-Q> :q<CR>
 
 " JSX
 let g:jsx_ext_required = 0 " Do not require .jsx
+
+" set background=dark
+colorscheme solarized
