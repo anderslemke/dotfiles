@@ -207,5 +207,5 @@ noremap <silent> <C-Q> :q<CR>
 " JSX
 let g:jsx_ext_required = 0 " Do not require .jsx
 
-" set background=dark
+set background=dark
 colorscheme solarized
