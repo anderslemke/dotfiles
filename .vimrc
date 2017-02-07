@@ -38,6 +38,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'vim-scripts/closetag.vim'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -47,6 +48,9 @@ syntax enable
 filetype plugin indent on
 
 let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage"
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -149,7 +153,7 @@ xmap ) ]
 " Open previous file
 nmap <leader>p <c-^>
 
-nmap <c-f> :Ack 
+nmap <c-f> :Ack! 
 " Too bad you can't map <C-7>
 
 " Pane splitting
@@ -189,7 +193,8 @@ map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
 let g:rspec_command = "Dispatch rspec {spec}"
 
-map <Leader>ss :call system('spring stop')<CR>
+" vim-dispatch
+map <Leader>d :Dispatch<CR>
 
 " Use ctrl + s to save
 noremap <C-S> :wa<CR>

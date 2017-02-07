@@ -32,5 +32,4 @@ windows:
   - console: bundle exec rails c
   - logs: tail -f log/*.log
   - rabbit: rabbitmq-server
-  - redis: redis-server /usr/local/etc/redis.conf
   - heroku_local: heroku local
