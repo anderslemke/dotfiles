@@ -9,6 +9,7 @@ ulimit -n 4096
 
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
+source ~/dotfiles/bin/zversion.bash
 set -o vi
 
 alias vi="vim"
