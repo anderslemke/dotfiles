@@ -4,6 +4,7 @@ function zversion () {
   else
     subdomain=www
   fi
+  echo "https://$subdomain.zetland.dk"
   curl -s https://$subdomain.zetland.dk/ | grep -Eo "VERSION = \"(.*)\"" | grep -Eo "\"(.*)\"" | cut -d "\"" -f 2
 }
 export -f zversion

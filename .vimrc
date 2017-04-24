@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
@@ -39,6 +40,7 @@ Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'vim-scripts/closetag.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'keith/rspec.vim'
 
 call plug#end()
 
@@ -47,9 +49,9 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
-let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=node_shrinkwrap --ignore-dir=cordova --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=node_shrinkwrap --ignore-dir=cordova --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
 endif
 
 let g:airline_left_sep=''
@@ -99,7 +101,7 @@ nmap <leader><cr> :nohl<cr>
 
 set pastetoggle=<F2>
 set number
-set listchars=tab:»·,trail:· " invisible chars
+set listchars=nbsp:¬,tab:»·,trail:· " invisible chars
 set list
 set backspace=indent,eol,start " Allow backspace to delete everything
 
@@ -112,19 +114,20 @@ if exists("+undofile")
 endif
 
 set ai
-set foldmethod=syntax
+set foldmethod=manual
 set foldlevelstart=99
-map <leader>1 :set foldlevel=1<CR>
-map <leader>2 :set foldlevel=2<CR>
-map <leader>3 :set foldlevel=3<CR>
-map <leader>4 :set foldlevel=4<CR>
+map <leader>1 :set foldmethod=syntax foldlevel=1<CR>
+map <leader>2 :set foldmethod=syntax foldlevel=2<CR>
+map <leader>3 :set foldmethod=syntax foldlevel=3<CR>
+map <leader>4 :set foldmethod=syntax foldlevel=4<CR>
 map <leader>5 :set foldlevel=5<CR>
 map <leader>6 :set foldlevel=6<CR>
 map <leader>7 :set foldlevel=7<CR>
 map <leader>8 :set foldlevel=8<CR>
 map <leader>9 :set foldlevel=9<CR>
 map <leader>0 :set foldlevel=99<CR>
-nmap <space> za
+nmap <space> :set foldmethod=syntax<CR>za
+nmap <leader><space> :set foldmethod=manual foldlevel=99<CR>
 
 " Recommended Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
@@ -171,7 +174,7 @@ set suffixesadd=.yml
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|node_shrinkwrap|ios|android)$'
 nmap ; :CtrlPBuffer<CR>
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -191,7 +194,7 @@ map <Leader>T :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "Dispatch bundle exec rspec {spec}"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>

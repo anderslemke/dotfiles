@@ -23,7 +23,7 @@ alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
 
-alias trr="time (rspec && rubocop -l)"
+alias trr="time (be rspec && be rubocop -l)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
@@ -40,6 +40,7 @@ alias mainframe="z; cd mainframe"
 alias frontend="z; cd frontend"
 alias m="mainframe"
 alias f="frontend"
+alias lyd="z; cd lyd-react-native"
 
 # Bash mods
 export HISTCONTROL=erasedups
