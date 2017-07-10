@@ -168,6 +168,7 @@ nnoremap <Leader>r :Unite -buffer-name=recent -winheight=10 file_mru<cr>
 nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
 set path+=$PWD/src
+set path+=$PWD/app
 set path+=$PWD/src/redux
 set path+=$PWD/spec/cassettes
 set suffixesadd=.yml
@@ -194,7 +195,7 @@ map <Leader>T :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch bundle exec rspec {spec}"
+let g:rspec_command = "Dispatch zeus test {spec}"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>

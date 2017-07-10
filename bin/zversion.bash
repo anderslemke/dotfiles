@@ -4,8 +4,15 @@ function zversion () {
   else
     subdomain=www
   fi
-  echo "https://$subdomain.zetland.dk"
-  curl -s https://$subdomain.zetland.dk/ | grep -Eo "VERSION = \"(.*)\"" | grep -Eo "\"(.*)\"" | cut -d "\"" -f 2
+  path=''
+  if [[ $subdomain == 'launch' ]]; then
+    path='hello'
+  fi
+  if [[ $subdomain == 'www' ]]; then
+    path='hello'
+  fi
+  echo "https://$subdomain.zetland.dk/$path"
+  curl -s https://$subdomain.zetland.dk/$path | grep -Eo "VERSION = \"(.*)\"" | grep -Eo "\"(.*)\"" | cut -d "\"" -f 2
 }
 export -f zversion
 function zversionalert () {

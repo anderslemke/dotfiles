@@ -42,6 +42,9 @@ alias m="mainframe"
 alias f="frontend"
 alias lyd="z; cd lyd-react-native"
 
+alias redis-staging="redis-cli -a pd5439d2368ca58648a7fb74b150dd371a526e582eceb2d137a0f929af99528b2 -h ec2-34-251-183-72.eu-west-1.compute.amazonaws.com -p 25439"
+alias redis-production="redis-cli -a pa6b2d353a2330a8cfd202aad217779ca8c4445dffe16afbcf92b476aef96a235 -h ec2-34-252-246-137.eu-west-1.compute.amazonaws.com -p 7019"
+
 # Bash mods
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
