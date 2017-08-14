@@ -54,6 +54,9 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=node_shrinkwrap --ignore-dir=cordova --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
 endif
 
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|node_shrinkwrap|ios|android)$'
+nmap ; :CtrlPBuffer<CR>
+
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
@@ -175,8 +178,6 @@ set suffixesadd=.yml
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|node_shrinkwrap|ios|android)$'
-nmap ; :CtrlPBuffer<CR>
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
