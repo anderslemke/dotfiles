@@ -33,5 +33,5 @@ windows:
   - logs: tail -f log/*.log
   - rabbit: rabbitmq-server
   # - redis: redis-server /usr/local/etc/redis.conf
-  - heroku_local: heroku local web=1,high_througput_worker=1,critical_workers=1,discover_workers=1,non_critical_workers=1,external_systems_workers=1
+  - heroku_local: heroku local web=1,high_througput_worker=1,critical_workers=1,non_critical_workers=1,external_systems_workers=1
   - zeus: zeus start

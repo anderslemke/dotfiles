@@ -3,14 +3,15 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+" Plug 'jeroenbourgois/vim-actionscript'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
-Plug 'groenewege/vim-less'
+" Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-vividchalk'
-Plug 'nanotech/jellybeans.vim'
+" Plug 'tpope/vim-vividchalk'
+" Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -41,6 +42,7 @@ Plug 'evanmiller/nginx-vim-syntax'
 Plug 'vim-scripts/closetag.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'keith/rspec.vim'
+Plug 'toyamarinyon/vim-swift'
 
 call plug#end()
 
