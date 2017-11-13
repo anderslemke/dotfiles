@@ -13,6 +13,7 @@ source ~/dotfiles/bin/zversion.bash
 set -o vi
 
 alias vi="vim"
+alias mux="tmuxinator"
 
 alias so="source ~/.bash_profile"
 alias ci="tig status"
