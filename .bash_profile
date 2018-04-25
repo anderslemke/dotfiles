@@ -13,6 +13,7 @@ source ~/dotfiles/bin/zversion.bash
 set -o vi
 
 alias vi="vim"
+alias vin="vim -u NONE"
 alias mux="tmuxinator"
 
 alias so="source ~/.bash_profile"
@@ -42,6 +43,8 @@ alias frontend="z; cd frontend"
 alias m="mainframe"
 alias f="frontend"
 alias lyd="z; cd lyd-react-native"
+
+alias shake_android="adb shell input keyevent 82"
 
 # Bash mods
 export HISTCONTROL=erasedups

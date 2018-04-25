@@ -51,12 +51,15 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
-let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=node_shrinkwrap --ignore-dir=cordova --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=node_shrinkwrap --ignore-dir=cordova --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
+if 1
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
+  endif
+
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg)$'
 endif
 
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|node_shrinkwrap|ios|android)$'
 nmap ; :CtrlPBuffer<CR>
 
 let g:airline_left_sep=''
@@ -193,6 +196,42 @@ endif
 :command! W w
 :command! Q q
 
+function! InHandlerFile()
+  return match(expand("%"), "_handler.rb$") != -1
+endfunction
+function! InEventFile()
+  return match(expand("%"), "events") != -1
+endfunction
+function! GoToHandler()
+  let context=reverse(split(expand("%"), "/"))[2]
+  let filename=reverse(split(expand("%"), "/"))[0]
+  let fileWithoutExtention=split(filename, '\.')[0]
+  let filepath=join(['lib/zetland/gdpr/event_handler', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+  let command=join([':e', filepath], ' ')
+  if filereadable(filepath)
+    execute command
+  else
+    execute join(['!zeus', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute command
+  endif
+endfunction
+function! GoToEvent()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename = reverse(split(expand("%"), "/"))[0]
+  let file=substitute(filename, '_handler', '', '')
+  let command=join([':e lib/zetland', context, 'events', file], '/')
+  execute command
+endfunction
+function! ToggleHandler()
+  if InHandlerFile()
+    call GoToEvent()
+  elseif InEventFile()
+    call GoToHandler()
+  endif
+endfunction
+
+map gh :call ToggleHandler()<CR>
+
 " vim-rspec
 map <Leader>T :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
@@ -216,3 +255,9 @@ let g:jsx_ext_required = 0 " Do not require .jsx
 
 set background=dark
 colorscheme solarized
+
+" Android shake, to reload js
+map <Leader>a :Dispatch adb shell input keyevent 82<CR>
+
+" use ,cc to copy the current visual selection that was yanked
+nnoremap <leader>co :call system('pbcopy', @0)<CR>
