@@ -10,6 +10,7 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
 " Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 " Plug 'tpope/vim-vividchalk'
 " Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/vim-easy-align'
@@ -26,6 +27,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dotenv'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -43,6 +45,7 @@ Plug 'vim-scripts/closetag.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'keith/rspec.vim'
 Plug 'toyamarinyon/vim-swift'
+Plug 'mattn/webapi-vim'
 
 call plug#end()
 
@@ -60,11 +63,17 @@ if 1
   let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg)$'
 endif
 
+ab descrive describe
+ab bb byebug
+ab scsv describe "exporting CSV" do<CR>subject { handler.to_csv(user_id: user_id) }<CR>it { is_expected.to include "foo" }<CR>end<esc>2k
+
 nmap ; :CtrlPBuffer<CR>
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
+
+let g:rails_path_additions=['app/domain', 'spec/cassettes']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
@@ -196,17 +205,24 @@ endif
 :command! W w
 :command! Q q
 
-function! InHandlerFile()
-  return match(expand("%"), "_handler.rb$") != -1
+function! InEventHandler()
+  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/event_handlers") != -1
 endfunction
-function! InEventFile()
+function! InEvent()
   return match(expand("%"), "events") != -1
 endfunction
-function! GoToHandler()
+function! InReadModel()
+  return match(expand("%"), "app/models") != -1
+endfunction
+function! InReadModelHandler()
+  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/read_model_handlers") != -1
+endfunction
+function! GoToEventHandler()
   let context=reverse(split(expand("%"), "/"))[2]
   let filename=reverse(split(expand("%"), "/"))[0]
+  let filename=substitute(filename, '_spec', '', '')
   let fileWithoutExtention=split(filename, '\.')[0]
-  let filepath=join(['lib/zetland/gdpr/event_handler', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+  let filepath=join(['app/domain/zetland/gdpr/event_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
   let command=join([':e', filepath], ' ')
   if filereadable(filepath)
     execute command
@@ -219,14 +235,42 @@ function! GoToEvent()
   let context=reverse(split(expand("%"), "/"))[1]
   let filename = reverse(split(expand("%"), "/"))[0]
   let file=substitute(filename, '_handler', '', '')
-  let command=join([':e lib/zetland', context, 'events', file], '/')
+  let file=substitute(file, '_spec', '', '')
+  let command=join([':e app/domain/zetland', context, 'events', file], '/')
+  execute command
+endfunction
+function! GoToReadModelHandler()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename=reverse(split(expand("%"), "/"))[0]
+  let filename=substitute(filename, '_spec', '', '')
+  let fileWithoutExtention=split(filename, '\.')[0]
+  let filepath=join(['app/domain/zetland/gdpr/read_model_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+  let command=join([':e', filepath], ' ')
+  if filereadable(filepath)
+    execute command
+  else
+    execute join(['!zeus', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute command
+  endif
+endfunction
+function! GoToReadModel()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename = reverse(split(expand("%"), "/"))[0]
+  let file=substitute(filename, '_handler', '', '')
+  let file=substitute(file, '_spec', '', '')
+  let command=join([':e app/models/', context, file], '/')
+  let command=substitute(command, 'models//models', 'models', '')
   execute command
 endfunction
 function! ToggleHandler()
-  if InHandlerFile()
+  if InEventHandler()
     call GoToEvent()
-  elseif InEventFile()
-    call GoToHandler()
+  elseif InEvent()
+    call GoToEventHandler()
+  elseif InReadModel()
+    call GoToReadModelHandler()
+  elseif InReadModelHandler()
+    call GoToReadModel()
   endif
 endfunction
 
@@ -254,7 +298,7 @@ noremap <silent> <C-Q> :q<CR>
 let g:jsx_ext_required = 0 " Do not require .jsx
 
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 
 " Android shake, to reload js
 map <Leader>a :Dispatch adb shell input keyevent 82<CR>
