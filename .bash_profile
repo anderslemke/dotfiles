@@ -13,6 +13,8 @@ set -o vi
 
 alias vi="vim"
 
+alias restart_nginx="kill -HUP `cat /var/run/nginx.pid`"
+
 alias so="source ~/.bash_profile"
 alias ci="tig status"
 alias ca="git commit -a"
