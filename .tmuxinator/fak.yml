@@ -1,6 +1,6 @@
 # ~/.tmuxinator/api.yml
 
-name: api
+name: fak
 root: ~/
 
 # Optional tmux socket
@@ -10,7 +10,7 @@ root: ~/
 # pre: sudo /etc/rc.d/mysqld start
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: mainframe
+pre_window: fak
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -31,6 +31,5 @@ windows:
   - editor: vi
   - console: bundle exec rails c
   - logs: tail -f log/*.log
-  - rabbit: rabbitmq-server
-  # - redis: redis-server /usr/local/etc/redis.conf
-  - heroku_local: heroku local web=1,high_througput_worker=1,critical_workers_high=1,non_critical_workers=1,critical_workers_low=1,external_systems_workers=1,long_running_workers=1
+  - server: bundle exec rails s
+  - zeus: zeus start

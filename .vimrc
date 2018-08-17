@@ -3,13 +3,16 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+" Plug 'jeroenbourgois/vim-actionscript'
+Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'elzr/vim-json'
-Plug 'groenewege/vim-less'
+" Plug 'groenewege/vim-less'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-vividchalk'
-Plug 'nanotech/jellybeans.vim'
+Plug 'morhetz/gruvbox'
+" Plug 'tpope/vim-vividchalk'
+" Plug 'nanotech/jellybeans.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -24,6 +27,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dotenv'
+Plug 'tpope/vim-sleuth'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -39,6 +44,9 @@ Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'vim-scripts/closetag.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'keith/rspec.vim'
+Plug 'toyamarinyon/vim-swift'
+Plug 'mattn/webapi-vim'
 
 call plug#end()
 
@@ -47,14 +55,26 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
-let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage"
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+if 1
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
+  endif
+
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg)$'
 endif
+
+ab descrive describe
+ab bb byebug
+ab scsv describe "exporting CSV" do<CR>subject { handler.to_csv(user_id: user_id) }<CR>it { is_expected.to include "foo" }<CR>end<esc>2k
+
+nmap ; :CtrlPBuffer<CR>
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
+
+let g:rails_path_additions=['app/domain', 'spec/cassettes']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
@@ -99,7 +119,7 @@ nmap <leader><cr> :nohl<cr>
 
 set pastetoggle=<F2>
 set number
-set listchars=tab:»·,trail:· " invisible chars
+set listchars=nbsp:¬,tab:»·,trail:· " invisible chars
 set list
 set backspace=indent,eol,start " Allow backspace to delete everything
 
@@ -112,19 +132,20 @@ if exists("+undofile")
 endif
 
 set ai
-set foldmethod=syntax
+set foldmethod=manual
 set foldlevelstart=99
-map <leader>1 :set foldlevel=1<CR>
-map <leader>2 :set foldlevel=2<CR>
-map <leader>3 :set foldlevel=3<CR>
-map <leader>4 :set foldlevel=4<CR>
+map <leader>1 :set foldmethod=syntax foldlevel=1<CR>
+map <leader>2 :set foldmethod=syntax foldlevel=2<CR>
+map <leader>3 :set foldmethod=syntax foldlevel=3<CR>
+map <leader>4 :set foldmethod=syntax foldlevel=4<CR>
 map <leader>5 :set foldlevel=5<CR>
 map <leader>6 :set foldlevel=6<CR>
 map <leader>7 :set foldlevel=7<CR>
 map <leader>8 :set foldlevel=8<CR>
 map <leader>9 :set foldlevel=9<CR>
 map <leader>0 :set foldlevel=99<CR>
-nmap <space> za
+nmap <space> :set foldmethod=syntax<CR>za
+nmap <leader><space> :set foldmethod=manual foldlevel=99<CR>
 
 " Recommended Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
@@ -165,14 +186,13 @@ nnoremap <Leader>r :Unite -buffer-name=recent -winheight=10 file_mru<cr>
 nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
 
 set path+=$PWD/src
+set path+=$PWD/app
 set path+=$PWD/src/redux
 set path+=$PWD/spec/cassettes
 set suffixesadd=.yml
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules)$'
-nmap ; :CtrlPBuffer<CR>
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
@@ -186,12 +206,83 @@ endif
 :command! W w
 :command! Q q
 
+function! InEventHandler()
+  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/event_handlers") != -1
+endfunction
+function! InEvent()
+  return match(expand("%"), "events") != -1
+endfunction
+function! InReadModel()
+  return match(expand("%"), "app/models") != -1
+endfunction
+function! InReadModelHandler()
+  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/read_model_handlers") != -1
+endfunction
+function! GoToEventHandler()
+  let context=reverse(split(expand("%"), "/"))[2]
+  let filename=reverse(split(expand("%"), "/"))[0]
+  let filename=substitute(filename, '_spec', '', '')
+  let fileWithoutExtention=split(filename, '\.')[0]
+  let filepath=join(['app/domain/zetland/gdpr/event_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+  let command=join([':e', filepath], ' ')
+  if filereadable(filepath)
+    execute command
+  else
+    execute join(['!bin/rails', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute command
+  endif
+endfunction
+function! GoToEvent()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename = reverse(split(expand("%"), "/"))[0]
+  let file=substitute(filename, '_handler', '', '')
+  let file=substitute(file, '_spec', '', '')
+  let command=join([':e app/domain/zetland', context, 'events', file], '/')
+  execute command
+endfunction
+function! GoToReadModelHandler()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename=reverse(split(expand("%"), "/"))[0]
+  let filename=substitute(filename, '_spec', '', '')
+  let fileWithoutExtention=split(filename, '\.')[0]
+  let filepath=join(['app/domain/zetland/gdpr/read_model_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+  let command=join([':e', filepath], ' ')
+  if filereadable(filepath)
+    execute command
+  else
+    execute join(['!bin/rails', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute command
+  endif
+endfunction
+function! GoToReadModel()
+  let context=reverse(split(expand("%"), "/"))[1]
+  let filename = reverse(split(expand("%"), "/"))[0]
+  let file=substitute(filename, '_handler', '', '')
+  let file=substitute(file, '_spec', '', '')
+  let command=join([':e app/models/', context, file], '/')
+  let command=substitute(command, 'models//models', 'models', '')
+  execute command
+endfunction
+function! ToggleHandler()
+  if InEventHandler()
+    call GoToEvent()
+  elseif InEvent()
+    call GoToEventHandler()
+  elseif InReadModel()
+    call GoToReadModelHandler()
+  elseif InReadModelHandler()
+    call GoToReadModel()
+  endif
+endfunction
+
+map gh :call ToggleHandler()<CR>
+
 " vim-rspec
 map <Leader>T :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "Dispatch bin/rspec {spec}"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>
@@ -207,5 +298,12 @@ noremap <silent> <C-Q> :q<CR>
 " JSX
 let g:jsx_ext_required = 0 " Do not require .jsx
 
-" set background=dark
-colorscheme solarized
+set background=dark
+colorscheme gruvbox
+
+" Android shake, to reload js
+map <Leader>a :Dispatch adb shell input keyevent 82<CR>
+
+" use ,cc to copy the current visual selection that was yanked
+nnoremap <leader>co :call system('pbcopy', @0)<CR>
+vnoremap <leader>co y:call system('pbcopy', @0)<CR>

@@ -1,6 +1,6 @@
-# ~/.tmuxinator/api.yml
+# ~/.tmuxinator/confak.yml
 
-name: api
+name: confak
 root: ~/
 
 # Optional tmux socket
@@ -10,7 +10,7 @@ root: ~/
 # pre: sudo /etc/rc.d/mysqld start
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: mainframe
+# pre_window: rbenv shell 2.0.0-p247
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -25,12 +25,10 @@ pre_window: mainframe
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t zetland
+# post: tmux -CC attach -t confak
 
 windows:
-  - editor: vi
-  - console: bundle exec rails c
-  - logs: tail -f log/*.log
-  - rabbit: rabbitmq-server
-  # - redis: redis-server /usr/local/etc/redis.conf
-  - heroku_local: heroku local web=1,high_througput_worker=1,critical_workers_high=1,non_critical_workers=1,critical_workers_low=1,external_systems_workers=1,long_running_workers=1
+  - server:
+    - ssh pro
+    - cd /var/www/fak/hurtigfaktura
+    - RAILS_ENV=production rbenv exec bundle exec rails c

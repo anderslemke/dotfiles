@@ -9,9 +9,12 @@ ulimit -n 4096
 
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
+source ~/dotfiles/bin/zversion.bash
 set -o vi
 
 alias vi="vim"
+alias vin="vim -u NONE"
+alias mux="tmuxinator"
 
 alias restart_nginx="kill -HUP `cat /var/run/nginx.pid`"
 
@@ -24,7 +27,7 @@ alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
 
-alias trr="time (rspec && rubocop -l)"
+alias trr="time (be rspec && be rubocop -l)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
@@ -35,12 +38,18 @@ alias srake="spring rake"
 alias gg="git grep"
 alias t="p;cd weight-loss;vi anders.csv"
 
+alias redsites="open https://zetland.pagerduty.com/incidents; open https://dashboard.heroku.com/apps/zetland-api-production/metrics/web; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/e4b19771-9823-49e6-8b95-8587d0c01852; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/70332e32-6146-4a7f-80e5-254805e2d311;"
+
 # Zetland aliases
 alias z="p; cd zetland"
 alias mainframe="z; cd mainframe"
 alias frontend="z; cd frontend"
 alias m="mainframe"
 alias f="frontend"
+alias lyd="z; cd lyd-react-native"
+alias caf="z; cd caf_receiver"
+
+alias shake_android="adb shell input keyevent 82"
 
 # Bash mods
 export HISTCONTROL=erasedups
