@@ -28,6 +28,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dotenv'
+Plug 'tpope/vim-sleuth'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
@@ -227,7 +228,7 @@ function! GoToEventHandler()
   if filereadable(filepath)
     execute command
   else
-    execute join(['!zeus', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute join(['!bin/rails', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
     execute command
   endif
 endfunction
@@ -249,7 +250,7 @@ function! GoToReadModelHandler()
   if filereadable(filepath)
     execute command
   else
-    execute join(['!zeus', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+    execute join(['!bin/rails', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
     execute command
   endif
 endfunction
@@ -281,7 +282,7 @@ map <Leader>T :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch zeus test {spec}"
+let g:rspec_command = "Dispatch bin/rspec {spec}"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>
@@ -305,3 +306,4 @@ map <Leader>a :Dispatch adb shell input keyevent 82<CR>
 
 " use ,cc to copy the current visual selection that was yanked
 nnoremap <leader>co :call system('pbcopy', @0)<CR>
+vnoremap <leader>co y:call system('pbcopy', @0)<CR>
