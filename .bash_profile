@@ -36,6 +36,8 @@ alias srake="spring rake"
 alias gg="git grep"
 alias t="p;cd weight-loss;vi anders.csv"
 
+alias b="p; cd bryllup"
+
 alias redsites="open https://zetland.pagerduty.com/incidents; open https://dashboard.heroku.com/apps/zetland-api-production/metrics/web; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/e4b19771-9823-49e6-8b95-8587d0c01852; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/70332e32-6146-4a7f-80e5-254805e2d311;"
 
 # Zetland aliases
