@@ -29,7 +29,7 @@ pre_window: mainframe
 
 windows:
   - editor: vi
-  - console: bundle exec rails c
+  - console: bin/rails c
   - logs: tail -f log/*.log
   - rabbit: rabbitmq-server
   # - redis: redis-server /usr/local/etc/redis.conf
