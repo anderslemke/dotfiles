@@ -29,16 +29,16 @@ Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround'
 Plug 'vim-scripts/L9'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sickill/vim-pasta'
 Plug 'thoughtbot/vim-rspec'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-ragtag'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'evanmiller/nginx-vim-syntax'
@@ -50,10 +50,9 @@ Plug 'mattn/webapi-vim'
 
 call plug#end()
 
-:set colorcolumn=80
-
 syntax enable
 filetype plugin indent on
+set breakindent
 
 if 1
   let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
@@ -74,7 +73,7 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#whitespace#enabled=0
 
-let g:rails_path_additions=['app/domain', 'spec/cassettes']
+let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
@@ -163,6 +162,9 @@ nnoremap <C-l> <C-W><C-L>
 :nmap j gj
 :nmap k gk
 
+" To make Vim break lines nicely
+:set linebreak
+
 " Unimpaired new bindings
 nmap ( [
 nmap ) ]
@@ -177,6 +179,10 @@ nmap <leader>p <c-^>
 nmap <c-f> :Ack! 
 " Too bad you can't map <C-7>
 
+" Go to cassette
+nmap gc :e spec/cassettes/<cfile>.yml<CR>
+nmap gdc :! rm spec/cassettes/<cfile>.yml<CR>
+
 " Pane splitting
 nnoremap <Leader>h :sp<CR>
 nnoremap <Leader>s :vsp<CR>
@@ -189,7 +195,8 @@ set path+=$PWD/src
 set path+=$PWD/app
 set path+=$PWD/src/redux
 set path+=$PWD/spec/cassettes
-set suffixesadd=.yml
+
+set suffixesadd+=.yml
 
 " Stuff to ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -287,6 +294,9 @@ let g:rspec_command = "Dispatch bin/rspec {spec}"
 " vim-dispatch
 map <Leader>d :Dispatch<CR>
 
+" build mmd
+map <Leader>m :Dispatch %:h/../bin/build %<CR>
+
 " Use ctrl + s to save
 noremap <C-S> :wa<CR>
 vnoremap <C-S> <C-C>:wa<CR><Esc>
@@ -294,6 +304,7 @@ inoremap <C-S> <C-O>:wa<CR><Esc>
 
 " Use ctrl + q to close
 noremap <silent> <C-Q> :q<CR>
+noremap <silent> <C-A> :qa<CR>
 
 " JSX
 let g:jsx_ext_required = 0 " Do not require .jsx
@@ -307,3 +318,28 @@ map <Leader>a :Dispatch adb shell input keyevent 82<CR>
 " use ,cc to copy the current visual selection that was yanked
 nnoremap <leader>co :call system('pbcopy', @0)<CR>
 vnoremap <leader>co y:call system('pbcopy', @0)<CR>
+
+let $BASH_ENV="~/dotfiles/.bash_aliases"
+
+function! SaveSess()
+  :call system('mkdir ' . getcwd() . '/.vim')
+  execute 'mksession! ' . getcwd() . '/.vim/.session'
+endfunction
+
+function! RestoreSess()
+  if filereadable(getcwd() . '/.vim/.session')
+    execute 'so ' . getcwd() . '/.vim/.session'
+    if bufexists(1)
+      for l in range(1, bufnr('$'))
+        if bufwinnr(l) == -1
+          exec 'sbuffer ' . l
+        endif
+      endfor
+    endif
+  endif
+endfunction
+
+map <Leader><Leader>s :call SaveSess()<CR>
+map <Leader><Leader>l :call RestoreSess()<CR>
+
+set sessionoptions-=options  " Don't save options

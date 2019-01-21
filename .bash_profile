@@ -1,11 +1,14 @@
 # Make sure this file is sourced in ~/.bash_profile
 # source ~/dotfiles/.bash_profile
+source ~/dotfiles/.bash_aliases
 PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
 PATH=$PATH:/usr/local/sbin # Add brew rabbit
 
 # Set ulimit such that I can run tests without garbage collection
 ulimit -n 4096
+
+alias mmdc="/Users/anders/Projects/zetland/mobilepay/node_modules/.bin/mmdc"
 
 export EDITOR='vim'
 source ~/dotfiles/bin/tmuxinator.bash
@@ -25,31 +28,32 @@ alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
 
-alias trr="time (be rspec && be rubocop -l)"
+alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc; bin/rails c"'
+
+alias trr="time (be rspec)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
 alias be="bundle exec"
-alias brake="be rake"
-alias srake="spring rake"
-alias gg="git grep"
-alias t="p;cd weight-loss;vi anders.csv"
 
 alias b="p; cd bryllup"
 
 alias redsites="open https://zetland.pagerduty.com/incidents; open https://dashboard.heroku.com/apps/zetland-api-production/metrics/web; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/e4b19771-9823-49e6-8b95-8587d0c01852; open https://addons-sso.heroku.com/apps/zetland-api-production/addons/70332e32-6146-4a7f-80e5-254805e2d311;"
 
+alias life="cd ~/life; vi"
+
 # Zetland aliases
 alias z="p; cd zetland"
 alias mainframe="z; cd mainframe"
-alias frontend="z; cd frontend"
+alias frontend="z; cd frontend;nvm use"
 alias m="mainframe"
 alias f="frontend"
-alias lyd="z; cd lyd-react-native"
+alias lyd="z; cd lyd-react-native; nvm use"
 alias caf="z; cd caf_receiver"
 
 alias shake_android="adb shell input keyevent 82"
+alias open_android="adb shell am start -d"
 
 # Bash mods
 export HISTCONTROL=erasedups
