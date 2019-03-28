@@ -8,7 +8,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'chase/vim-ansible-yaml'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elzr/vim-json'
-Plug 'evanmiller/nginx-vim-syntax'
 Plug 'ianks/vim-tsx'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
@@ -43,6 +42,10 @@ Plug 'vim-ruby/vim-ruby'
 
 call plug#end()
 
+" An attempt to fix vim-rails slowness. Pr.
+" https://github.com/tpope/vim-rails/issues/401#issuecomment-423247894
+set regexpengine=1
+
 " Enable syntax hightlighting
 syntax enable
 filetype plugin indent on
@@ -54,8 +57,9 @@ if 1
     let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg)$'
   let g:ctrlp_show_hidden = 1
+  let g:ctrlp_max_files=0
 endif
 
 ab descrive describe
