@@ -31,6 +31,5 @@ windows:
   - editor: vi
   - console: bin/rails c
   - logs: tail -f log/*.log
-  - rabbit: rabbitmq-server
-  # - redis: redis-server /usr/local/etc/redis.conf
-  - heroku_local: heroku local web=1,high_througput_worker=1,critical_workers_high=1,non_critical_workers=1,critical_workers_low=1,external_systems_workers=1,long_running_workers=1
+  - web: heroku local web=1
+  - workers: heroku local high=1,low=1,external_high=1,external_low=1,parallel=2,long_running=1

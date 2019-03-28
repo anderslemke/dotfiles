@@ -30,7 +30,7 @@ alias l='ls $LS_OPTIONS -lA'
 
 alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc; bin/rails c"'
 
-alias trr="time (be rspec)"
+alias trr="time (rake parallel:spec)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"

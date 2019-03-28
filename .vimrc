@@ -3,53 +3,47 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'jeroenbourgois/vim-actionscript'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mileszs/ack.vim'
-Plug 'chase/vim-ansible-yaml'
-Plug 'elzr/vim-json'
-" Plug 'groenewege/vim-less'
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-" Plug 'tpope/vim-vividchalk'
-" Plug 'nanotech/jellybeans.vim'
-Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'itchyny/lightline.vim'
+Plug 'chase/vim-ansible-yaml'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'elzr/vim-json'
+Plug 'evanmiller/nginx-vim-syntax'
+Plug 'ianks/vim-tsx'
+Plug 'junegunn/vim-easy-align'
+Plug 'kchmck/vim-coffee-script'
+Plug 'keith/rspec.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'mattn/gist-vim'
-Plug 'Shougo/neomru.vim'
+Plug 'mattn/webapi-vim'
+Plug 'mileszs/ack.vim'
+Plug 'morhetz/gruvbox'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'reasonml-editor/vim-reason-plus'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Shougo/unite.vim'
-Plug 'bling/vim-airline'
+Plug 'sickill/vim-pasta'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thoughtbot/vim-rspec'
+Plug 'toyamarinyon/vim-swift'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-fireplace'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-dotenv'
-Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/L9'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'sickill/vim-pasta'
-Plug 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-ragtag'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'evanmiller/nginx-vim-syntax'
-Plug 'vim-scripts/closetag.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'keith/rspec.vim'
-Plug 'toyamarinyon/vim-swift'
-Plug 'mattn/webapi-vim'
 
 call plug#end()
 
+" Enable syntax hightlighting
 syntax enable
 filetype plugin indent on
 set breakindent
@@ -61,17 +55,24 @@ if 1
   endif
 
   let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg)$'
+  let g:ctrlp_show_hidden = 1
 endif
 
 ab descrive describe
 ab bb byebug
 ab scsv describe "exporting CSV" do<CR>subject { handler.to_csv(user_id: user_id) }<CR>it { is_expected.to include "foo" }<CR>end<esc>2k
 
-nmap ; :CtrlPBuffer<CR>
-
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#whitespace#enabled=0
+" Lightline config
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain']
 
@@ -90,7 +91,6 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 let mapleader=','
-let g:ragtag_global_maps=1
 
 " Gist stuff
 let g:gist_post_private = 1
@@ -103,11 +103,11 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-set backupcopy=yes
+set backupcopy=auto
 
 set softtabstop=2 shiftwidth=2 expandtab
 set tabstop=2
-set scrolloff=3
+set scrolloff=10
 
 " Search stuff
 set ignorecase
@@ -117,10 +117,14 @@ set hlsearch " highlight results
 nmap <leader><cr> :nohl<cr>
 
 set pastetoggle=<F2>
-set number
+set number " line numbers
+
+" Show invisible chars
 set listchars=nbsp:¬,tab:»·,trail:· " invisible chars
 set list
-set backspace=indent,eol,start " Allow backspace to delete everything
+
+" Allow backspace to delete everything
+set backspace=indent,eol,start
 
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
@@ -130,27 +134,22 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+" auto indent
 set ai
-set foldmethod=manual
-set foldlevelstart=99
+
+" Folding
 map <leader>1 :set foldmethod=syntax foldlevel=1<CR>
 map <leader>2 :set foldmethod=syntax foldlevel=2<CR>
 map <leader>3 :set foldmethod=syntax foldlevel=3<CR>
 map <leader>4 :set foldmethod=syntax foldlevel=4<CR>
-map <leader>5 :set foldlevel=5<CR>
-map <leader>6 :set foldlevel=6<CR>
-map <leader>7 :set foldlevel=7<CR>
-map <leader>8 :set foldlevel=8<CR>
-map <leader>9 :set foldlevel=9<CR>
-map <leader>0 :set foldlevel=99<CR>
+map <leader>5 :set foldmethod=syntax foldlevel=5<CR>
+map <leader>6 :set foldmethod=syntax foldlevel=6<CR>
+map <leader>7 :set foldmethod=syntax foldlevel=7<CR>
+map <leader>8 :set foldmethod=syntax foldlevel=8<CR>
+map <leader>9 :set foldmethod=syntax foldlevel=9<CR>
+map <leader>0 :set foldmethod=syntax foldlevel=99<CR>
 nmap <space> :set foldmethod=syntax<CR>za
 nmap <leader><space> :set foldmethod=manual foldlevel=99<CR>
-
-" Recommended Syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-nmap <Leader>e :Errors<CR>
 
 " Pane navigation
 nnoremap <C-h> <C-W><C-H>
@@ -159,11 +158,11 @@ nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 
 " Move up/down wrapped lines
-:nmap j gj
-:nmap k gk
+nmap j gj
+nmap k gk
 
 " To make Vim break lines nicely
-:set linebreak
+set linebreak
 
 " Unimpaired new bindings
 nmap ( [
@@ -177,7 +176,6 @@ xmap ) ]
 nmap <leader>p <c-^>
 
 nmap <c-f> :Ack! 
-" Too bad you can't map <C-7>
 
 " Go to cassette
 nmap gc :e spec/cassettes/<cfile>.yml<CR>
@@ -188,8 +186,7 @@ nnoremap <Leader>h :sp<CR>
 nnoremap <Leader>s :vsp<CR>
 nnoremap <Leader>v :vsp<CR>
 
-nnoremap <Leader>r :Unite -buffer-name=recent -winheight=10 file_mru<cr>
-nnoremap <Leader>b :Unite -buffer-name=buffers -winheight=10 buffer<cr>
+nnoremap <Leader>r :CtrlPMRU<cr>
 
 set path+=$PWD/src
 set path+=$PWD/app
