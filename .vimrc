@@ -62,6 +62,11 @@ if 1
   let g:ctrlp_max_files=0
 endif
 
+" To avoid vim hanging when open parens
+" Taken from https://vi.stackexchange.com/questions/5128/matchpairs-makes-vim-slow
+let g:matchparen_timeout = 10
+let g:matchparen_insert_timeout = 10
+
 ab descrive describe
 ab bb byebug
 ab scsv describe "exporting CSV" do<CR>subject { handler.to_csv(user_id: user_id) }<CR>it { is_expected.to include "foo" }<CR>end<esc>2k
@@ -71,7 +76,7 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
@@ -142,6 +147,8 @@ endif
 set ai
 
 " Folding
+set foldmethod=manual
+set foldlevelstart=99
 map <leader>1 :set foldmethod=syntax foldlevel=1<CR>
 map <leader>2 :set foldmethod=syntax foldlevel=2<CR>
 map <leader>3 :set foldmethod=syntax foldlevel=3<CR>
