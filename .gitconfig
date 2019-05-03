@@ -10,6 +10,7 @@
   undo = reset --soft HEAD~1
   merged = branch --merged
   flog = log --graph --color --decorate --patch --
+  l = log --graph --oneline
 [push]
   default = current
 [filter "media"]

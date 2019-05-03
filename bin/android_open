@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "$1" != "" ]]
+then
+    TEXT=$1
+else
+    read -s -p "Enter text you want to insert: " TEXT
+fi
+
+adb shell am start -d '"$TEXT"'

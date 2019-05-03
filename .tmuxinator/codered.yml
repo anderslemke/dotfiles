@@ -51,4 +51,6 @@ windows:
       panes:
         - redsites
         - watch heroku pg:ps -r p
-        - heroku run console -r p
+        - console:
+          - heroku run console -r p
+          - p,e = EventQueue.pop_first_error_event
