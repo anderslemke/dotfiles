@@ -3,6 +3,7 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'burner/vim-svelte'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'chase/vim-ansible-yaml'

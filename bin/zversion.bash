@@ -25,6 +25,6 @@ function zversionalert () {
     else
       v=$w
     fi
-    sleep 5;
+    sleep 1;
   done;
 }
