@@ -28,7 +28,7 @@ alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
 
-alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc; bin/rails c"'
+alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc;ALL_THE_USERS=\"\" bin/rails c"'
 
 alias trr="time (rake parallel:spec)"
 

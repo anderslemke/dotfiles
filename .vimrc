@@ -3,6 +3,8 @@ set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'fatih/vim-go'
+Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'itchyny/lightline.vim'
@@ -125,6 +127,7 @@ set smartcase
 set incsearch
 set hlsearch " highlight results
 nmap <leader><cr> :nohl<cr>
+nmap <leader>n nzz
 
 set pastetoggle=<F2>
 set number " line numbers

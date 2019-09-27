@@ -32,4 +32,4 @@ windows:
   - console: bin/rails c
   - logs: tail -f log/*.log
   - web: heroku local web=1
-  - workers: heroku local high=1,low=1,external_high=1,external_low=1,parallel=2,long_running=1
+  - workers: heroku local high=1,low=1,external_high=1,external_low=1,parallel_high=2,parallel_low=1,long_running=1
