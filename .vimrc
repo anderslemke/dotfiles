@@ -86,7 +86,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain']
+let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
