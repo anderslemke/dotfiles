@@ -14,8 +14,9 @@ Plug 'elzr/vim-json'
 Plug 'ianks/vim-tsx'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
-Plug 'keith/rspec.vim'
+" Plug 'keith/rspec.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'janko/vim-test'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mileszs/ack.vim'
@@ -26,7 +27,7 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sickill/vim-pasta'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'thoughtbot/vim-rspec'
+" Plug 'thoughtbot/vim-rspec'
 Plug 'toyamarinyon/vim-swift'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
@@ -42,6 +43,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
+Plug 'bouk/vim-markdown'
 
 call plug#end()
 
@@ -165,6 +167,8 @@ map <leader>9 :set foldmethod=syntax foldlevel=9<CR>
 map <leader>0 :set foldmethod=syntax foldlevel=99<CR>
 nmap <space> :set foldmethod=syntax<CR>za
 nmap <leader><space> :set foldmethod=manual foldlevel=99<CR>
+
+nmap 1 :!
 
 " Pane navigation
 nnoremap <C-h> <C-W><C-H>
@@ -297,14 +301,24 @@ endfunction
 map gh :call ToggleHandler()<CR>
 
 " vim-rspec
-map <Leader>T :call RunCurrentSpecFile()<CR>
-map <Leader>t :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>A :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch bin/rspec {spec}"
+" map <Leader>T :call RunCurrentSpecFile()<CR>
+" map <Leader>t :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>A :call RunAllSpecs()<CR>
+" let g:rspec_command = "Dispatch bin/rspec {spec}"
+
+" vim-test
+map <Leader>T :TestFile<CR>
+map <Leader>t :TestNearest<CR>
+map <Leader>l :TestLast<CR>
+map <Leader>A :TestSuite<CR>
+" make test commands execute using dispatch.vim
+let test#strategy = "dispatch"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>
+map <Leader>f :Focus bin/rails test %:line(".")<CR>
+map <Leader><Leader>T :Focus bin/rails test<CR>
 
 " build mmd
 map <Leader>m :Dispatch %:h/../bin/build %<CR>
@@ -355,3 +369,62 @@ map <Leader><Leader>s :call SaveSess()<CR>
 map <Leader><Leader>l :call RestoreSess()<CR>
 
 set sessionoptions-=options  " Don't save options
+
+" reload safari
+function! ReloadBrowser()
+  wa
+  Dispatch! osascript ~/dotfiles/bin/reload_safari.applescript
+endfunction
+nnoremap <leader><leader>r :call ReloadBrowser()<CR>
+noremap <C-S><C-D> :call ReloadBrowser()<CR>
+
+" Make RagTag work in markdown
+autocmd FileType markdown call RagtagInit()
+let g:ragtag_global_maps = 1
+
+" Remove red underscore in Markdown
+au BufReadPost,BufNewFile *.md syn match markdownError "\w\@<=\w\@="
+
+
+
+" Zettelkasten START
+" https://github.com/sirupsen/dotfiles/blob/master/home/.vimrc#L480-L517
+function! ZettelkastenSetup()
+  if expand("%:t") !~ '^[0-9]\+'
+    return
+  endif
+  " syn region mkdFootnotes matchgroup=mkdDelimiter start="\[\["    end="\]\]"
+
+  inoremap <expr> <plug>(fzf-complete-path-custom) fzf#vim#complete#path("rg --files -t md \| sed 's/^/[[/g' \| sed 's/$/]]/'")
+  imap <buffer> [[ <plug>(fzf-complete-path-custom)
+
+  function! s:CompleteTagsReducer(lines)
+    if len(a:lines) == 1
+      return "#" . a:lines[0]
+    else
+      return split(a:lines[1], '\t ')[1]
+    end
+  endfunction
+
+  inoremap <expr> <plug>(fzf-complete-tags) fzf#vim#complete(fzf#wrap({
+        \ 'source': 'bash -lc "zk-tags-raw"',
+        \ 'options': '--multi --ansi --nth 2 --print-query --exact --header "Enter without a selection creates new tag"',
+        \ 'reducer': function('<sid>CompleteTagsReducer')
+        \ }))
+  imap <buffer> # <plug>(fzf-complete-tags)
+endfunction
+
+" Don't know why I can't get FZF to return {2}
+function! InsertSecondColumn(line)
+  " execute 'read !echo ' .. split(a:e[0], '\t')[1]
+  exe 'normal! o' .. split(a:line, '\t')[1]
+endfunction
+
+command! ZKR call fzf#run(fzf#wrap({
+        \ 'source': 'ruby ~/.bin/zk-related.rb "' .. bufname("%") .. '"',
+        \ 'options': '--ansi --exact --nth 2',
+        \ 'sink':    function("InsertSecondColumn")
+      \}))
+" Zettelkasten END
+"
+nmap zk :e **/*<c-r>=expand("<cword>")<cr>

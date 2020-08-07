@@ -17,14 +17,14 @@ function zversion () {
 export -f zversion
 function zversionalert () {
   v=$(zversion $1)
+  echo $v
   while [ 0 ]; do
     w=$(zversion $1);
-    echo $w
     if [[ $v != $w ]]; then
-      flash_screen.applescript;
-    else
-      v=$w
+      echo "Deployed $1" | terminal-notifier;
+      echo $w
     fi
+    v=$w
     sleep 1;
   done;
 }

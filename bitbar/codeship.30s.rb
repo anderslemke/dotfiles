@@ -7,7 +7,6 @@ def get_svg(url)
 end
 
 %w{
-create-weekend-discovery-product
 master
 }.each_with_index do |branch, i|
   url = "https://app.codeship.com/projects/1e9ecb80-4c2b-0134-ee52-12485c783879/status?branch=#{branch}"

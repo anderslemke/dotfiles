@@ -29,5 +29,5 @@ pre_window: frontend
 # post: tmux -CC attach -t frontend
 
 windows:
-  - editor: vim
-  - server: PORT=8080 npm run dev
+  - editor: vi
+  - server: yarn run dev

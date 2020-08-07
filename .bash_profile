@@ -30,7 +30,7 @@ alias l='ls $LS_OPTIONS -lA'
 
 alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc;ALL_THE_USERS=\"\" bin/rails c"'
 
-alias trr="time (rake parallel:spec)"
+alias trr="time (bundle exec rake parallel:spec)"
 
 alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
@@ -52,6 +52,8 @@ alias m="mainframe"
 alias f="frontend"
 alias lyd="z; cd lyd-react-native; nvm use"
 alias caf="z; cd caf_receiver"
+
+alias bitbar="cd; cd dotfiles/bitbar;vi"
 
 alias shake_android="adb shell input keyevent 82"
 alias open_android="adb shell am start -d"
@@ -91,3 +93,13 @@ vff() {
 
 # Force terminal not to take control of Ctrl-s
 stty -ixon
+
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
