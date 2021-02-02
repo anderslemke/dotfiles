@@ -1,7 +1,7 @@
-# /Users/anders/.tmuxinator/lyd.yml
+# /Users/anders/.tmuxinator/blog.yml
 
-name: lyd
-root: ~/Projects/lyd-react-native
+name: blog
+root: ~/Projects/blog
 
 # Optional tmux socket
 # socket_name: foo
@@ -10,14 +10,19 @@ root: ~/Projects/lyd-react-native
 # project hooks.
 
 # Project hooks
+
 # Runs on project start, always
 # on_project_start: command
+
 # Run on project start, the first time
 # on_project_first_start: command
+
 # Run on project start, after the first time
 # on_project_restart: command
+
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
+
 # Run on project stop
 # on_project_stop: command
 
@@ -40,5 +45,5 @@ root: ~/Projects/lyd-react-native
 # attach: false
 
 windows:
-  - editor: lyd;vi
-  - build: lyd;yarn run start
+  - editor: vi
+  - server: bundle exec jekyll serve

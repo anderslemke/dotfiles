@@ -30,4 +30,4 @@ pre_window: frontend
 
 windows:
   - editor: vi
-  - server: yarn run dev
+  - server: git pull;yarn run dev

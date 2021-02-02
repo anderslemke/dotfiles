@@ -11,8 +11,10 @@
   merged = branch --merged
   flog = log --graph --color --decorate --patch --
   l = log --graph --oneline
+  hammer = commit --allow-empty -m "🔨"
 [push]
   default = current
+  followTags = true
 [filter "media"]
   required = true
   clean = git media clean %f
@@ -37,7 +39,7 @@
 [github]
   user = anderslemke
 [mergetool]
-	prompt = false
+  prompt = false
 [merge]
-	conflictstyle = diff3
-	tool = vimdiff
+  conflictstyle = diff3
+  tool = vimdiff

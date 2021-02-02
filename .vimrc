@@ -1,8 +1,12 @@
 scriptencoding utf-8
 set encoding=utf-8
 
+highlight ColorColumn ctermbg=gray
+set colorcolumn=80
+
 call plug#begin('~/.vim/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -47,6 +51,8 @@ Plug 'bouk/vim-markdown'
 
 call plug#end()
 
+" au FileType rb,js,tsx,jsx call rainbow#load()
+
 " An attempt to fix vim-rails slowness. Pr.
 " https://github.com/tpope/vim-rails/issues/401#issuecomment-423247894
 set regexpengine=1
@@ -57,12 +63,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir/doc --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg|doc)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -339,7 +345,7 @@ set background=dark
 colorscheme gruvbox
 
 " Android shake, to reload js
-map <Leader>a :Dispatch adb shell input keyevent 82<CR>
+map <Leader>a :Dispatch! adb shell input keyevent 82<CR>
 
 " use ,cc to copy the current visual selection that was yanked
 nnoremap <leader>co :call system('pbcopy', @0)<CR>
@@ -385,46 +391,11 @@ let g:ragtag_global_maps = 1
 " Remove red underscore in Markdown
 au BufReadPost,BufNewFile *.md syn match markdownError "\w\@<=\w\@="
 
+" start spell in Markdown
+autocmd BufRead,BufNewFile *.markdown setlocal spell
 
-
-" Zettelkasten START
-" https://github.com/sirupsen/dotfiles/blob/master/home/.vimrc#L480-L517
-function! ZettelkastenSetup()
-  if expand("%:t") !~ '^[0-9]\+'
-    return
-  endif
-  " syn region mkdFootnotes matchgroup=mkdDelimiter start="\[\["    end="\]\]"
-
-  inoremap <expr> <plug>(fzf-complete-path-custom) fzf#vim#complete#path("rg --files -t md \| sed 's/^/[[/g' \| sed 's/$/]]/'")
-  imap <buffer> [[ <plug>(fzf-complete-path-custom)
-
-  function! s:CompleteTagsReducer(lines)
-    if len(a:lines) == 1
-      return "#" . a:lines[0]
-    else
-      return split(a:lines[1], '\t ')[1]
-    end
-  endfunction
-
-  inoremap <expr> <plug>(fzf-complete-tags) fzf#vim#complete(fzf#wrap({
-        \ 'source': 'bash -lc "zk-tags-raw"',
-        \ 'options': '--multi --ansi --nth 2 --print-query --exact --header "Enter without a selection creates new tag"',
-        \ 'reducer': function('<sid>CompleteTagsReducer')
-        \ }))
-  imap <buffer> # <plug>(fzf-complete-tags)
-endfunction
-
-" Don't know why I can't get FZF to return {2}
-function! InsertSecondColumn(line)
-  " execute 'read !echo ' .. split(a:e[0], '\t')[1]
-  exe 'normal! o' .. split(a:line, '\t')[1]
-endfunction
-
-command! ZKR call fzf#run(fzf#wrap({
-        \ 'source': 'ruby ~/.bin/zk-related.rb "' .. bufname("%") .. '"',
-        \ 'options': '--ansi --exact --nth 2',
-        \ 'sink':    function("InsertSecondColumn")
-      \}))
-" Zettelkasten END
 "
 nmap zk :e **/*<c-r>=expand("<cword>")<cr>
+
+" include coc vimrv
+source ~/dotfiles/.vimrc-coc

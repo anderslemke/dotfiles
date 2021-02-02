@@ -32,4 +32,4 @@ windows:
   - console: bundle exec rails c
   - logs: tail -f log/*.log
   - server: bundle exec rails s
-  - zeus: zeus start
+  - stripe: stripe listen --forward-to localhost:3000/stripe/subscription/webhook
