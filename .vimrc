@@ -6,7 +6,7 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -398,4 +398,4 @@ autocmd BufRead,BufNewFile *.markdown setlocal spell
 nmap zk :e **/*<c-r>=expand("<cword>")<cr>
 
 " include coc vimrv
-source ~/dotfiles/.vimrc-coc
+" source ~/dotfiles/.vimrc-coc
