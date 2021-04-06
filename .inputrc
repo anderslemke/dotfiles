@@ -1,4 +1,5 @@
 set editing-mode vi
+set keyseq-timeout 500
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 

@@ -6,7 +6,7 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -63,12 +63,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir/doc --ignore-dir/docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
   if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg|doc)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg|doc|docs)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -200,7 +200,7 @@ xmap ) ]
 " Open previous file
 nmap <leader>p <c-^>
 
-nmap <c-f> :Ack! 
+nmap <C-f> :Ack! 
 
 " Go to cassette
 nmap gc :e spec/cassettes/<cfile>.yml<CR>
@@ -224,7 +224,7 @@ set suffixesadd+=.yml
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
+set t_Co=256
 endif
 
 " Those annoying standard things
@@ -236,72 +236,72 @@ endif
 :command! Q q
 
 function! InEventHandler()
-  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/event_handlers") != -1
+return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/event_handlers") != -1
 endfunction
 function! InEvent()
-  return match(expand("%"), "events") != -1
+return match(expand("%"), "events") != -1
 endfunction
 function! InReadModel()
-  return match(expand("%"), "app/models") != -1
+return match(expand("%"), "app/models") != -1
 endfunction
 function! InReadModelHandler()
-  return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/read_model_handlers") != -1
+return match(expand("%"), "_handler") != -1 && match(expand("%"), "gdpr/read_model_handlers") != -1
 endfunction
 function! GoToEventHandler()
-  let context=reverse(split(expand("%"), "/"))[2]
-  let filename=reverse(split(expand("%"), "/"))[0]
-  let filename=substitute(filename, '_spec', '', '')
-  let fileWithoutExtention=split(filename, '\.')[0]
-  let filepath=join(['app/domain/zetland/gdpr/event_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
-  let command=join([':e', filepath], ' ')
-  if filereadable(filepath)
-    execute command
-  else
-    execute join(['!bin/rails', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
-    execute command
-  endif
+let context=reverse(split(expand("%"), "/"))[2]
+let filename=reverse(split(expand("%"), "/"))[0]
+let filename=substitute(filename, '_spec', '', '')
+let fileWithoutExtention=split(filename, '\.')[0]
+let filepath=join(['app/domain/zetland/gdpr/event_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+let command=join([':e', filepath], ' ')
+if filereadable(filepath)
+  execute command
+else
+  execute join(['!bin/rails', 'generate', 'domain_event', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+  execute command
+endif
 endfunction
 function! GoToEvent()
-  let context=reverse(split(expand("%"), "/"))[1]
-  let filename = reverse(split(expand("%"), "/"))[0]
-  let file=substitute(filename, '_handler', '', '')
-  let file=substitute(file, '_spec', '', '')
-  let command=join([':e app/domain/zetland', context, 'events', file], '/')
-  execute command
+let context=reverse(split(expand("%"), "/"))[1]
+let filename = reverse(split(expand("%"), "/"))[0]
+let file=substitute(filename, '_handler', '', '')
+let file=substitute(file, '_spec', '', '')
+let command=join([':e app/domain/zetland', context, 'events', file], '/')
+execute command
 endfunction
 function! GoToReadModelHandler()
-  let context=reverse(split(expand("%"), "/"))[1]
-  let filename=reverse(split(expand("%"), "/"))[0]
-  let filename=substitute(filename, '_spec', '', '')
-  let fileWithoutExtention=split(filename, '\.')[0]
-  let filepath=join(['app/domain/zetland/gdpr/read_model_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
-  let command=join([':e', filepath], ' ')
-  if filereadable(filepath)
-    execute command
-  else
-    execute join(['!bin/rails', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
-    execute command
-  endif
+let context=reverse(split(expand("%"), "/"))[1]
+let filename=reverse(split(expand("%"), "/"))[0]
+let filename=substitute(filename, '_spec', '', '')
+let fileWithoutExtention=split(filename, '\.')[0]
+let filepath=join(['app/domain/zetland/gdpr/read_model_handlers', context, join([join([fileWithoutExtention, 'handler'], '_'), 'rb'], '.')], '/')
+let command=join([':e', filepath], ' ')
+if filereadable(filepath)
+  execute command
+else
+  execute join(['!bin/rails', 'generate', 'read_model_handler', join([context, fileWithoutExtention], '/'), '-s'], ' ')
+  execute command
+endif
 endfunction
 function! GoToReadModel()
-  let context=reverse(split(expand("%"), "/"))[1]
-  let filename = reverse(split(expand("%"), "/"))[0]
-  let file=substitute(filename, '_handler', '', '')
-  let file=substitute(file, '_spec', '', '')
-  let command=join([':e app/models/', context, file], '/')
-  let command=substitute(command, 'models//models', 'models', '')
-  execute command
+let context=reverse(split(expand("%"), "/"))[1]
+let filename = reverse(split(expand("%"), "/"))[0]
+let file=substitute(filename, '_handler', '', '')
+let file=substitute(file, '_spec', '', '')
+let command=join([':e app/models/', context, file], '/')
+let command=substitute(command, 'models//models', 'models', '')
+execute command
 endfunction
 function! ToggleHandler()
-  if InEventHandler()
-    call GoToEvent()
-  elseif InEvent()
-    call GoToEventHandler()
-  elseif InReadModel()
-    call GoToReadModelHandler()
-  elseif InReadModelHandler()
-    call GoToReadModel()
-  endif
+if InEventHandler()
+  call GoToEvent()
+elseif InEvent()
+  call GoToEventHandler()
+elseif InReadModel()
+  call GoToReadModelHandler()
+elseif InReadModelHandler()
+  call GoToReadModel()
+endif
 endfunction
 
 map gh :call ToggleHandler()<CR>
@@ -398,4 +398,4 @@ autocmd BufRead,BufNewFile *.markdown setlocal spell
 nmap zk :e **/*<c-r>=expand("<cword>")<cr>
 
 " include coc vimrv
-" source ~/dotfiles/.vimrc-coc
+source ~/dotfiles/.vimrc-coc

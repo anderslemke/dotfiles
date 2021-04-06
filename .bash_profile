@@ -5,6 +5,16 @@ PATH=$PATH:$HOME/dotfiles/bin # Add my own bin to PATH
 
 PATH=$PATH:/usr/local/sbin # Add brew rabbit
 
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+
+# export RBENV_ROOT=/usr/local/var/rbenv
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+export NVM_DIR="$HOME/.nvm"
+. "$HOME/.nvm/nvm.sh"
+
+
 # Set ulimit such that I can run tests without garbage collection
 ulimit -n 4096
 
