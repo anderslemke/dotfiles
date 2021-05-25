@@ -6,7 +6,7 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -323,7 +323,7 @@ let test#strategy = "dispatch"
 
 " vim-dispatch
 map <Leader>d :Dispatch<CR>
-map <Leader>f :Focus bin/rails test %:line(".")<CR>
+map <Leader>f :Focus bin/test %
 map <Leader><Leader>T :Focus bin/rails test<CR>
 
 " build mmd
@@ -398,4 +398,4 @@ autocmd BufRead,BufNewFile *.markdown setlocal spell
 nmap zk :e **/*<c-r>=expand("<cword>")<cr>
 
 " include coc vimrv
-source ~/dotfiles/.vimrc-coc
+" source ~/dotfiles/.vimrc-coc

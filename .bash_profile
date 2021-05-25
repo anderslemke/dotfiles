@@ -33,6 +33,8 @@ alias so="source ~/.bash_profile"
 alias ci="tig status"
 alias ca="git commit -a"
 
+alias myip="curl ifconfig.me | pbcopy; echo 'Your IP is copied to your clipboard'"
+
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
