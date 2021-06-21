@@ -7,6 +7,17 @@ set colorcolumn=80
 call plug#begin('~/.vim/plugged')
 
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -63,12 +74,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=public --ignore-dir=coverage --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|public|ios|android|svg|doc|docs)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg|doc|docs)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -216,6 +227,7 @@ nnoremap <Leader>r :CtrlPMRU<cr>
 set path+=$PWD/src
 set path+=$PWD/app
 set path+=$PWD/src/redux
+set path+=$PWD/state
 set path+=$PWD/spec/cassettes
 
 set suffixesadd+=.yml

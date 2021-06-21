@@ -6,13 +6,13 @@ function zversion () {
   fi
   path=''
   if [[ $subdomain == 'launch' ]]; then
-    path='hello'
+    path='zversion'
   fi
   if [[ $subdomain == 'www' ]]; then
-    path='hello'
+    path='zversion'
   fi
   echo "https://$subdomain.zetland.dk/$path"
-  curl -s https://$subdomain.zetland.dk/$path | grep -Eo "VERSION = \"(.*)\"" | grep -Eo "\"(.*)\"" | cut -d "\"" -f 2
+  curl -s https://$subdomain.zetland.dk/$path | grep -Eo "meta name=\"zetland-version\" content=\"(\w*)\"" | grep -Eo "\"(\w*)\"" | cut -d "\"" -f 2
 }
 export -f zversion
 function zversionalert () {
