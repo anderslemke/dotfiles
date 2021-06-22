@@ -62,6 +62,9 @@ Plug 'bouk/vim-markdown'
 
 call plug#end()
 
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'ruby': ['rubocop']}
+" let g:ale_fixers = ['rubocop']
+
 " au FileType rb,js,tsx,jsx call rainbow#load()
 
 " An attempt to fix vim-rails slowness. Pr.
@@ -133,6 +136,8 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+nmap gd :ALEGoToDefinition<CR>
 
 set backupcopy=auto
 

@@ -29,7 +29,7 @@ alias vi="vim"
 alias vin="vim -u NONE"
 alias mux="tmuxinator"
 
-alias restart_nginx="kill -HUP `cat /var/run/nginx.pid`"
+alias restart_nginx="kill -HUP \`cat /var/run/nginx.pid\`"
 
 alias so="source ~/.bash_profile"
 alias ci="tig status"
