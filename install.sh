@@ -6,6 +6,7 @@ ln -is ~/dotfiles/.ssh/config ~/.ssh/config
 ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
 ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
+ln -is ~/dotfiles/.bashrc ~/.bashrc
 ln -is ~/dotfiles/.tigrc ~/.tigrc
 vi +PlugClean +PlugInstall +PlugUpdate +qall
 ~/dotfiles/platforms/install.rb

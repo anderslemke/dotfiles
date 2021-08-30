@@ -1,6 +1,6 @@
-# ~/.tmuxinator/api.yml
+# ~/.tmuxinator/bilag.yml
 
-name: fak
+name: bilag
 root: ~/
 
 # Optional tmux socket
@@ -10,7 +10,7 @@ root: ~/
 # pre: sudo /etc/rc.d/mysqld start
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: fak
+pre_window: bilag
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -29,7 +29,6 @@ pre_window: fak
 
 windows:
   - editor: vi
-  - console: bundle exec rails c
+  - console: bin/rails c
   - logs: tail -f log/*.log
-  - server: bundle exec rails s
-  - stripe: STRIPE_API_KEY=sk_test_gImMYRiJQvGdbs0EOTlWoyCp stripe listen --forward-to localhost:3000/stripe/subscription/webhook
+  - server: bin/rails s

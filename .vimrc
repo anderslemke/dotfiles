@@ -18,6 +18,7 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+Plug 'othree/html5.vim'
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
 Plug 'burner/vim-svelte'
@@ -41,7 +42,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sickill/vim-pasta'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " Plug 'thoughtbot/vim-rspec'
 Plug 'toyamarinyon/vim-swift'
 Plug 'tpope/vim-abolish'
@@ -62,14 +63,19 @@ Plug 'bouk/vim-markdown'
 
 call plug#end()
 
-let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'ruby': ['rubocop']}
-" let g:ale_fixers = ['rubocop']
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'ruby': ['rubocop'], 'html': ['prettier', 'html-beautify', 'fecs']}
 
 " au FileType rb,js,tsx,jsx call rainbow#load()
 
 " An attempt to fix vim-rails slowness. Pr.
 " https://github.com/tpope/vim-rails/issues/401#issuecomment-423247894
 set regexpengine=1
+
+" https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
+" An attempt to make completion faster
+" set complete-=i
+
+
 
 " Enable syntax hightlighting
 syntax enable
@@ -138,6 +144,9 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 nmap gd :ALEGoToDefinition<CR>
+nmap f== :ALEFix<CR>
+
+autocmd FileType tex let b:dispatch = 'pdflatex %'
 
 set backupcopy=auto
 
@@ -177,17 +186,17 @@ set ai
 " Folding
 set foldmethod=manual
 set foldlevelstart=99
-map <leader>1 :set foldmethod=syntax foldlevel=1<CR>
-map <leader>2 :set foldmethod=syntax foldlevel=2<CR>
-map <leader>3 :set foldmethod=syntax foldlevel=3<CR>
-map <leader>4 :set foldmethod=syntax foldlevel=4<CR>
-map <leader>5 :set foldmethod=syntax foldlevel=5<CR>
-map <leader>6 :set foldmethod=syntax foldlevel=6<CR>
-map <leader>7 :set foldmethod=syntax foldlevel=7<CR>
-map <leader>8 :set foldmethod=syntax foldlevel=8<CR>
-map <leader>9 :set foldmethod=syntax foldlevel=9<CR>
-map <leader>0 :set foldmethod=syntax foldlevel=99<CR>
-nmap <space> :set foldmethod=syntax<CR>za
+map <leader>1 :set foldmethod=syntax foldlevel=1 foldmethod=manual<CR>
+map <leader>2 :set foldmethod=syntax foldlevel=2 foldmethod=manual<CR>
+map <leader>3 :set foldmethod=syntax foldlevel=3 foldmethod=manual<CR>
+map <leader>4 :set foldmethod=syntax foldlevel=4 foldmethod=manual<CR>
+map <leader>5 :set foldmethod=syntax foldlevel=5 foldmethod=manual<CR>
+map <leader>6 :set foldmethod=syntax foldlevel=6 foldmethod=manual<CR>
+map <leader>7 :set foldmethod=syntax foldlevel=7 foldmethod=manual<CR>
+map <leader>8 :set foldmethod=syntax foldlevel=8 foldmethod=manual<CR>
+map <leader>9 :set foldmethod=syntax foldlevel=9 foldmethod=manual<CR>
+map <leader>0 :set foldmethod=syntax foldlevel=99 foldmethod=manual<CR>
+nmap <space> :set foldmethod=syntax<CR>za<CR>:set foldmethod=manual<CR>k
 nmap <leader><space> :set foldmethod=manual foldlevel=99<CR>
 
 nmap 1 :!
@@ -339,7 +348,8 @@ map <Leader>A :TestSuite<CR>
 let test#strategy = "dispatch"
 
 " vim-dispatch
-map <Leader>d :Dispatch<CR>
+map <Leader>d :Dispatch!<CR>
+map <Leader>D :Dispatch<CR>
 map <Leader>f :Focus bin/test %
 map <Leader><Leader>T :Focus bin/rails test<CR>
 

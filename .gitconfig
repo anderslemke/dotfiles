@@ -12,6 +12,7 @@
   flog = log --graph --color --decorate --patch --
   l = log --graph --oneline
   hammer = commit --allow-empty -m "🔨"
+  police = commit -a -m "👮"
 [push]
   default = current
   followTags = true
