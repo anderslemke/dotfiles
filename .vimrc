@@ -18,6 +18,8 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+Plug 'github/copilot.vim'
+Plug 'tomlion/vim-solidity'
 Plug 'othree/html5.vim'
 Plug 'fatih/vim-go'
 Plug 'elixir-editors/vim-elixir'
@@ -83,12 +85,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg|doc|docs)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg|doc|docs|builds)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -372,7 +374,7 @@ set background=dark
 colorscheme gruvbox
 
 " Android shake, to reload js
-map <Leader>a :Dispatch! adb shell input keyevent 82<CR>
+map <Leader><Leader>a :Dispatch! adb shell input keyevent 82<CR>
 
 " use ,cc to copy the current visual selection that was yanked
 nnoremap <leader>co :call system('pbcopy', @0)<CR>

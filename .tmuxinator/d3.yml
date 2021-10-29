@@ -1,7 +1,7 @@
-# /Users/anders/.tmuxinator/blog.yml
+# /Users/anderslemke/.tmuxinator/d3.yml
 
-name: blog
-root: ~/Projects/blog
+name: d3
+root: ~/Projects/d3demo
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,4 +46,4 @@ root: ~/Projects/blog
 
 windows:
   - editor: vi
-  - server: bundle exec jekyll serve --drafts
+  - server: serve 4321

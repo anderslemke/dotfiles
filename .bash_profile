@@ -8,7 +8,7 @@ PATH=$PATH:/usr/local/sbin # Add brew rabbit
 # Set ulimit such that I can run tests without garbage collection
 ulimit -n 4096
 
-export EDITOR='vim'
+export EDITOR='nvim'
 set -o vi
 
 # Bash mods

@@ -8,7 +8,12 @@ ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
 ln -is ~/dotfiles/.bashrc ~/.bashrc
 ln -is ~/dotfiles/.tigrc ~/.tigrc
-vi +PlugClean +PlugInstall +PlugUpdate +qall
+
+mkdir -p ~/.config/nvim
+ln -is ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+ln -is ~/dotfiles/nvim/pack ~/.config/nvim/pack
+
+vim +PlugClean +PlugInstall +PlugUpdate +qall
 ~/dotfiles/platforms/install.rb
 echo '==============================='
 echo 'Make sure to add something like'

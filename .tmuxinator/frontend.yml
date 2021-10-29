@@ -30,5 +30,5 @@ pre_window: frontend
 
 windows:
   - editor: vi
-  - server: git pull;CAMPAIGN_ACTIVE=ambassador2021 yarn run dev
+  - server: git pull;yarn run dev
   - proxy: caddy reverse-proxy --from www.zetland.local:443 --to localhost:3000

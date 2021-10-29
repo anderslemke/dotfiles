@@ -46,3 +46,5 @@
   tool = vimdiff
 [pull]
   rebase = false
+[init]
+	defaultBranch = main

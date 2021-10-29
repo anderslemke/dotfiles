@@ -33,6 +33,8 @@ alias p="cd ~/Projects/"
 alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
 alias bilag="cd ~/Projects/bilag"
+alias o="cd ~/Projects/oasis"
+
 alias be="bundle exec"
 
 alias b="p; cd bryllup"
