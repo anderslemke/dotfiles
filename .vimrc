@@ -18,6 +18,7 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'github/copilot.vim'
 Plug 'tomlion/vim-solidity'
 Plug 'othree/html5.vim'
