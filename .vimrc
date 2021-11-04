@@ -33,7 +33,6 @@ Plug 'elzr/vim-json'
 Plug 'ianks/vim-tsx'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
-" Plug 'keith/rspec.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'janko/vim-test'
 Plug 'mattn/gist-vim'
@@ -46,7 +45,6 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sickill/vim-pasta'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" Plug 'thoughtbot/vim-rspec'
 Plug 'toyamarinyon/vim-swift'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
@@ -86,7 +84,7 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage --ignore=webpack-stats.json"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage"
   if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
   endif

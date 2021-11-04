@@ -10,5 +10,7 @@ brew install chruby
 brew install ruby-install
 brew install nvm
 brew install neovim
-
+brew install gitmoji
+brew install nativefier
+brew uninstall --ignore-dependencies node
 
