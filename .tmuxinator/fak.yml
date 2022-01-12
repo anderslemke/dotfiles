@@ -31,5 +31,6 @@ windows:
   - editor: vi
   - console: bundle exec rails c
   - logs: tail -f log/*.log
+  - tailwind: npm run watch
   - server: bundle exec rails s
   - stripe: STRIPE_API_KEY=sk_test_gImMYRiJQvGdbs0EOTlWoyCp stripe listen --forward-to localhost:3000/stripe/subscription/webhook

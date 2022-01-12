@@ -64,7 +64,11 @@ Plug 'bouk/vim-markdown'
 
 call plug#end()
 
+let g:ale_ruby_rubocop_executable = 'bin/rubocop'
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'ruby': ['rubocop'], 'html': ['prettier', 'html-beautify', 'fecs']}
+let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'ruby': ['rubocop'], 'html': ['prettier', 'html-beautify', 'fecs']}
 
 " au FileType rb,js,tsx,jsx call rainbow#load()
 
@@ -115,7 +119,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model']
+let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model', 'lib/domain', 'vouchers/lib']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
