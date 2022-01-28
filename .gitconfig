@@ -1,6 +1,6 @@
 [user]
-  name = anderslemke
-  email = mail@anderslemke.dk
+  name = Anders Lemke-Holstein
+  email = anders@lemke.dk
 [alias]
   st  = status -sb
   ci  = commit
@@ -11,8 +11,9 @@
   merged = branch --merged
   flog = log --graph --color --decorate --patch --
   l = log --graph --oneline
-  hammer = commit --allow-empty -m "🔨"
-  police = commit -a -m "👮"
+  hammer = commit --allow-empty -m '🔨'
+  police = commit -a -m '👮 A linter made me do this'
+  gdpr = commit -a -m '🗃 GDPR related changes'
 [push]
   default = current
   followTags = true
@@ -47,4 +48,4 @@
 [pull]
   rebase = false
 [init]
-	defaultBranch = main
+  defaultBranch = main

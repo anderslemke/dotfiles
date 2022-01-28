@@ -66,7 +66,6 @@ call plug#end()
 
 let g:ale_ruby_rubocop_executable = 'bin/rubocop'
 let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
 let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'ruby': ['rubocop'], 'html': ['prettier', 'html-beautify', 'fecs']}
 let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'ruby': ['rubocop'], 'html': ['prettier', 'html-beautify', 'fecs']}
 
@@ -119,7 +118,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model', 'lib/domain', 'vouchers/lib']
+let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model', 'lib/domain', 'vouchers/lib', 'billing/lib']
 
 set shm=aoOti
 set laststatus=2 " Always show the statusline
@@ -352,6 +351,9 @@ map <Leader>A :TestSuite<CR>
 " make test commands execute using dispatch.vim
 let test#strategy = "dispatch"
 
+map <Leader>see :let $LET_ME_SEE=1<CR>
+map <Leader>hide :let $LET_ME_SEE=''<CR>
+
 " vim-dispatch
 map <Leader>d :Dispatch!<CR>
 map <Leader>D :Dispatch<CR>
@@ -431,3 +433,26 @@ nmap zk :e **/*<c-r>=expand("<cword>")<cr>
 
 " include coc vimrv
 " source ~/dotfiles/.vimrc-coc
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+    let @/ = ''
+    if exists('#auto_highlight')
+        au! auto_highlight
+        augroup! auto_highlight
+        setl updatetime=4000
+        echo 'Highlight current word: off'
+        return 0
+    else
+        augroup auto_highlight
+            au!
+            au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+        augroup end
+        setl updatetime=100
+        echo 'Highlight current word: ON'
+        return 1
+    endif
+endfunction
