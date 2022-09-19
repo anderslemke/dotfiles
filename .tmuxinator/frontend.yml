@@ -7,7 +7,7 @@ root: ~/
 # socket_name: foo
 
 # Runs before everything. Use it to start daemons etc.
-# pre: sudo /etc/rc.d/mysqld start
+on_project_start: frontend;caddy start;caddy reload
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
@@ -31,4 +31,3 @@ pre_window: frontend
 windows:
   - editor: vi
   - server: git pull;yarn run dev
-  - proxy: caddy reverse-proxy --from www.zetland.local:443 --to localhost:3000
