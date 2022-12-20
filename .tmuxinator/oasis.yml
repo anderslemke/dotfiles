@@ -46,8 +46,6 @@ pre_window: nvm use
 # attach: false
 
 windows:
-  - editor: vi
-  - console: bin/rails c
-  - logs: tail -f log/*.log
-  - server: bin/dev
+  - mainframe-editor: cd mainframe-express;vi
+  - mainframe-server: cd mainframe-express;npm start
 

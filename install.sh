@@ -8,6 +8,7 @@ ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
 ln -is ~/dotfiles/.bashrc ~/.bashrc
 ln -is ~/dotfiles/.tigrc ~/.tigrc
+ln -is ~/dotfiles/.irbrc ~/.irbrc
 
 mkdir -p ~/.config/nvim
 ln -is ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim

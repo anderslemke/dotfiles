@@ -6,56 +6,27 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'dense-analysis/ale'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
 
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-" let g:deoplete#enable_at_startup = 1
-
-" Autcompletion start
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
-" For vsnip users.
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-" Autocompleted end
-
-Plug 'Lokaltog/vim-easymotion'
-Plug 'bouk/vim-markdown'
-Plug 'burner/vim-svelte'
-Plug 'chase/vim-ansible-yaml'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'elixir-editors/vim-elixir'
-Plug 'elzr/vim-json'
-Plug 'fatih/vim-go'
 Plug 'github/copilot.vim'
-" Plug 'itchyny/lightline.vim'
-Plug 'janko/vim-test'
-Plug 'junegunn/vim-easy-align'
-Plug 'leafgarland/typescript-vim'
+
+" Theme
+Plug 'morhetz/gruvbox'
+
+Plug 'vim-test/vim-test'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mileszs/ack.vim'
-Plug 'morhetz/gruvbox'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sickill/vim-pasta'
-Plug 'tomlion/vim-solidity'
-Plug 'toyamarinyon/vim-swift'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-dotenv'
@@ -69,12 +40,33 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-projectionist'
+
+" Syntax
+Plug 'Lokaltog/vim-easymotion'
+Plug 'bouk/vim-markdown'
+Plug 'burner/vim-svelte'
+Plug 'chase/vim-ansible-yaml'
+Plug 'elixir-editors/vim-elixir'
+Plug 'elzr/vim-json'
+Plug 'fatih/vim-go'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'tomlion/vim-solidity'
+Plug 'toyamarinyon/vim-swift'
 Plug 'vim-ruby/vim-ruby'
-Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 
-" An attempt to fix vim-rails slowness. Pr.
+" Copilot setup
+imap <silent><script><expr> <C-h> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+let g:copilot_assume_mapped = v:true
+let g:copilot_tab_fallback = ""
+
+" An attempt to fix vim-rails slowness. Pr
 " https://github.com/tpope/vim-rails/issues/401#issuecomment-423247894
 set regexpengine=1
 
@@ -106,18 +98,6 @@ let g:matchparen_insert_timeout = 10
 ab descrive describe
 ab bb byebug
 ab scsv describe "exporting CSV" do<CR>subject { handler.to_csv(user_id: user_id) }<CR>it { is_expected.to include "foo" }<CR>end<esc>2k
-
-" Lightline config
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
 
 let g:rails_path_additions=['domain_model', 'app/domain', 'spec/cassettes', 'spec/domain', 'spec/domain_model', 'lib/domain', 'vouchers/lib', 'billing/lib', 'global/lib']
 
@@ -163,6 +143,9 @@ set incsearch
 set hlsearch " highlight results
 nmap <leader><cr> :nohl<cr>
 nmap <leader>n nzz
+
+" Create all directories needed for file to be saved
+nnoremap <Leader>mkdir :call mkdir(expand("%:p:h"), "p")<CR>
 
 set pastetoggle=<F2>
 set number " line numbers
@@ -476,102 +459,6 @@ endfunction
 
 set completeopt=menu,menuone,noselect
 
-lua <<EOF
-  -- Setup nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-
-  local on_attach = function(client, bufnr)
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { noremap=true, silent=true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  end
-
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  local servers = { 'tsserver', 'tailwindcss', 'solargraph', 'sorbet' }
-  for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      flags = {
-        -- This will be the default in neovim 0.7+
-        debounce_text_changes = 150,
-        }
-      }
-  end
-
-EOF
+source ~/dotfiles/.vimrc-cmp
+" source ~/dotfiles/.vimrc-lsp
+source ~/dotfiles/.vimrc-mason
