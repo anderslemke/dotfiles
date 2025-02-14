@@ -1,7 +1,7 @@
 # ~/.tmuxinator/api.yml
 
-name: pdf
-root: ~/Projects/oasis/pdf
+name: fak
+root: ~/
 
 # Optional tmux socket
 # socket_name: foo
@@ -10,6 +10,7 @@ root: ~/Projects/oasis/pdf
 # pre: sudo /etc/rc.d/mysqld start
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: fak
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -27,7 +28,5 @@ root: ~/Projects/oasis/pdf
 # post: tmux -CC attach -t zetland
 
 windows:
-  - editor: vi
-  - console: bundle exec rails c
-  - logs: tail -f log/*.log
-  - server: bundle exec rails s -p 5000
+  - ruby:
+  - console: hc -r p

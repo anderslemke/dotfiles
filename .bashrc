@@ -11,8 +11,16 @@ source ~/dotfiles/bin/version.bash
 alias vi="vim"
 alias vin="vim -u NONE"
 alias mux="tmuxinator"
+alias icloud="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs"
 
 alias restart_nginx="kill -HUP \`cat /var/run/nginx.pid\`"
+
+alias remote_submit="cd ~/Projects/oasis/oase-app/apps/expo; eas build:version:set -p ios && eas update --auto && eas build --platform ios --non-interactive --auto-submit"
+alias submit="cd ~/Projects/oasis/oase-app/apps/expo; eas build:version:set -p ios && eas build --platform ios --local --non-interactive --output ./production.ipa && eas submit -p ios --non-interactive --path=./production.ipa"
+alias preview="cd ~/Projects/oasis/oase-app/apps/expo; eas build --platform ios --local --profile preview --non-interactive --output ./preview.ipa && open ."
+alias set_version="cd ~/Projects/oasis/oase-app/apps/expo; eas build:version:set -p"
+alias submit_android="cd ~/Projects/oasis/oase-app/apps/expo; eas build:version:set -p android && eas build --platform android --local --non-interactive --output ./production.aab && eas submit -p android --non-interactive --path=./production.aab"
+alias build_android="cd ~/Projects/oasis/oase-app/apps/expo; eas build:version:set -p android && eas build --platform android --non-interactive && open https://play.google.com/console/u/0/developers/5024103918893709537/app/4975730837800482341/bundle-explorer-selector"
 
 alias so="source ~/.bash_profile"
 alias ci="tig status"
@@ -25,7 +33,7 @@ alias ll='ls $LS_OPTIONS -l'
 alias lal='ls $LS_OPTIONS -al'
 alias l='ls $LS_OPTIONS -lA'
 
-alias hc='heroku run bash -ic "wget https://raw.github.com/anderslemke/dotfiles/master/.inputrc;ALL_THE_USERS=\"\" bin/rails c"'
+alias hc='heroku console'
 
 alias trr="time (bundle exec rake parallel:spec)"
 
@@ -34,6 +42,9 @@ alias contact="cd ~/Projects/contact"
 alias fak="cd ~/Projects/fak"
 alias bilag="cd ~/Projects/bilag"
 alias o="cd ~/Projects/oasis"
+alias api="cd ~/Projects/oasis/mainframe"
+alias app="cd ~/Projects/oasis/oase-app"
+alias kms="cd ~/Projects/oasis/kms"
 
 alias be="bundle exec"
 
@@ -45,13 +56,7 @@ alias redsites="open https://zetland.pagerduty.com/incidents; open https://dashb
 alias life="cd ~/life; vi"
 
 # Zetland aliases
-alias z="p; cd zetland"
-alias mainframe="z; cd mainframe"
-alias frontend="z; cd frontend;nvm use"
-alias m="mainframe"
-alias f="frontend"
-alias lyd="z; cd lyd-react-native; nvm use"
-alias caf="z; cd caf_receiver"
+alias m="api"
 
 alias bitbar="cd; cd dotfiles/bitbar;vi"
 

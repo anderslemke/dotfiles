@@ -6,6 +6,9 @@ set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'jxnblk/vim-mdx-js'
+
+Plug 'chrisbra/Colorizer'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -17,8 +20,17 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'github/copilot.vim'
 
+" Trouble
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+
 " Theme
 Plug 'morhetz/gruvbox'
+
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
+Plug 'nvim-lua/plenary.nvim'
 
 Plug 'vim-test/vim-test'
 Plug 'mattn/gist-vim'
@@ -47,7 +59,18 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'bouk/vim-markdown'
 Plug 'burner/vim-svelte'
 Plug 'chase/vim-ansible-yaml'
-Plug 'elixir-editors/vim-elixir'
+
+" Elixir
+Plug 'elixir-editors/vim-elixir' " Syntax, indentation, vim-dadbod support
+" Plug 'mhanberg/elixir.nvim' " Elixir LS, :Mix, vim-projectionist support
+" Plug 'mfussenegger/nvim-dap' " debugger
+Plug 'c-brenn/fuzzy-projectionist.vim'
+Plug 'andyl/vim-projectionist-elixir' " To get :A working
+
+" Kotlin
+Plug 'udalov/kotlin-vim'
+
+Plug 'avdgaag/vim-phoenix'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'leafgarland/typescript-vim'
@@ -80,12 +103,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=deps --ignore-dir=_build --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=_build --ignore-dir=deps --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|ios|android|svg|doc|docs|builds)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|_build|deps|ios|android|svg|doc|docs|builds|.elixir_ls)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -341,8 +364,8 @@ map <Leader>see :let $LET_ME_SEE=1<CR>
 map <Leader>hide :let $LET_ME_SEE=''<CR>
 
 " vim-dispatch
-map <Leader>d :Dispatch!<CR>
-map <Leader>D :Dispatch<CR>
+map <Leader>d :Dispatch<CR>
+map <Leader>D :Dispatch!<CR>
 map <Leader>f :Focus bin/test %
 map <Leader><Leader>T :Focus bin/rails test<CR>
 
@@ -366,6 +389,8 @@ colorscheme gruvbox
 
 " Android shake, to reload js
 map <Leader><Leader>a :Dispatch! adb shell input keyevent 82<CR>
+map <Leader><Leader>o :Dispatch! npx uri-scheme open "https://oase.app/oase/test" --ios<CR>
+map <Leader><Leader>h :Dispatch! npx uri-scheme open "https://oase.app/" --ios<CR>
 
 " use ,cc to copy the current visual selection that was yanked
 nnoremap <leader>co :call system('pbcopy', @0)<CR>
@@ -460,5 +485,9 @@ endfunction
 set completeopt=menu,menuone,noselect
 
 source ~/dotfiles/.vimrc-cmp
-" source ~/dotfiles/.vimrc-lsp
 source ~/dotfiles/.vimrc-mason
+source ~/dotfiles/.vimrc-lsp
+source ~/dotfiles/.vimrc-trouble
+" source ~/dotfiles/.vimrc-mhanberg-elixir
+source ~/dotfiles/.vimrc-elixir-ls
+" source ~/dotfiles/.vimrc-dap

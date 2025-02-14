@@ -1,0 +1,27 @@
+lua << EOF
+-- Make sure to install elixir-ls via brew
+local dap = require'dap'
+
+dap.adapters.mix_task = {
+  type = 'executable',
+  command = '/opt/homebrew/bin/elixir-ls', -- debugger.bat for windows
+  args = {}
+}
+
+dap.configurations.elixir = {
+  {
+    type = "mix_task",
+    name = "phx.server",
+    task = 'phx.server',
+    request = "launch",
+    startApps = true, -- for Phoenix projects
+    projectDir = "${workspaceFolder}",
+    requireFiles = {
+      "test/**/test_helper.exs",
+      "test/**/*_test.exs"
+    }
+  },
+}
+
+EOF
+

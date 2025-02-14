@@ -1,0 +1,10 @@
+lua << EOF
+-- Make sure to install elixir-ls via brew
+
+require'lspconfig'.elixirls.setup{
+    -- Unix
+    cmd = { "/opt/homebrew/bin/elixir-ls" };
+}
+
+EOF
+

@@ -1,7 +1,7 @@
-# /Users/anders/.tmuxinator/promise.yml
+# /Users/anderslemke/.tmuxinator/mainframe.yml
 
-name: promise
-root: ~/Projects/promise_authentication
+name: mainframe
+root: ~/
 
 # Optional tmux socket
 # socket_name: foo
@@ -10,19 +10,24 @@ root: ~/Projects/promise_authentication
 # project hooks.
 
 # Project hooks
+
 # Runs on project start, always
 # on_project_start: command
+
 # Run on project start, the first time
 # on_project_first_start: command
+
 # Run on project start, after the first time
 # on_project_restart: command
+
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
+
 # Run on project stop
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: nvm use 10.15.3
+# pre_window: rbenv shell 2.0.0-p247
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -40,10 +45,13 @@ root: ~/Projects/promise_authentication
 # attach: false
 
 windows:
-  - editor: vi
-  - console: bin/rails c
-  - server: bin/dev
-  - logs: tail -f log/*.log
-  - sneakers: WORKERS=Workers::Default,Workers::Parallel bin/rake sneakers:run
-  - key_registry: cd ../promise_key_registry;rails s -p 3001
-  - rabbit: CONF_ENV_FILE="/opt/homebrew/etc/rabbitmq/rabbitmq-env.conf" /opt/homebrew/opt/rabbitmq/sbin/rabbitmq-server --version
+  - editor:
+      layout: main-vertical
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - vim
+        - guard
+  - server: bundle exec rails s
+  - logs: tail -f log/development.log

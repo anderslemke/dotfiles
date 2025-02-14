@@ -1,0 +1,10 @@
+lua << EOF
+local elixir = require("elixir")
+
+-- https://github.com/mhanberg/elixir.nvim
+require("elixir").setup({
+  cmd = "/opt/homebrew/bin/elixir-ls",
+})
+
+EOF
+

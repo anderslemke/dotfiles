@@ -1,8 +1,13 @@
 #! /bin/bash
 
+# function getVersion () {
+#   curl -s $1 | grep -Eo "meta name=\"version\" content=\"(\w*)\"" | grep -Eo "\"(\w*)\"" | tail -n 1 | cut -d "\"" -f 2
+# }
+
 function getVersion () {
-  curl -s $1 | grep -Eo "meta name=\"version\" content=\"(\w*)\"" | grep -Eo "\"(\w*)\"" | tail -n 1 | cut -d "\"" -f 2
+  curl -s $1 | jq -r '.version'
 }
+
 
 export -f getVersion
 
@@ -15,7 +20,7 @@ function version () {
         pipeline=https://dashboard.heroku.com/pipelines/f1d7ffbf-4ba3-461c-aabd-b5a6409c044e
         ;;
       api)
-        url=https://api.zetland.dk/version
+        url=https://api.oase.app
         pipeline=https://dashboard.heroku.com/pipelines/5f00e674-4e60-401a-8d11-1bd0f5f87be1
         ;;
       api-staging)

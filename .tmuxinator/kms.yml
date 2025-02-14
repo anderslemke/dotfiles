@@ -1,7 +1,7 @@
-# /Users/anders/.tmuxinator/oasis.yml
+# /Users/anderslemke/.tmuxinator/kms.yml
 
-name: oasis
-root: ~/Projects/oasis
+name: kms
+root: ~/Projects/oasis/kms
 
 # Optional tmux socket
 # socket_name: foo
@@ -28,7 +28,6 @@ root: ~/Projects/oasis
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
-pre_window: nvm use
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -46,6 +45,6 @@ pre_window: nvm use
 # attach: false
 
 windows:
-  - mainframe-editor: cd mainframe-express;vi
-  - mainframe-server: cd mainframe-express;npm start
-
+  - editor: vim
+  - logs: tail -f log/*.log
+  - server: rails s

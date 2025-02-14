@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Directory containing AVIF files
+dir="${1:-.}"
+
+# Check if mogrify is installed
+if ! command -v mogrify &> /dev/null; then
+    echo "ImageMagick needs to be installed. Please install it and run this script again."
+    exit 1
+fi
+
+# Converting all .avif files in the directory to .jpg
+for file in "$dir"/*.avif; do
+    if [[ -f "$file" ]]; then
+        echo "Converting $file to ${file%.avif}.jpg"
+        mogrify -format jpg "$file"
+        # If you prefer using avifdec and convert:
+        # avifdec "$file" "${file%.avif}.png" && convert "${file%.avif}.png" "${file%.avif}.jpg" && rm "${file%.avif}.png"
+    else
+        echo "No .avif files found in the directory."
+    fi
+done
+

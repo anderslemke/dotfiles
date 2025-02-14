@@ -1,16 +1,33 @@
-# ~/.tmuxinator/api.yml
+# /Users/anderslemke/.tmuxinator/api.yml
 
 name: api
-root: ~/
+root: ~/Projects/oasis/mainframe
 
 # Optional tmux socket
 # socket_name: foo
 
-# Runs before everything. Use it to start daemons etc.
-# pre: sudo /etc/rc.d/mysqld start
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: command
+
+# Run on project start, the first time
+# on_project_first_start: command
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: mainframe
+# pre_window: rbenv shell 2.0.0-p247
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -19,17 +36,16 @@ pre_window: mainframe
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: logs
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
-# Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t zetland
-
 windows:
-  - editor: vi
-  - console: bin/rails c
-  - logs: tail -f log/*.log
-  - web: heroku local web=1
-  - workers: heroku local high=1,low=1,external_high=1,external_low=1,parallel_high=2,parallel_low=1,long_running=1
+  - editor: vim
+  - server: iex -S mix phx.server
+  - kms: cd ~/Projects/oasis/kms;rails s -p 3002 -b 192.168.50.185
+  - stripe: STRIPE_API_KEY=sk_test_51OWzUbI7zIbmBiPi2si37gEhKlp8JOH8n8kvpXZqnQablKEMSsscfl1BvNCiErQtTDh3u6wHUvJaCtJx6A3kf41n00cTkYTxhj stripe listen --forward-to 192.168.50.185:4000/webhooks/stripe/events
