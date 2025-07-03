@@ -1,7 +1,7 @@
-# /Users/anderslemke/.tmuxinator/api.yml
+# /Users/anders/.tmuxinator/promise.yml
 
-name: api
-root: ~/Projects/oasis/mainframe
+name: promise-kms
+root: ~/Projects/promise_key_registry
 
 # Optional tmux socket
 # socket_name: foo
@@ -10,24 +10,19 @@ root: ~/Projects/oasis/mainframe
 # project hooks.
 
 # Project hooks
-
 # Runs on project start, always
 # on_project_start: command
-
 # Run on project start, the first time
 # on_project_first_start: command
-
 # Run on project start, after the first time
 # on_project_restart: command
-
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
-
 # Run on project stop
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
+# pre_window: nvm use 10.15.3
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -45,7 +40,5 @@ root: ~/Projects/oasis/mainframe
 # attach: false
 
 windows:
-  - editor: vim
-  - docker: docker network create oase-network; docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d
-  - kms_docker: cd ~/Projects/oasis/kms;docker network create oase-network; docker compose -f docker-compose.dev.yaml up -d
-  - stripe: STRIPE_API_KEY=sk_test_51OWzUbI7zIbmBiPi2si37gEhKlp8JOH8n8kvpXZqnQablKEMSsscfl1BvNCiErQtTDh3u6wHUvJaCtJx6A3kf41n00cTkYTxhj stripe listen --forward-to 192.168.50.185:4000/webhooks/stripe/events
+  - editor: vi
+  - console: docker compose up -d; docker exec -it promise_key_registry-promise_kms-1 /bin/bash -c "bin/rails console"

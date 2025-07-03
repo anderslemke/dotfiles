@@ -41,9 +41,6 @@ root: ~/Projects/promise_authentication
 
 windows:
   - editor: vi
-  - console: bin/rails c
-  - server: bin/dev
+  - console: docker exec -it promise_authentication-web-1 /bin/bash -c "bin/rails console"
   - logs: tail -f log/*.log
-  - sneakers: WORKERS=Workers::Default,Workers::Parallel bin/rake sneakers:run
-  - key_registry: cd ../promise_key_registry;rails s -p 3001
-  - rabbit: CONF_ENV_FILE="/opt/homebrew/etc/rabbitmq/rabbitmq-env.conf" /opt/homebrew/opt/rabbitmq/sbin/rabbitmq-server --version
+  - docker: docker compose up -d

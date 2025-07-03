@@ -39,7 +39,7 @@ def ulid_to_uuid(ulid)
 end
 
 ulid = ARGV[0]
-uuid_result = ulid_to_uuid(ulid)
+uuid_result = ulid_to_uuid(ulid).downcase
 
 # Copy the result to the clipboard
 IO.popen('pbcopy', 'w') { |clipboard| clipboard.write(uuid_result) }

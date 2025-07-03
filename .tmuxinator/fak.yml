@@ -29,8 +29,8 @@ pre_window: fak
 
 windows:
   - editor: vi
-  - console: bundle exec rails c
+  - console: docker exec -it fak-web-1 /bin/bash -c "bin/rails console"
+  - test: docker exec -it fak-web-1 /bin/bash -c "bin/rake"
   - logs: tail -f log/*.log
-  - tailwind: npm run watch
-  - server: bundle exec rails s
+  - docker: docker compose up -d
   - stripe: STRIPE_API_KEY=sk_test_gImMYRiJQvGdbs0EOTlWoyCp stripe listen --forward-to localhost:3000/stripe/subscription/webhook

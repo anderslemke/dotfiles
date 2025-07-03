@@ -7,6 +7,7 @@ set colorcolumn=80
 call plug#begin('~/.vim/plugged')
 
 Plug 'jxnblk/vim-mdx-js'
+Plug 'folke/which-key.nvim'
 
 Plug 'chrisbra/Colorizer'
 Plug 'williamboman/mason.nvim'
@@ -103,12 +104,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=deps --ignore-dir=_build --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=deps --ignore-dir=_build --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage --ignore-dir=.yarn --ignore-dir=.next --ignore-dir=Oase.app"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=_build --ignore-dir=deps --ignore-dir=ios --ignore-dir=android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=_build --ignore-dir=deps --ignore-dir=.next --ignore-dir=Oase.app --ignore-dir=.yarn --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|_build|deps|ios|android|svg|doc|docs|builds|.elixir_ls)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|_build|deps|ios|expo\/android|svg|doc|docs|builds|\.elixir_ls|\.yarn|\.next)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif

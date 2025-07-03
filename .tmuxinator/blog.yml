@@ -1,7 +1,7 @@
 # /Users/anders/.tmuxinator/blog.yml
 
 name: blog
-root: ~/Projects/blog
+root: ~/Projects/oasis/blog
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,4 +46,4 @@ root: ~/Projects/blog
 
 windows:
   - editor: vi
-  - server: bundle exec jekyll serve --drafts
+  - server: npm run dev
