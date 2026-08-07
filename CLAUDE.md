@@ -21,10 +21,12 @@ shell may not be "available" right after creation). If the workspace
 already exists it is focused instead. Not ported: exact tmux layouts,
 `on_project_*` hooks, `startup_window`/`attach`.
 
-Herdr keybindings live in `~/.config/herdr/config.toml` (cmd+ctrl =
-workspaces/tabs, cmd+alt = agents); reload with `herdr server
-reload-config`. Ghostty must pass the raw chords through — see the
-disabled tmux-bridge keybinds in `ghostty/config`.
+Herdr keybindings live in `herdr/config.toml` (symlinked to
+`~/.config/herdr/config.toml`): cmd+ctrl = workspaces/tabs, cmd+alt =
+agents, cmd+ctrl+n = popup recipe picker (`bin/herdr-mux-pick`, fzf).
+Reload with `herdr server reload-config`. Ghostty must pass the raw
+chords through — see the disabled tmux-bridge keybinds in
+`ghostty/config`.
 
 The Oase-table-specific booter is `~/Projects/oasis/dotfiles/scripts/herdr-table`.
 

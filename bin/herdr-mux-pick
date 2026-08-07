@@ -1,0 +1,18 @@
+#!/bin/zsh
+# Fuzzy-pick a tmuxinator recipe and boot it as a herdr workspace via herdr-mux.
+# Bound as a popup custom command in ~/.config/herdr/config.toml (cmd+ctrl+n).
+# Full paths throughout: the popup shell may have a minimal PATH.
+
+setopt null_glob
+recipes=(~/.tmuxinator/*.yml(:t:r))
+if (( ${#recipes} == 0 )); then
+  echo "no recipes in ~/.tmuxinator" >&2
+  exit 1
+fi
+
+recipe=$(print -l "${recipes[@]}" | /opt/homebrew/bin/fzf \
+  --prompt="space ❯ " --reverse \
+  --preview 'sed -n "/^windows:/,\$p" ~/.tmuxinator/{}.yml' \
+  --preview-window=right:55%)
+
+[[ -n "$recipe" ]] && exec "$HOME/dotfiles/bin/herdr-mux" "$recipe"

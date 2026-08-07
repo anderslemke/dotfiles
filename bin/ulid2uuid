@@ -1,0 +1,46 @@
+#!/usr/bin/ruby
+# @tuna.name ULID to UUID
+# @tuna.subtitle Convert a ULID to its UUID representation
+# @tuna.icon symbol:arrow.left.arrow.right
+# @tuna.mode inline
+# @tuna.input arguments
+# @tuna.output text
+#
+# Usage:
+#   ulid2uuid 01JXG65TSM2Q9XKZ4RJ9WV8H5T
+#   echo 01JXG65TSM2Q9XKZ4RJ9WV8H5T | ulid2uuid
+#
+# Prints the UUID to stdout. When run interactively (stdout is a TTY),
+# also copies it to the clipboard.
+
+# Crockford's Base32 alphabet
+ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ".freeze
+
+def ulid_to_uuid(ulid)
+  base32_map = Hash[ALPHABET.chars.each_with_index.to_a]
+
+  base10 = ulid.chars.reverse.each_with_index.reduce(0) do |acc, (char, idx)|
+    acc + base32_map[char] * (32**idx)
+  end
+
+  hex = base10.to_s(16).rjust(32, '0')
+
+  # 8-4-4-4-12
+  [hex[0..7], hex[8..11], hex[12..15], hex[16..19], hex[20..31]].join('-')
+end
+
+input = ARGV[0] || (STDIN.read unless STDIN.tty?)
+ulid = input.to_s.strip.upcase
+
+unless ulid.match?(/\A[#{ALPHABET}]{26}\z/)
+  warn "Not a valid ULID: #{ulid.empty? ? '(no input)' : ulid}"
+  exit 1
+end
+
+uuid = ulid_to_uuid(ulid)
+puts uuid
+
+if STDOUT.tty?
+  IO.popen('pbcopy', 'w') { |clipboard| clipboard.write(uuid) }
+  warn "(copied to clipboard)"
+end

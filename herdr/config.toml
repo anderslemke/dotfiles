@@ -1,0 +1,25 @@
+# herdr configuration — se `herdr --default-config` for alle muligheder.
+
+[keys]
+# hjkl-navigation med cmd+ctrl:
+# j/k = ned/op mellem workspaces, h/l = forrige/næste tab i workspacet.
+next_workspace = "cmd+ctrl+j"
+previous_workspace = "cmd+ctrl+k"
+previous_tab = "cmd+ctrl+h"
+next_tab = "cmd+ctrl+l"
+switch_tab = "cmd+ctrl+1..9"
+
+# cmd+alt+j/k = ned/op mellem agent-panes på tværs af workspaces,
+# cmd+alt+1-9 = hop direkte til agent nr. N.
+next_agent = "cmd+alt+j"
+previous_agent = "cmd+alt+k"
+focus_agent = "cmd+alt+1..9"
+
+# cmd+ctrl+n = nyt space fra en opskrift: fzf-picker over ~/.tmuxinator/*.yml,
+# valget bootes med herdr-mux.
+[[keys.command]]
+key = "cmd+ctrl+n"
+type = "popup"
+command = "/Users/anderslemke/dotfiles/bin/herdr-mux-pick"
+width = "70%"
+height = "70%"
