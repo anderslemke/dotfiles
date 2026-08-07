@@ -45,6 +45,6 @@ root: ~/Projects/oasis/kms
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vim
-  - logs: tail -f log/*.log
-  - server: rails s
+  - console: docker compose exec oase-kms iex -S mix

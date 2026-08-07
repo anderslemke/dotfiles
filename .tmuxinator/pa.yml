@@ -1,7 +1,7 @@
-# /Users/anders/.tmuxinator/blog.yml
+# /Users/anderslemke/.tmuxinator/pa.yml
 
-name: blog
-root: ~/Projects/oasis/blog
+name: pa
+root: ~/Library/Mobile Documents/iCloud~md~obsidian/Documents/lemke
 
 # Optional tmux socket
 # socket_name: foo
@@ -32,7 +32,7 @@ root: ~/Projects/oasis/blog
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
 
-# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# Change the command to call tmux. This can be used by derivatives/wrappers like byobu.
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
@@ -46,5 +46,3 @@ root: ~/Projects/oasis/blog
 
 windows:
   - claude: claude --dangerously-skip-permissions
-  - editor: vi
-  - server: npm run dev

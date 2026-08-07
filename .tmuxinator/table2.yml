@@ -1,0 +1,35 @@
+# /Users/anderslemke/.tmuxinator/table2.yml
+# Mux config for Oase table2 — ports 3020 (Metro) / 4020 (mainframe) / 5420 (postgres) / 3024 (landing).
+# Each window sets its own root so Ctrl-C + arrow-up replays the bare command,
+# not a `cd && cmd` chain that re-cd's into a non-existent subdir.
+# See ~/Projects/oasis/dotfiles/tables.md for the port plan and conventions.
+
+name: table2
+root: ~/Projects/oasis/tables/table2
+
+windows:
+  - claude: claude --dangerously-skip-permissions
+  - mainframe:
+      root: ~/Projects/oasis/tables/table2/mainframe
+      panes:
+        - vim
+  - app:
+      root: ~/Projects/oasis/tables/table2/oase-app
+      panes:
+        - vim
+  - metro:
+      root: ~/Projects/oasis/tables/table2/oase-app
+      panes:
+        - EXPO_PUBLIC_OASE_RUN_APP_IN_SCREENSHOT_MODE_WITH_THIS_MAINFRAME_ROOT=10.0.2.2:4020 yarn start --port 3020
+  - docker:
+      root: ~/Projects/oasis/tables/table2/mainframe
+      panes:
+        - docker compose -f docker-compose.yaml -f docker-compose.dev.yaml -f docker-compose.table.yaml -p oase-table2 up
+  - kms:
+      root: ~/Projects/oasis/tables/table2/kms
+      panes:
+        - docker compose -f docker-compose.yaml -f docker-compose.kms.table.yaml -p oase-table2 up
+  - landing:
+      root: ~/Projects/oasis/tables/table2/landing
+      panes:
+        - npm run dev -- --port 3024

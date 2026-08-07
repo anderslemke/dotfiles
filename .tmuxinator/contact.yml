@@ -20,6 +20,7 @@ pre_window: contact
 # tmux_command: byobu
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor:
       layout: main-vertical
       panes:

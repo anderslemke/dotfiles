@@ -45,6 +45,7 @@ root: /Users/anderslemke/Projects/zetland/zetlanddk.github.io
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: serve
   - tailwind: ./run_tailwind

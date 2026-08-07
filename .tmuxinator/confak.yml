@@ -28,6 +28,7 @@ root: ~/
 # post: tmux -CC attach -t confak
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - server:
     - ssh pro
     - cd /var/www/fak/hurtigfaktura

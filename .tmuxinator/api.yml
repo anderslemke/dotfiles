@@ -45,7 +45,9 @@ root: ~/Projects/oasis/mainframe
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vim
+  - console: docker compose exec oase-mainframe iex -S mix
   - docker: docker network create oase-network; docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d
-  - kms_docker: cd ~/Projects/oasis/kms;docker network create oase-network; docker compose -f docker-compose.dev.yaml up -d
+  - kms_docker: cd ~/Projects/oasis/kms;docker network create oase-network; docker compose -f docker-compose.yaml up -d
   - stripe: STRIPE_API_KEY=sk_test_51OWzUbI7zIbmBiPi2si37gEhKlp8JOH8n8kvpXZqnQablKEMSsscfl1BvNCiErQtTDh3u6wHUvJaCtJx6A3kf41n00cTkYTxhj stripe listen --forward-to 192.168.50.185:4000/webhooks/stripe/events

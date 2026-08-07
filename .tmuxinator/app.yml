@@ -45,6 +45,6 @@ root: ~/Projects/oasis/oase-app
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
-  - server: yarn web
-  - native: yarn native
+  - server: yarn start

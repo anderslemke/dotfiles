@@ -45,5 +45,6 @@ root: ~/Projects/d3demo
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: serve 4321

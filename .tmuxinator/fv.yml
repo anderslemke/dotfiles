@@ -45,5 +45,6 @@ root: ~/Projects/zetland/fv22
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: yarn run dev

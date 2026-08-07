@@ -27,6 +27,7 @@ root: ~/Projects/oasis/pdf
 # post: tmux -CC attach -t zetland
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - console: bundle exec rails c
   - logs: tail -f log/*.log

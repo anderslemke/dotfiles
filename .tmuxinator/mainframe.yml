@@ -45,6 +45,7 @@ root: ~/
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor:
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.

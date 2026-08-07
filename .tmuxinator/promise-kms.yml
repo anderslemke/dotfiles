@@ -40,5 +40,6 @@ root: ~/Projects/promise_key_registry
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - console: docker compose up -d; docker exec -it promise_key_registry-promise_kms-1 /bin/bash -c "bin/rails console"

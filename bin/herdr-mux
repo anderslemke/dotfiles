@@ -1,0 +1,138 @@
+#!/usr/bin/ruby
+# frozen_string_literal: true
+
+# herdr-mux <name-or-path> — boot a herdr workspace from a tmuxinator recipe.
+#
+# Reads ~/.tmuxinator/<name>.yml (or an explicit path) and builds the same
+# layout as a herdr workspace: one tab per tmuxinator window, panes split
+# within the tab, commands run in order. `pre_window` runs first in every
+# pane. Windows whose command launches `claude` are registered as proper
+# herdr agent panes via `herdr agent start`.
+#
+# Not ported: tmux layouts (extra panes are approximated as splits: pane 2
+# splits right, later panes split down), hooks (on_project_*), and
+# startup_window/attach. Requires a running herdr server.
+#
+# If a workspace with the recipe's name already exists it is focused instead.
+
+require "yaml"
+require "json"
+require "open3"
+
+def die(msg)
+  warn "herdr-mux: #{msg}"
+  exit 1
+end
+
+def herdr(*args)
+  out, err, status = Open3.capture3("herdr", *args)
+  payload = JSON.parse(out) rescue nil
+  if !status.success? || (payload && payload["error"])
+    message = payload && payload.dig("error", "message") || err.strip
+    raise "herdr #{args.join(' ')}: #{message}"
+  end
+  payload && payload["result"]
+end
+
+arg = ARGV[0] or die "usage: herdr-mux <name-or-path>"
+path = if File.file?(File.expand_path(arg))
+         File.expand_path(arg)
+       else
+         File.expand_path("~/.tmuxinator/#{arg}.yml")
+       end
+die "no recipe at #{path}" unless File.file?(path)
+
+config = YAML.safe_load(File.read(path)) or die "empty recipe #{path}"
+name = config["name"] || File.basename(path, ".yml")
+root = File.expand_path(config["root"] || "~")
+pre_window = config["pre_window"]
+windows = config["windows"] or die "no windows in #{path}"
+
+existing = herdr("workspace", "list")["workspaces"]
+             .find { |ws| ws["label"] == name }
+if existing
+  herdr("workspace", "focus", existing["workspace_id"])
+  puts "workspace '#{name}' already exists — focused it"
+  exit 0
+end
+
+# Normalize a tmuxinator window entry to { label:, root:, panes: [[cmd, ...], ...] }
+def normalize_window(entry, session_root)
+  label, spec = entry.is_a?(Hash) ? entry.first : [entry.to_s, nil]
+  case spec
+  when nil    then { label: label, root: session_root, panes: [[]] }
+  when String then { label: label, root: session_root, panes: [[spec]] }
+  when Hash
+    wroot = spec["root"] ? File.expand_path(spec["root"]) : session_root
+    panes = (spec["panes"] || [nil]).map do |pane|
+      case pane
+      when nil    then []
+      when String then [pane]
+      when Hash   then Array(pane.values.first).compact # named pane with command list
+      when Array  then pane.compact
+      else die "unsupported pane spec #{pane.inspect} in window #{label}"
+      end
+    end
+    { label: label, root: wroot, panes: panes }
+  else die "unsupported window spec #{spec.inspect} for #{label}"
+  end
+end
+
+CLAUDE_RE = /\A(?:cd\s+(?<cd>.+?)\s*&&\s*)?claude(?:\s+(?<args>.+))?\z/
+
+def start_claude(pane_id, agent_name, args_str)
+  args = args_str ? args_str.split(" ") : []
+  attempts = 0
+  begin
+    attempts += 1
+    herdr("agent", "start", agent_name, "--kind", "claude", "--pane", pane_id, "--", *args)
+  rescue => e
+    # Right after pane creation the shell may not yet be "available" — retry.
+    (sleep 2; retry) if attempts < 5
+    warn "warning: could not start claude in #{pane_id} (#{e.message}) — start it manually"
+  end
+end
+
+ws_id = nil
+tab_labels = []
+
+windows.each_with_index do |entry, i|
+  win = normalize_window(entry, root)
+  tab_labels << win[:label]
+
+  if i.zero?
+    created = herdr("workspace", "create", "--cwd", win[:root], "--label", name, "--focus")
+    ws_id = created["workspace"]["workspace_id"]
+    herdr("tab", "rename", created["tab"]["tab_id"], win[:label])
+    first_pane = created["root_pane"]["pane_id"]
+  else
+    created = herdr("tab", "create", "--workspace", ws_id, "--cwd", win[:root],
+                    "--label", win[:label], "--no-focus")
+    first_pane = created["root_pane"]["pane_id"]
+  end
+
+  # Extra panes: pane 2 splits right, later panes split down (approximation
+  # of tmuxinator layouts, which are not ported 1:1).
+  pane_ids = [first_pane]
+  win[:panes][1..-1].to_a.each_with_index do |_, extra_idx|
+    direction = extra_idx.zero? ? "right" : "down"
+    split = herdr("pane", "split", pane_ids.last, "--direction", direction,
+                  "--cwd", win[:root], "--no-focus")
+    pane_ids << split["pane"]["pane_id"]
+  end
+
+  win[:panes].each_with_index do |commands, pane_idx|
+    pane_id = pane_ids[pane_idx]
+    herdr("pane", "run", pane_id, pre_window) if pre_window
+    commands.each do |cmd|
+      if (m = CLAUDE_RE.match(cmd.strip))
+        herdr("pane", "run", pane_id, "cd #{m[:cd]}") if m[:cd]
+        start_claude(pane_id, "claude-#{name}-#{win[:label]}".tr(" ", "-"), m[:args])
+      else
+        herdr("pane", "run", pane_id, cmd)
+      end
+    end
+  end
+end
+
+puts "workspace '#{name}' ready: #{tab_labels.join(' · ')}"

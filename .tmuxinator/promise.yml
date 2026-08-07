@@ -40,6 +40,7 @@ root: ~/Projects/promise_authentication
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - console: docker exec -it promise_authentication-web-1 /bin/bash -c "bin/rails console"
   - logs: tail -f log/*.log

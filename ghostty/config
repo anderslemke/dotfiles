@@ -1,0 +1,16 @@
+# Match the gruvbox dark scheme used by ~/.tmux.conf and the nvim gruvbox plugin
+theme = Gruvbox Dark
+
+# Nerd Font with icon glyphs for nvim-web-devicons
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 15
+
+# Cmd+Ctrl+H / Cmd+Ctrl+L → previous / next tmux window
+# (matches set -s user-keys in ~/.tmux.conf)
+# Disabled 2026-08-07: herdr binds cmd+ctrl+h/l for tab navigation and needs
+# the raw chords passed through. Re-enable if returning to tmux tab-switching.
+# keybind = cmd+ctrl+h=esc:[1;9D
+# keybind = cmd+ctrl+l=esc:[1;9C
+
+# Don't warn when closing a window with a running process (e.g. tmux)
+confirm-close-surface = false

@@ -40,5 +40,6 @@ root: ~/Projects/ruby
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: ruby app.rb

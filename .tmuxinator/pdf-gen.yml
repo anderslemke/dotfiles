@@ -28,6 +28,7 @@ pre_window: z; cd pdf-generator
 # post: tmux -CC attach -t pdf
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: bundle exec rackup -p 9292 config.ru
   - logs: tail -f log/development.log

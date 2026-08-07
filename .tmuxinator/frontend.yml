@@ -29,5 +29,6 @@ pre_window: frontend
 # post: tmux -CC attach -t frontend
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: git pull;yarn run dev

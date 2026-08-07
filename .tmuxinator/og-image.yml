@@ -45,5 +45,6 @@ pre_window: nvm use
 # attach: false
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - server: vercel dev

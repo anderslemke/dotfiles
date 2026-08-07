@@ -1,0 +1,37 @@
+# /Users/anderslemke/.tmuxinator/table0.yml
+# Mux config for Oase table0 (stable main) — ports 3000 (Metro) / 4000 (mainframe) / 5432 (postgres) / 3004 (landing).
+# Mirrors table1/2/3 layout, but uses the default mainframe URL (no env override)
+# and the default docker compose project name.
+# Each window sets its own root so Ctrl-C + arrow-up replays the bare command,
+# not a `cd && cmd` chain that re-cd's into a non-existent subdir.
+# See ~/Projects/oasis/dotfiles/tables.md for the port plan and conventions.
+
+name: table0
+root: ~/Projects/oasis
+
+windows:
+  - claude: claude --dangerously-skip-permissions
+  - mainframe:
+      root: ~/Projects/oasis/mainframe
+      panes:
+        - vim
+  - app:
+      root: ~/Projects/oasis/oase-app
+      panes:
+        - vim
+  - metro:
+      root: ~/Projects/oasis/oase-app
+      panes:
+        - yarn start --port 3000
+  - docker:
+      root: ~/Projects/oasis/mainframe
+      panes:
+        - docker network create oase-network 2>/dev/null; docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up
+  - kms:
+      root: ~/Projects/oasis/kms
+      panes:
+        - docker network create oase-network 2>/dev/null; docker compose -f docker-compose.yaml up
+  - landing:
+      root: ~/Projects/oasis/landing
+      panes:
+        - npm run dev -- --port 3004

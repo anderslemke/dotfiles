@@ -28,9 +28,10 @@ pre_window: fak
 # post: tmux -CC attach -t zetland
 
 windows:
+  - claude: claude --dangerously-skip-permissions
   - editor: vi
   - console: docker exec -it fak-web-1 /bin/bash -c "bin/rails console"
-  - test: docker exec -it fak-web-1 /bin/bash -c "bin/rake"
+  - test: docker exec fak-test-1 bundle exec rspec
   - logs: tail -f log/*.log
   - docker: docker compose up -d
   - stripe: STRIPE_API_KEY=sk_test_gImMYRiJQvGdbs0EOTlWoyCp stripe listen --forward-to localhost:3000/stripe/subscription/webhook
