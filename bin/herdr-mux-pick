@@ -2,6 +2,9 @@
 # Fuzzy-pick a tmuxinator recipe and boot it as a herdr workspace via herdr-mux.
 # Bound as a popup custom command in ~/.config/herdr/config.toml (cmd+ctrl+n).
 # Full paths throughout: the popup shell may have a minimal PATH.
+#
+# The popup closes as soon as a recipe is picked: the actual boot runs
+# disowned in the background, and failures surface as a herdr notification.
 
 setopt null_glob
 recipes=(~/.tmuxinator/*.yml(:t:r))
@@ -14,5 +17,20 @@ recipe=$(print -l "${recipes[@]}" | /opt/homebrew/bin/fzf \
   --prompt="space ❯ " --reverse \
   --preview 'sed -n "/^windows:/,\$p" ~/.tmuxinator/{}.yml' \
   --preview-window=right:55%)
+[[ -z "$recipe" ]] && exit 0
 
-[[ -n "$recipe" ]] && exec "$HOME/dotfiles/bin/herdr-mux" "$recipe"
+log=$(mktemp -t herdr-mux)
+(
+  if "$HOME/dotfiles/bin/herdr-mux" "$recipe" > "$log" 2>&1; then
+    rm -f "$log"
+  else
+    # Herdr suppresses toasts while the user is typing ("busy") — retry a while.
+    for _ in {1..20}; do
+      shown=$("$HOME/.local/bin/herdr" notification show "herdr-mux: '$recipe' fejlede" \
+        --body "$(tail -c 500 "$log")" --sound request | /usr/bin/jq -r '.result.shown' 2>/dev/null)
+      [[ "$shown" == "true" ]] && break
+      sleep 3
+    done
+  fi
+) &!
+exit 0

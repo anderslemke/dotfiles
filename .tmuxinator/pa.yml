@@ -1,7 +1,10 @@
 # /Users/anderslemke/.tmuxinator/pa.yml
 
 name: pa
-root: ~/Library/Mobile Documents/iCloud~md~obsidian/Documents/lemke
+root: ~/Documents/lemke
+
+# herdr-mux: flere samtidige pa-workspaces er ok (pa, pa-2, ...). Ignoreres af tmuxinator.
+allow_multiple: true
 
 # Optional tmux socket
 # socket_name: foo

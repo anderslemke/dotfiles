@@ -15,6 +15,10 @@ next_agent = "cmd+alt+j"
 previous_agent = "cmd+alt+k"
 focus_agent = "cmd+alt+1..9"
 
+# In-app toasts (default er off) — bruges bl.a. af herdr-mux-pick til fejl.
+[ui.toast]
+delivery = "herdr"
+
 # cmd+ctrl+n = nyt space fra en opskrift: fzf-picker over ~/.tmuxinator/*.yml,
 # valget bootes med herdr-mux.
 [[keys.command]]

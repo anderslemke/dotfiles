@@ -18,7 +18,10 @@ recipe (`~/.tmuxinator/<name>.yml`): one tab per window, extra panes as
 splits, `pre_window` first in every pane, and `claude`-launching windows
 registered as agent panes via `herdr agent start` (with retry — the pane
 shell may not be "available" right after creation). If the workspace
-already exists it is focused instead. Not ported: exact tmux layouts,
+already exists it is focused instead — unless the recipe sets
+`allow_multiple: true` (ignored by tmuxinator), which creates suffixed
+copies (pa, pa-2, ...). Keep port-binding recipes (tables, servers)
+singleton. Not ported: exact tmux layouts,
 `on_project_*` hooks, `startup_window`/`attach`.
 
 Herdr keybindings live in `herdr/config.toml` (symlinked to

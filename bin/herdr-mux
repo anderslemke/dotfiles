@@ -48,12 +48,20 @@ root = File.expand_path(config["root"] || "~")
 pre_window = config["pre_window"]
 windows = config["windows"] or die "no windows in #{path}"
 
-existing = herdr("workspace", "list")["workspaces"]
-             .find { |ws| ws["label"] == name }
-if existing
-  herdr("workspace", "focus", existing["workspace_id"])
+# Singleton by default: an existing workspace is focused, not duplicated
+# (tables bind ports, so a second copy would clash). Recipes that can run
+# in parallel opt in with `allow_multiple: true` in the yml (ignored by
+# tmuxinator) and get suffixed labels: pa, pa-2, pa-3, ...
+labels = herdr("workspace", "list")["workspaces"].map { |ws| [ws["label"], ws["workspace_id"]] }.to_h
+if labels.key?(name) && !config["allow_multiple"]
+  herdr("workspace", "focus", labels[name])
   puts "workspace '#{name}' already exists — focused it"
   exit 0
+end
+if labels.key?(name)
+  n = 2
+  n += 1 while labels.key?("#{name}-#{n}")
+  name = "#{name}-#{n}"
 end
 
 # Normalize a tmuxinator window entry to { label:, root:, panes: [[cmd, ...], ...] }
