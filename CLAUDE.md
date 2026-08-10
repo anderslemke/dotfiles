@@ -26,7 +26,7 @@ singleton. Not ported: exact tmux layouts,
 
 Herdr keybindings live in `herdr/config.toml` (symlinked to
 `~/.config/herdr/config.toml`): ctrl+alt+hjkl = workspaces/tabs,
-cmd+alt = agents, cmd+ctrl+n = popup recipe picker
+cmd+alt = agents, ctrl+alt+n = popup recipe picker
 (`bin/herdr-mux-pick`, fzf), cmd+ctrl+1..9 = switch tab.
 cmd+ctrl+hjkl is reserved for Rectangle (window halves) — Rectangle
 registers global hotkeys, so any chord it owns never reaches
@@ -38,8 +38,9 @@ empty dict for an action does NOT disable its default — Rectangle
 falls back to the registered default; the only reliable override is
 an explicit shortcut. Corner actions are keyed
 topLeft/topRight/bottomLeft/bottomRight (NOT upperLeft/lowerLeft —
-wrong keys are silently ignored). Only the ⌃⌥⌘-arrow display shortcuts and the
-⌃⌥N/⌃⌥B todo-mode keys remain on Rectangle's ctrl+alt side. If a
+wrong keys are silently ignored). The ⌃⌥N/⌃⌥B todo-mode keys are also parked on hyper
+(ctrl+alt+n is the herdr recipe picker); only the ⌃⌥⌘-arrow display
+shortcuts remain on Rectangle's side. If a
 Karabiner hyper key is ever set up, these parked chords will fire —
 rebind them in Rectangle's prefs UI first. Rectangle shortcuts live in
 `defaults com.knollsoft.Rectangle` (per-action dicts of keyCode +

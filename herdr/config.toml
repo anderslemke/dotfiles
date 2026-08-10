@@ -22,10 +22,10 @@ focus_agent = "cmd+alt+1..9"
 [ui.toast]
 delivery = "herdr"
 
-# cmd+ctrl+n = nyt space fra en opskrift: fzf-picker over ~/.tmuxinator/*.yml,
+# ctrl+alt+n = nyt space fra en opskrift: fzf-picker over ~/.tmuxinator/*.yml,
 # valget bootes med herdr-mux.
 [[keys.command]]
-key = "cmd+ctrl+n"
+key = "ctrl+alt+n"
 type = "popup"
 command = "/Users/anderslemke/dotfiles/bin/herdr-mux-pick"
 width = "70%"
