@@ -2,13 +2,14 @@ onboarding = false
 # herdr configuration — se `herdr --default-config` for alle muligheder.
 
 [keys]
-# hjkl-navigation med cmd+ctrl+alt (cmd+ctrl+hjkl er reserveret til Rectangle,
-# som griber dem globalt — Ghostty ser dem aldrig):
+# hjkl-navigation med ctrl+alt (cmd+ctrl+hjkl er reserveret til Rectangle,
+# som griber dem globalt — Ghostty ser dem aldrig; Rectangles default
+# ctrl+alt+j/k-quarters er slået fra i Rectangle for at give plads):
 # j/k = ned/op mellem workspaces, h/l = forrige/næste tab i workspacet.
-next_workspace = "cmd+ctrl+alt+j"
-previous_workspace = "cmd+ctrl+alt+k"
-previous_tab = "cmd+ctrl+alt+h"
-next_tab = "cmd+ctrl+alt+l"
+next_workspace = "ctrl+alt+j"
+previous_workspace = "ctrl+alt+k"
+previous_tab = "ctrl+alt+h"
+next_tab = "ctrl+alt+l"
 switch_tab = "cmd+ctrl+1..9"
 
 # cmd+alt+j/k = ned/op mellem agent-panes på tværs af workspaces,

@@ -25,13 +25,24 @@ singleton. Not ported: exact tmux layouts,
 `on_project_*` hooks, `startup_window`/`attach`.
 
 Herdr keybindings live in `herdr/config.toml` (symlinked to
-`~/.config/herdr/config.toml`): cmd+ctrl+alt+hjkl = workspaces/tabs,
+`~/.config/herdr/config.toml`): ctrl+alt+hjkl = workspaces/tabs,
 cmd+alt = agents, cmd+ctrl+n = popup recipe picker
 (`bin/herdr-mux-pick`, fzf), cmd+ctrl+1..9 = switch tab.
 cmd+ctrl+hjkl is reserved for Rectangle (window halves) — Rectangle
 registers global hotkeys, so any chord it owns never reaches
-Ghostty/herdr. Rectangle shortcuts live in `defaults
-com.knollsoft.Rectangle` (per-action dicts of keyCode +
+Ghostty/herdr. ctrl+alt+hjkl belongs to herdr: ALL of Rectangle's
+plain ctrl+alt defaults (quarters, maximize, thirds, center, restore,
+smaller/larger, …) are parked on explicit hyper chords
+(cmd+ctrl+alt+shift + the action's original key). NB: writing an
+empty dict for an action does NOT disable its default — Rectangle
+falls back to the registered default; the only reliable override is
+an explicit shortcut. Corner actions are keyed
+topLeft/topRight/bottomLeft/bottomRight (NOT upperLeft/lowerLeft —
+wrong keys are silently ignored). Only the ⌃⌥⌘-arrow display shortcuts and the
+⌃⌥N/⌃⌥B todo-mode keys remain on Rectangle's ctrl+alt side. If a
+Karabiner hyper key is ever set up, these parked chords will fire —
+rebind them in Rectangle's prefs UI first. Rectangle shortcuts live in
+`defaults com.knollsoft.Rectangle` (per-action dicts of keyCode +
 NSEvent modifierFlags); Rectangle must be restarted after a
 `defaults write`.
 Reload with `herdr server reload-config`. Ghostty must pass the raw
