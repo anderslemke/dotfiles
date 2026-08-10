@@ -25,8 +25,15 @@ singleton. Not ported: exact tmux layouts,
 `on_project_*` hooks, `startup_window`/`attach`.
 
 Herdr keybindings live in `herdr/config.toml` (symlinked to
-`~/.config/herdr/config.toml`): cmd+ctrl = workspaces/tabs, cmd+alt =
-agents, cmd+ctrl+n = popup recipe picker (`bin/herdr-mux-pick`, fzf).
+`~/.config/herdr/config.toml`): cmd+ctrl+alt+hjkl = workspaces/tabs,
+cmd+alt = agents, cmd+ctrl+n = popup recipe picker
+(`bin/herdr-mux-pick`, fzf), cmd+ctrl+1..9 = switch tab.
+cmd+ctrl+hjkl is reserved for Rectangle (window halves) — Rectangle
+registers global hotkeys, so any chord it owns never reaches
+Ghostty/herdr. Rectangle shortcuts live in `defaults
+com.knollsoft.Rectangle` (per-action dicts of keyCode +
+NSEvent modifierFlags); Rectangle must be restarted after a
+`defaults write`.
 Reload with `herdr server reload-config`. Ghostty must pass the raw
 chords through — see the disabled tmux-bridge keybinds in
 `ghostty/config`.
