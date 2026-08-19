@@ -31,6 +31,9 @@ Plug 'morhetz/gruvbox'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
+" Get local vimrc
+Plug 'thinca/vim-localrc'
+
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'vim-test/vim-test'
@@ -52,7 +55,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
+Plug 'serebrov/vim-vinegar', {'branch': '136-fix-search-in-vinegar-up'}
 Plug 'tpope/vim-projectionist'
 
 " Syntax
@@ -82,6 +86,8 @@ Plug 'tomlion/vim-solidity'
 Plug 'toyamarinyon/vim-swift'
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'sourcegraph/amp.nvim'
+
 call plug#end()
 
 " Copilot setup
@@ -104,12 +110,12 @@ filetype plugin indent on
 set breakindent
 
 if 1
-  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=deps --ignore-dir=_build --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage --ignore-dir=.yarn --ignore-dir=.next --ignore-dir=Oase.app"
+  let g:ack_default_options = " -H --nocolor --nogroup --column --type-add css=.sass,.scss --ignore-dir=node_modules --ignore-dir=deps --ignore-dir=_build --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=app/assets/builds --ignore-dir=log --ignore-dir=coverage --ignore-dir=.yarn --ignore-dir=.next --ignore-dir=Oase.app --ignore-dir=.claude"
   if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=_build --ignore-dir=deps --ignore-dir=.next --ignore-dir=Oase.app --ignore-dir=.yarn --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
+    let g:ackprg = 'ag --vimgrep --ignore-dir=node_modules --ignore-dir=_build --ignore-dir=deps --ignore-dir=.next --ignore-dir=.claude --ignore-dir=Oase.app --ignore-dir=.yarn --ignore-dir=ios --ignore-dir=expo/android --ignore-dir=tmp --ignore-dir=doc --ignore-dir=docs --ignore-dir=vendor --ignore-dir=log --ignore-dir=coverage --ignore-dir=app/assets/builds --ignore=webpack-stats.json'
   endif
 
-  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|_build|deps|ios|expo\/android|svg|doc|docs|builds|\.elixir_ls|\.yarn|\.next)$'
+  let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|_build|deps|ios|expo\/android|svg|doc|docs|builds|\.elixir_ls|\.yarn|\.next|\.claude)$'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_max_files=0
 endif
@@ -351,7 +357,11 @@ map gh :call ToggleHandler()<CR>
 " map <Leader>t :call RunNearestSpec()<CR>
 " map <Leader>l :call RunLastSpec()<CR>
 " map <Leader>A :call RunAllSpecs()<CR>
-" let g:rspec_command = "Dispatch bin/rspec {spec}"
+" let g:rspec_command = "Dispatch docker exec fak-test-1 bundle exec rspec {spec}"
+
+" Enable project-specific .nvimrc/.vimrc files
+set exrc
+set secure
 
 " vim-test
 map <Leader>T :TestFile<CR>

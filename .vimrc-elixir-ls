@@ -1,10 +1,50 @@
 lua << EOF
 -- Make sure to install elixir-ls via brew
 
+-- Get the on_attach function from the main LSP config
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  
+  -- For Elixir files, use mix format instead of LSP formatting
+  if vim.bo.filetype == 'elixir' then
+    vim.keymap.set('n', '<space>f', function() 
+      vim.cmd('silent !mix format %')
+      vim.cmd('edit!')
+    end, bufopts)
+  else
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  end
+end
+
 require'lspconfig'.elixirls.setup{
-    -- Unix
-    cmd = { "/opt/homebrew/bin/elixir-ls" };
+    -- Unix - use the actual language server script
+    cmd = { "/opt/homebrew/opt/elixir-ls/libexec/language_server.sh" },
+    on_attach = on_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    settings = {
+      elixirLS = {
+        -- Turn off dialyzer by default
+        dialyzerEnabled = false,
+        fetchDeps = false
+      }
+    }
 }
 
 EOF
-
