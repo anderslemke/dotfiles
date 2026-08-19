@@ -28,6 +28,5 @@ pre_window: fak
 # post: tmux -CC attach -t zetland
 
 windows:
-  - claude: claude --dangerously-skip-permissions
   - ruby:
   - console: hc -r p
