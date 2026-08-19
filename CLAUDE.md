@@ -38,7 +38,7 @@ singleton. Not ported: exact tmux layouts,
 
 Herdr keybindings live in `herdr/config.toml` (symlinked to
 `~/.config/herdr/config.toml`): ctrl+alt+hjkl = workspaces/tabs,
-cmd+alt = agents, ctrl+alt+n = popup recipe picker
+ctrl+shift+j/k + ctrl+shift+1..9 = agents, ctrl+alt+n = popup recipe picker
 (`bin/herdr-mux-pick`, fzf), cmd+ctrl+1..9 = switch tab.
 cmd+ctrl+hjkl is reserved for Rectangle (window halves) — Rectangle
 registers global hotkeys, so any chord it owns never reaches
@@ -62,7 +62,33 @@ Reload with `herdr server reload-config`. Ghostty must pass the raw
 chords through — see the disabled tmux-bridge keybinds in
 `ghostty/config`.
 
+Naming things in the agents grouped view: agent names default to
+`claude-<workspace-label>-claude`; give an agent a custom display name with
+`herdr agent rename <name-or-pane-id> "<new name>"` (revert with `--clear`),
+or rename the workspace label itself with
+`herdr workspace rename <workspace-id> <label>` (ids/names via
+`herdr agent list` / `herdr workspace list`). The view also shows each
+agent's live terminal title, which Claude Code sets to its current task —
+that already answers "what is this session doing", while a rename gives a
+stable label for what the table itself is for. The title row is enabled via
+`[ui.sidebar.agents] rows` in `herdr/config.toml` (token
+`terminal_title_stripped`; see `herdr --default-config` for all row tokens,
+incl. per-agent overrides under `rows_by_agent`).
+
 The Oase-table-specific booter is `~/Projects/oasis/dotfiles/scripts/herdr-table`.
+
+## Ghostty over SSH: TERM=xterm-ghostty gotcha
+
+Ghostty advertises `TERM=xterm-ghostty`; remote hosts without that terminfo
+entry (e.g. gigalixir containers) degrade — confirmed 2026-08-18: multi-line
+paste into a `gigalixir ps:remote_console` IEx breaks in Ghostty but works in
+iTerm (which sends `xterm-256color`). Fix: `TERM=xterm-256color` before the
+command — there's a `gigalixir` alias for this in `~/.zshrc`. Ghostty's
+`shell-integration-features = ssh-env,ssh-terminfo` does NOT help for CLIs
+that exec the ssh binary directly (gigalixir, fly, gcloud, …) since it's a
+shell-function wrapper; and installing terminfo on ephemeral containers
+doesn't stick. Same-shaped failures elsewhere (any REPL/TUI misbehaving on
+paste only in Ghostty): try `TERM=xterm-256color` first.
 
 ## Tuna script commands
 

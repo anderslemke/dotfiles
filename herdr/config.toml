@@ -12,15 +12,26 @@ previous_tab = "ctrl+alt+h"
 next_tab = "ctrl+alt+l"
 switch_tab = "cmd+ctrl+1..9"
 
-# cmd+alt+j/k = ned/op mellem agent-panes på tværs af workspaces,
-# cmd+alt+1-9 = hop direkte til agent nr. N.
-next_agent = "cmd+alt+j"
-previous_agent = "cmd+alt+k"
-focus_agent = "cmd+alt+1..9"
+# ctrl+shift+j/k = ned/op mellem agent-panes på tværs af workspaces,
+# ctrl+shift+1-9 = hop direkte til agent nr. N.
+# (ctrl+shift er frit: Rectangle bruger cmd+ctrl/hyper på j/k, Karabiner er tom,
+# og hverken Ghostty, tmux eller Claude Code lytter på ctrl+shift+j/k.)
+# NB: alt+shift+j/k er afprøvet (2026-08-12) og når ikke frem til herdr —
+# Ghostty kører uden macos-option-as-alt (med vilje: alt bruges til [ ] { }
+# på dansk layout), så Option komponerer tegn i stedet for at sende alt.
+next_agent = "ctrl+shift+j"
+previous_agent = "ctrl+shift+k"
+focus_agent = "ctrl+shift+1..9"
 
 # In-app toasts (default er off) — bruges bl.a. af herdr-mux-pick til fejl.
 [ui.toast]
 delivery = "herdr"
+
+# Agent-rækker i sidebaren: vis terminal-titlen (Claude Code sætter den til
+# sessionens aktuelle opgave), så man kan se hvad der kører på hvert table.
+# Default var [["state_icon", "workspace", "tab"], ["agent"]].
+[ui.sidebar.agents]
+rows = [["state_icon", "workspace", "tab"], ["terminal_title_stripped"]]
 
 # ctrl+alt+n = nyt space fra en opskrift: fzf-picker over ~/.tmuxinator/*.yml,
 # valget bootes med herdr-mux.
