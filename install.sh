@@ -4,6 +4,9 @@ ln -is ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -is ~/dotfiles/.gitconfig ~/.gitconfig
 ln -is ~/dotfiles/.ssh/config ~/.ssh/config
 ln -Fnis ~/dotfiles/.tmuxinator ~/.tmuxinator
+# XDG path too: tmuxinator prefers ~/.config/tmuxinator if it exists, and
+# `tmuxinator open/new` looks ONLY there — a stray real dir hijacks it.
+ln -Fnis ~/dotfiles/.tmuxinator ~/.config/tmuxinator
 ln -is ~/dotfiles/.editrc ~/.editrc
 ln -is ~/dotfiles/.inputrc ~/.inputrc
 ln -is ~/dotfiles/.bashrc ~/.bashrc

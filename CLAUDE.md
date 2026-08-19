@@ -11,6 +11,18 @@ outside a directory with a `.tool-versions` (there is no global one). Scripts
 that should run from anywhere (e.g. launched by Tuna) must use a fixed
 interpreter like `#!/usr/bin/ruby`.
 
+## tmuxinator configs: one dir, two symlinks
+
+All tmuxinator recipes live in `.tmuxinator/` in this repo. Both lookup paths
+are symlinks to it: `~/.tmuxinator` AND `~/.config/tmuxinator` (XDG). The XDG
+symlink matters: tmuxinator prefers `~/.config/tmuxinator` *if it exists*, and
+`tmuxinator open/new` only looks in that top-priority dir (while `start`/`list`
+search all dirs). Confirmed 2026-08-19: a stray `~/.config/tmuxinator/` real
+dir made `mux open law` generate a fresh template there instead of opening the
+existing recipe. The herdr scripts below read `~/.tmuxinator/` only. Side
+effect of the double symlink: `tmuxinator list` shows every project twice —
+cosmetic. If it recurs, don't hunt for "lost" files: check which dir won.
+
 ## herdr
 
 `bin/herdr-mux <name-or-path>` boots a herdr workspace from a tmuxinator

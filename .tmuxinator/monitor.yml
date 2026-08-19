@@ -1,0 +1,9 @@
+# tmuxinator project: start with `tmuxinator start monitor` (or `mux monitor`)
+name: monitor
+root: /Users/anderslemke/Projects/oasis/monitor
+
+windows:
+  - claude:
+      panes:
+        - claude --dangerously-skip-permissions
+  - shell: # plain shell in the same dir
