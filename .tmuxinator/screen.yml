@@ -45,7 +45,7 @@ root: ~/Projects/oasis/oase-screenshot-backend
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - config: vi src/screenshots.ts
   - capture: yarn capture
   - server: yarn start

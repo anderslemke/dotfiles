@@ -40,6 +40,6 @@ root: ~/Projects/lyd-react-native
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: lyd;vi
   - build: lyd;yarn run start

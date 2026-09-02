@@ -8,7 +8,7 @@ name: table1
 root: ~/Projects/oasis/tables/table1
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - mainframe:
       root: ~/Projects/oasis/tables/table1/mainframe
       panes:
@@ -25,6 +25,10 @@ windows:
       root: ~/Projects/oasis/tables/table1/mainframe
       panes:
         - docker compose -f docker-compose.yaml -f docker-compose.dev.yaml -f docker-compose.table.yaml -p oase-table1 up
+  - console:
+      root: ~/Projects/oasis/tables/table1/mainframe
+      panes:
+        - docker compose -p oase-table1 exec oase-mainframe iex -S mix
   - kms:
       root: ~/Projects/oasis/tables/table1/kms
       panes:

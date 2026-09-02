@@ -45,7 +45,7 @@ root: ~/Projects/promise_key_registry
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - console: bin/rails c
   - server: bundle exec rails s

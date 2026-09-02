@@ -45,6 +45,6 @@ root: ~/Projects/oasis/oase-app
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - server: yarn start

@@ -45,7 +45,7 @@ root: ~/
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - api: version api
   - api-staging: version api-staging
   - www: version www

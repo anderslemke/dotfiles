@@ -8,7 +8,7 @@ name: table2
 root: ~/Projects/oasis/tables/table2
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - mainframe:
       root: ~/Projects/oasis/tables/table2/mainframe
       panes:
@@ -25,6 +25,10 @@ windows:
       root: ~/Projects/oasis/tables/table2/mainframe
       panes:
         - docker compose -f docker-compose.yaml -f docker-compose.dev.yaml -f docker-compose.table.yaml -p oase-table2 up
+  - console:
+      root: ~/Projects/oasis/tables/table2/mainframe
+      panes:
+        - docker compose -p oase-table2 exec oase-mainframe iex -S mix
   - kms:
       root: ~/Projects/oasis/tables/table2/kms
       panes:

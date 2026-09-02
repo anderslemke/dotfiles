@@ -45,7 +45,7 @@ pre_window: z;cd feedback
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - console: bundle exec rails c
   - logs: tail -f log/*.log

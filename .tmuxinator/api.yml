@@ -45,7 +45,7 @@ root: ~/Projects/oasis/mainframe
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vim
   - console: docker compose exec oase-mainframe iex -S mix
   - docker: docker network create oase-network; docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d

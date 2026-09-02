@@ -45,6 +45,6 @@ root: ~/Projects/oasis/blog
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - server: npm run dev

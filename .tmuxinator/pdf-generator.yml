@@ -45,6 +45,6 @@ root: ~/Projects/zetland/pdf-generator
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - server: bundle exec rackup config.ru

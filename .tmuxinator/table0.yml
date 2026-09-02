@@ -10,7 +10,7 @@ name: table0
 root: ~/Projects/oasis
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - mainframe:
       root: ~/Projects/oasis/mainframe
       panes:
@@ -27,6 +27,10 @@ windows:
       root: ~/Projects/oasis/mainframe
       panes:
         - docker network create oase-network 2>/dev/null; docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up
+  - console:
+      root: ~/Projects/oasis/mainframe
+      panes:
+        - docker compose exec oase-mainframe iex -S mix
   - kms:
       root: ~/Projects/oasis/kms
       panes:

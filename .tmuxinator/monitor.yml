@@ -5,5 +5,5 @@ root: /Users/anderslemke/Projects/oasis/monitor
 windows:
   - claude:
       panes:
-        - claude --dangerously-skip-permissions
+        - claude --permission-mode auto
   - shell: # plain shell in the same dir

@@ -48,4 +48,4 @@ allow_multiple: true
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto

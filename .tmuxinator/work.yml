@@ -45,7 +45,7 @@ root: ~/Projects/oasis
 # attach: false
 
 windows:
-  - table0: claude --dangerously-skip-permissions
-  - table1: cd tables/table1 && claude --dangerously-skip-permissions
-  - table2: cd tables/table2 && claude --dangerously-skip-permissions
-  - table3: cd tables/table3 && claude --dangerously-skip-permissions
+  - table0: claude --permission-mode auto
+  - table1: cd tables/table1 && claude --permission-mode auto
+  - table2: cd tables/table2 && claude --permission-mode auto
+  - table3: cd tables/table3 && claude --permission-mode auto

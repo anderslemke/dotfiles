@@ -28,7 +28,7 @@ pre_window: bilag
 # post: tmux -CC attach -t zetland
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - console: bin/rails c
   - logs: tail -f log/*.log

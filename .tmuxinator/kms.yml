@@ -45,6 +45,6 @@ root: ~/Projects/oasis/kms
 # attach: false
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vim
   - console: docker compose exec oase-kms iex -S mix

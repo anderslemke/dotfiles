@@ -43,7 +43,7 @@ pre_window: mainframe
 # post: tmux -CC attach -t codered
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - controlcenter:
       layout: tiled
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.

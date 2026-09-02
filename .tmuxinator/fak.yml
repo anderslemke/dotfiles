@@ -28,7 +28,7 @@ pre_window: fak
 # post: tmux -CC attach -t zetland
 
 windows:
-  - claude: claude --dangerously-skip-permissions
+  - claude: claude --permission-mode auto
   - editor: vi
   - console: docker exec -it fak-web-1 /bin/bash -c "bin/rails console"
   - test: docker exec fak-test-1 bundle exec rspec
