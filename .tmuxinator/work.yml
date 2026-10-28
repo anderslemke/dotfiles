@@ -49,3 +49,5 @@ windows:
   - table1: cd tables/table1 && claude --permission-mode auto
   - table2: cd tables/table2 && claude --permission-mode auto
   - table3: cd tables/table3 && claude --permission-mode auto
+  - release: cd tables/table-release && claude --permission-mode auto
+  - hotfix: cd tables/table-hotfix && claude --permission-mode auto "Tag næste hotfix-ticket"

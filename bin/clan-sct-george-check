@@ -1,0 +1,9 @@
+#!/bin/sh
+# Read-only check for tk mai-mpd1 (Clan Sct. George): has the missing Lederne
+# member joined the big oase yet? Runs one fixed SELECT against the Oase prod DB.
+# Allow-listed in ~/.claude/settings.json so the session cron can run it without
+# the auto-mode classifier. Delete this script (and the allow rule) when mai-mpd1
+# is done.
+cd "$HOME/Projects/oasis/mainframe" || exit 1
+DB="$(gigalixir config -a mainframe 2>/dev/null | grep '"DATABASE_URL"' | sed -E 's/.*: "([^"]+)".*/\1/')"
+exec psql "$DB" -X -c "select oase_id, is_pending, inserted_at from projections_iam_participants where person_id='https://promiseauthentication.org|0859797f-5d5a-425d-9f92-521658c33d4f' and oase_id='587e5114-ed2a-447d-a668-7c2f5ceba450'"

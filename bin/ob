@@ -1,0 +1,35 @@
+#!/bin/bash
+# Open an Obsidian note from the terminal.
+#
+#   ob Pro-3ck2                        -> ticket note (Tickets/Pro-3ck2)
+#   ob "2 - 🌿 Areas/Drift/Kontekst"   -> path relative to the lemke vault
+#   ob -o "Some/Note"                  -> Oase vault
+#   ob -f "Some/Note"                  -> FallEquinox vault
+#
+# Exists because obsidian:// links never reach the terminal as hyperlinks:
+# Ghostty ≤1.3 dropped the scheme, and since 1.4 Claude Code's own renderer
+# only hyperlinks http/https/file — see dotfiles/CLAUDE.md → "Ghostty
+# clickable links".
+set -euo pipefail
+
+VAULT="lemke"
+case "${1:-}" in
+  -o) VAULT="Oase"; shift ;;
+  -f) VAULT="FallEquinox"; shift ;;
+esac
+
+if [ $# -eq 0 ]; then
+  echo "usage: ob [-o|-f] <note-path|ticket-id>" >&2
+  exit 1
+fi
+
+NOTE="$1"
+NOTE="${NOTE%.md}"
+
+# A bare ticket id (e.g. Pro-3ck2, tab-9f2k) lives in Tickets/
+if [[ "$VAULT" == "lemke" && "$NOTE" =~ ^[A-Za-z]{2,6}-[a-z0-9]{4}$ ]]; then
+  NOTE="Tickets/$NOTE"
+fi
+
+ENCODED=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$NOTE")
+open "obsidian://open?vault=$VAULT&file=$ENCODED"

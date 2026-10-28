@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""Record the exact byte sequence a terminal sends for a key chord.
+
+    keycapture                 # interactive: press chords, ctrl-] to stop
+    keycapture -k              # enable the kitty keyboard protocol first
+    keycapture -o FILE         # also append the transcript to FILE
+
+Use -k when comparing against an app that requests the kitty protocol (herdr
+does). Without it you see the legacy encoding, which is a different answer.
+
+Prints each chord as a caret/escape-readable form, hex, and — for kitty
+CSI-u sequences — the chord it decodes to, e.g. `cmd+ctrl+1`. Enough to
+reproduce it as a key mapping in another terminal.
+"""
+import sys, os, re, termios, tty, select, argparse
+
+def readable(b: bytes) -> str:
+    out = []
+    for c in b:
+        if c == 0x1b: out.append("\\e")
+        elif c < 0x20: out.append("^" + chr(c + 64))
+        elif c == 0x7f: out.append("^?")
+        elif c < 0x7f: out.append(chr(c))
+        else: out.append("\\x%02x" % c)
+    return "".join(out)
+
+MODS = [(1, "shift"), (2, "alt"), (4, "ctrl"), (8, "cmd"), (16, "hyper"), (32, "meta")]
+NAMED = {9: "tab", 13: "enter", 27: "esc", 32: "space", 127: "backspace"}
+CSI_U = re.compile(rb"\x1b\[(\d+)(?::\d+)*(?:;(\d+))?(?::\d+)*u")
+
+def decode(b: bytes) -> str:
+    """Name the chord behind a kitty CSI-u sequence, e.g. ESC[49;13u -> cmd+ctrl+1."""
+    m = CSI_U.fullmatch(b)
+    if not m:
+        return ""
+    code = int(m.group(1))
+    mods = int(m.group(2) or 1) - 1
+    names = [n for bit, n in MODS if mods & bit]
+    key = NAMED.get(code, chr(code) if 32 < code < 0x110000 else "U+%X" % code)
+    return "+".join(names + [key])
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-o", "--out")
+    ap.add_argument("-k", "--kitty", action="store_true",
+                    help="request the kitty keyboard protocol (CSI > 1 u)")
+    args = ap.parse_args()
+
+    # stdin isn't a terminal when run under a TUI or with redirection
+    # (Claude Code's ! prefix, pipes, …) — talk to the controlling tty itself.
+    try:
+        tty_fd = os.open("/dev/tty", os.O_RDWR)
+    except OSError:
+        sys.exit("Ingen terminal. Kør keycapture i et almindeligt terminalvindue.")
+    fd = tty_fd
+    try:
+        old = termios.tcgetattr(fd)
+    except termios.error:
+        sys.exit("Ingen terminal. Kør keycapture i et almindeligt terminalvindue.")
+    lines = []
+    print("Tryk dine chords. Afslut med ctrl-]  (hver chord vises på én linje)")
+    print("kitty-protokol: %s\n" % ("TIL" if args.kitty else "fra"))
+    try:
+        tty.setraw(fd)
+        if args.kitty:
+            # Push flags 1 (disambiguate escape codes) — what herdr asks for.
+            os.write(fd, b"\x1b[>1u")
+        while True:
+            chunk = os.read(fd, 1024)
+            if not chunk:
+                break
+            # gather anything that arrived in the same burst
+            while select.select([fd], [], [], 0.02)[0]:
+                more = os.read(fd, 1024)
+                if not more:
+                    break
+                chunk += more
+            if chunk == b"\x1d":  # ctrl-]
+                break
+            line = "%-28s %-34s %s" % (readable(chunk), chunk.hex(" "), decode(chunk))
+            lines.append(line)
+            os.write(fd, (line + "\r\n").encode())
+    finally:
+        if args.kitty:
+            os.write(fd, b"\x1b[<u")  # pop flags
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+    if args.out:
+        with open(args.out, "a") as f:
+            f.write("\n".join(lines) + "\n")
+        print("\nSkrevet til %s" % args.out)
+
+main()

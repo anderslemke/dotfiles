@@ -1,0 +1,57 @@
+#!/bin/bash
+# Builds ObsidianLink.app — a URL handler that turns ipns:// into obsidian://.
+#
+# Why: Ghostty only makes links clickable for a hardcoded list of schemes, and
+# it filters OSC 8 hyperlinks on the same list. obsidian:// is not on it;
+# file:// is, but Ghostty reveals those in Finder instead of opening them.
+# ipns:// is on the list and has no handler on macOS, so we borrow it.
+# See dotfiles/CLAUDE.md → "Ghostty clickable links".
+#
+# Source: dotfiles/src/obsidian-link/main.swift
+set -euo pipefail
+
+SRC="$HOME/dotfiles/src/obsidian-link/main.swift"
+APP="$HOME/Applications/ObsidianLink.app"
+SCHEME="ipns"
+
+rm -rf "$APP"
+mkdir -p "$APP/Contents/MacOS"
+swiftc -O -o "$APP/Contents/MacOS/ObsidianLink" "$SRC"
+
+cat > "$APP/Contents/Info.plist" << PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleExecutable</key><string>ObsidianLink</string>
+    <key>CFBundleIdentifier</key><string>dk.lemke.obsidianlink</string>
+    <key>CFBundleName</key><string>ObsidianLink</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>1.0</string>
+    <key>LSMinimumSystemVersion</key><string>12.0</string>
+    <key>LSUIElement</key><true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key><string>Obsidian Link</string>
+            <key>CFBundleURLSchemes</key><array><string>$SCHEME</string></array>
+        </dict>
+    </array>
+</dict>
+</plist>
+PLIST
+
+# Sign AFTER the plist is final — signing first and patching after invalidates
+# the signature, and macOS then refuses to launch the app silently.
+codesign --force --deep --sign - "$APP"
+codesign --verify "$APP"
+
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "$APP"
+
+swift -e "import AppKit
+NSWorkspace.shared.setDefaultApplication(
+  at: URL(fileURLWithPath: \"$APP\"),
+  toOpenURLsWithScheme: \"$SCHEME\") { e in if let e = e { print(\"FEJL: \\(e.localizedDescription)\") } }
+Thread.sleep(forTimeInterval: 2.0)"
+
+echo "bygget: $APP  (scheme: $SCHEME://)"

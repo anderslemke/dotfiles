@@ -2,3 +2,4 @@
 .vim/plugged
 vim/plugged
 .DS_Store
+__pycache__/

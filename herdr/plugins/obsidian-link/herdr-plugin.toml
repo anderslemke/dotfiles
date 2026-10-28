@@ -1,0 +1,23 @@
+id = "lemke.obsidian-link"
+name = "Obsidian link"
+version = "0.1.0"
+min_herdr_version = "0.9.0"
+description = "Modified click on a file:// link to a .md note opens it in Obsidian"
+platforms = ["macos"]
+
+# Why this exists: Claude Code only hyperlinks http/https/file, so ticket
+# notes are linked as file:///…/Tickets/<id>.md. herdr owns the mouse and
+# opens file:// links by revealing them in Finder. This handler runs first
+# and sends the note to Obsidian instead (obsidian://open?path=…).
+# See dotfiles/CLAUDE.md → "Ghostty clickable links".
+
+[[actions]]
+id = "open"
+title = "Open note in Obsidian"
+command = ["./open-in-obsidian.sh"]
+
+[[link_handlers]]
+id = "markdown-file"
+title = "Open .md in Obsidian"
+pattern = "^file://.*\\.md$"
+action = "open"

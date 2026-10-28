@@ -23,6 +23,16 @@ ln -is ~/dotfiles/nvim/pack ~/.config/nvim/pack
 mkdir -p ~/.config/ghostty ~/.config/herdr
 ln -is ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ln -is ~/dotfiles/herdr/config.toml ~/.config/herdr/config.toml
+# herdr link-handler plugin: ctrl-klik på file://….md åbner noten i Obsidian
+# (se CLAUDE.md → "Ghostty clickable links"). Kræver en kørende herdr-server.
+herdr plugin link ~/dotfiles/herdr/plugins/obsidian-link 2>/dev/null \
+  || echo "herdr: start serveren og kør 'herdr plugin link ~/dotfiles/herdr/plugins/obsidian-link'"
+
+# iTerm2: Ghostty-parity som dynamic profile (se CLAUDE.md). Skal stadig sættes
+# som default én gang i Settings -> Profiles -> Other Actions -> Set as Default.
+mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
+ln -is ~/dotfiles/iTerm2/DynamicProfiles/ghostty-parity.json \
+  ~/Library/Application\ Support/iTerm2/DynamicProfiles/ghostty-parity.json
 
 vim +PlugClean +PlugInstall +PlugUpdate +qall
 ~/dotfiles/platforms/install.rb

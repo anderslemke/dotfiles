@@ -1,0 +1,19 @@
+# /Users/anderslemke/.tmuxinator/table-release.yml
+# Mux config for Oase table-release — the release table. oase-app is here for
+# `yarn store` (build + submit + release); mainframe is here (on main, with the
+# gigalixir remotes) for production/staging deploys.
+# See ~/Projects/oasis/dotfiles/tables.md and tables/table-release/CLAUDE.md.
+
+name: table-release
+root: ~/Projects/oasis/tables/table-release
+
+windows:
+  - claude: claude --permission-mode auto
+  - store:
+      root: ~/Projects/oasis/tables/table-release/oase-app
+      panes:
+        - yarn store
+  - mainframe:
+      root: ~/Projects/oasis/tables/table-release/mainframe
+      panes:
+        - git pull --ff-only && git fetch gigalixir-production && git log --oneline gigalixir-production/main..main

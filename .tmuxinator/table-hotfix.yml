@@ -1,0 +1,20 @@
+# /Users/anderslemke/.tmuxinator/table-hotfix.yml
+# Mux config for Oase table-hotfix — the bug-fix table. Claude takes tk tickets
+# tagged `hotfix`, opens PRs and reports in the oase. Ports (slot 4): 3040 Metro /
+# 4040 mainframe / 5440 postgres / 3042 KMS. The stack isn't started by default;
+# boot it from the docker/kms windows when a bug needs the running app.
+# See ~/Projects/oasis/dotfiles/tables.md and tables/table-hotfix/CLAUDE.md.
+
+name: table-hotfix
+root: ~/Projects/oasis/tables/table-hotfix
+
+windows:
+  - claude: claude --permission-mode auto "Tag næste hotfix-ticket"
+  - mainframe:
+      root: ~/Projects/oasis/tables/table-hotfix/mainframe
+  - app:
+      root: ~/Projects/oasis/tables/table-hotfix/oase-app
+  - docker:
+      root: ~/Projects/oasis/tables/table-hotfix/mainframe
+  - kms:
+      root: ~/Projects/oasis/tables/table-hotfix/kms

@@ -23,6 +23,12 @@ next_agent = "ctrl+shift+j"
 previous_agent = "ctrl+shift+k"
 focus_agent = "ctrl+shift+1..9"
 
+# mouse_capture = false blev prøvet 2026-10-28 for at få cmd-klik på
+# file://-links sendt til Ghostty (1.4 åbner .md i Obsidian direkte). Virkede
+# ikke: cmd-klik gjorde stadig intet, og herdrs mus-UI (paner, tabs, splits)
+# forsvandt. Behold default (true). Se dotfiles/CLAUDE.md → "Ghostty
+# clickable links".
+
 # In-app toasts (default er off) — bruges bl.a. af herdr-mux-pick til fejl.
 [ui.toast]
 delivery = "herdr"
